@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
+import Toast from "../components/Toast";
 
 const Course = () => {
     // State Management
@@ -9,6 +10,19 @@ const Course = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [assigningId, setAssigningId] = useState(null); // Controls inline teacher selection
+
+    //
+    const [toast, setToast] = useState({
+        show: false,
+        message: "",
+        type: "error",
+    });
+
+    const showToast = (message, type = "error") => {
+        setToast({ show: true, message, type });
+    };
+
+    //
 
     // Departments matching Backend Enum
     const departments = ["CSE", "EEE", "TE", "ME", "IPE"];
@@ -29,6 +43,12 @@ const Course = () => {
         fetchInitialData();
     }, []);
 
+    useEffect(() => {
+        showToast(error);
+    }, [error]);
+
+    // showToast("d")
+
     // Parallel fetch for Courses and Teachers
     const fetchInitialData = async () => {
         const token = getToken();
@@ -47,6 +67,7 @@ const Course = () => {
             }
         } catch (err) {
             setError("CONN_ERROR: Backend core offline.");
+            showToast("CONN_ERROR: Backend core offline." + err);
         } finally {
             setLoading(false);
         }
@@ -84,7 +105,9 @@ const Course = () => {
                 closeModal();
             }
         } catch (err) {
+            showToast("SYSTEM_REJECTION: Data update failed." + err);
             alert("SYSTEM_REJECTION: Data update failed.");
+            console.log("meow");
         }
     };
 
@@ -106,6 +129,7 @@ const Course = () => {
             }
         } catch (err) {
             alert("ASSIGNMENT_ERROR");
+            showToast(err);
         }
     };
 
@@ -121,6 +145,8 @@ const Course = () => {
             if (response.ok) fetchInitialData();
         } catch (err) {
             alert("DELETE_REJECTED");
+            alert("UPDATE_FAILED: VALIDATION_ERROR");
+            showToast("UPDATE_FAILED: VALIDATION_ERROR" + err);
         }
     };
 
@@ -167,6 +193,16 @@ const Course = () => {
 
     return (
         <div className="w-full space-y-6 animate-in fade-in duration-500">
+            {/*  */}
+            {toast.show && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast({ ...toast, show: false })}
+                />
+            )}
+            {/*  */}
+
             {/* Action Bar */}
             <div className="flex flex-col md:flex-row justify-between items-end gap-4">
                 <div className="flex gap-4 w-full md:w-auto">
