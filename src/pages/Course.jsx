@@ -44,8 +44,13 @@ const Course = () => {
     }, []);
 
     useEffect(() => {
+<<<<<<< HEAD
         showToast(error);
     }, [error]);
+=======
+        showToast(error)
+    }, [error])
+>>>>>>> 1bc5987be94a7b0d7d8bdf08c8c31bcde3cd1d5b
 
     // showToast("d")
 
@@ -68,6 +73,10 @@ const Course = () => {
         } catch (err) {
             setError("CONN_ERROR: Backend core offline.");
             showToast("CONN_ERROR: Backend core offline." + err);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1bc5987be94a7b0d7d8bdf08c8c31bcde3cd1d5b
         } finally {
             setLoading(false);
         }
@@ -108,6 +117,10 @@ const Course = () => {
             showToast("SYSTEM_REJECTION: Data update failed." + err);
             alert("SYSTEM_REJECTION: Data update failed.");
             console.log("meow");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1bc5987be94a7b0d7d8bdf08c8c31bcde3cd1d5b
         }
     };
 
@@ -129,7 +142,11 @@ const Course = () => {
             }
         } catch (err) {
             alert("ASSIGNMENT_ERROR");
+<<<<<<< HEAD
             showToast(err);
+=======
+            showToast(err)
+>>>>>>> 1bc5987be94a7b0d7d8bdf08c8c31bcde3cd1d5b
         }
     };
 
@@ -193,6 +210,10 @@ const Course = () => {
 
     return (
         <div className="w-full space-y-6 animate-in fade-in duration-500">
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 1bc5987be94a7b0d7d8bdf08c8c31bcde3cd1d5b
             {/*  */}
             {toast.show && (
                 <Toast
