@@ -36,7 +36,7 @@ const Admin = () => {
                     setError(`SYSTEM_ERROR: Status ${response.status}`);
                 }
             } catch (err) {
-                console.log(err)
+                console.log(err);
                 setError("CONNECTION_FAILURE: Admin service offline.");
             } finally {
                 setLoading(false);

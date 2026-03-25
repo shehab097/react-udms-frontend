@@ -58,8 +58,8 @@ VITE_API_TIMEOUT=30000
 **Note:** The BASE_URL for API calls is defined in `src/config/config.js`. Modify the `DEV_BASE_URL` and `PROD_BASE_URL` constants there:
 
 ```javascript
-const DEV_BASE_URL = 'http://localhost:8080';    // Change this for dev environment
-const PROD_BASE_URL = 'https://api.yourdomain.com';  // Change this for production
+const DEV_BASE_URL = "http://localhost:8080"; // Change this for dev environment
+const PROD_BASE_URL = "https://api.yourdomain.com"; // Change this for production
 ```
 
 **Common Environment Variables:**
@@ -70,6 +70,7 @@ const PROD_BASE_URL = 'https://api.yourdomain.com';  // Change this for producti
 
 **BASE_URL Configuration:**
 The application uses a centralized `BASE_URL` from `src/config/config.js`:
+
 - **Development:** `http://localhost:8080` (change as needed)
 - **Production:** `https://api.yourdomain.com` (set your production API)
 - **Auto-detection:** Automatically selects based on build environment

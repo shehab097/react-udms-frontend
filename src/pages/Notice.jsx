@@ -100,7 +100,7 @@ const Notice = () => {
                 closeModal();
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
             alert("PUBLISH_FAILED");
         }
     };
