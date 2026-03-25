@@ -14,11 +14,41 @@ Authorization: Bearer {jwt_token}
 
 ---
 
-## Base URL
+## Base URL Configuration
 
+The application uses a centralized `BASE_URL` defined in `src/config/config.js`:
+
+```javascript
+const DEV_BASE_URL = 'http://localhost:8080';        // Development
+const PROD_BASE_URL = 'https://api.yourdomain.com';  // Production
 ```
-{VITE_API_URL}/api
-```
+
+**How to Change Base URL:**
+
+1. **For Development:** Edit `src/config/config.js` and update `DEV_BASE_URL`:
+   ```javascript
+   const DEV_BASE_URL = 'http://localhost:12234';  // Your dev server
+   ```
+
+2. **For Production:** Edit `src/config/config.js` and update `PROD_BASE_URL`:
+   ```javascript
+   const PROD_BASE_URL = 'https://your-api-domain.com';
+   ```
+
+3. **Using Environment Variables (Optional):** Modify config.js to read from `.env`:
+   ```javascript
+   const DEV_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+   ```
+
+**All API Endpoints:**
+- Authentication: `{BASE_URL}/auth`
+- Users: `{BASE_URL}/users`
+- Courses: `{BASE_URL}/course`
+- Students: `{BASE_URL}/student`
+- Teachers: `{BASE_URL}/teacher`
+- Admins: `{BASE_URL}/admin`
+- Notices: `{BASE_URL}/notice`
+- Attendance: `{BASE_URL}/attendance`
 
 ---
 

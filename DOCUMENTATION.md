@@ -359,6 +359,32 @@ fetchWithAuth('/api/users', { method: 'GET' })
 - `isTokenValid()` - Check token expiration
 - `refreshToken()` - Refresh expired token (if implemented)
 
+### config.js
+**Purpose:** Centralized configuration for API base URL and endpoints
+
+**Features:**
+- Environment-specific BASE_URL (development vs production)
+- Pre-configured endpoint constants
+- Automatic environment detection
+- Easy maintenance of API endpoints
+
+**Usage:**
+```javascript
+import { BASE_URL, COURSES_ENDPOINT, STUDENT_ENDPOINT } from '../config/config';
+
+// Use endpoints in fetch calls
+fetch(`${STUDENT_ENDPOINT}/${studentId}`, { headers });
+```
+
+**Configuration Variables:**
+- `BASE_URL` - Auto-selected based on environment (defaults to `http://localhost:8080` in dev)
+- `COURSES_ENDPOINT` - Course API endpoint
+- `STUDENT_ENDPOINT` - Student API endpoint
+- `ADMIN_ENDPOINT` - Admin API endpoint
+- `TEACHER_ENDPOINT` - Teacher API endpoint
+- `NOTICE_ENDPOINT` - Notice API endpoint
+- `ATTENDANCE_ENDPOINT` - Attendance API endpoint
+
 ---
 
 ## Routes

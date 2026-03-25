@@ -7,6 +7,7 @@ import {
     AlertTriangle,
 } from "lucide-react";
 import { getToken } from "../services/tokenService";
+import { ATTENDANCE_ENDPOINT } from "../config/config";
 
 const AttendanceDashboard = () => {
     const [attendances, setAttendances] = useState([]);
@@ -25,7 +26,7 @@ const AttendanceDashboard = () => {
             try {
                 const token = getToken();
                 const response = await fetch(
-                    "http://localhost:8080/attendence",
+                    ATTENDANCE_ENDPOINT,
                     {
                         headers: {
                             "Content-Type": "application/json",

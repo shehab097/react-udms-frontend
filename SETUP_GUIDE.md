@@ -50,16 +50,29 @@ This will install all packages listed in `package.json`:
 Create a `.env` file in the root directory:
 
 ```bash
-# .env
+# .env (Development)
 VITE_API_URL=http://localhost:5000
 VITE_API_TIMEOUT=30000
 ```
 
+**Note:** The BASE_URL for API calls is defined in `src/config/config.js`. Modify the `DEV_BASE_URL` and `PROD_BASE_URL` constants there:
+
+```javascript
+const DEV_BASE_URL = 'http://localhost:8080';    // Change this for dev environment
+const PROD_BASE_URL = 'https://api.yourdomain.com';  // Change this for production
+```
+
 **Common Environment Variables:**
 
-- `VITE_API_URL` - Backend API base URL
+- `VITE_API_URL` - Vite-specific API URL
 - `VITE_API_TIMEOUT` - Request timeout in milliseconds
 - `VITE_APP_ENV` - Environment (development, production)
+
+**BASE_URL Configuration:**
+The application uses a centralized `BASE_URL` from `src/config/config.js`:
+- **Development:** `http://localhost:8080` (change as needed)
+- **Production:** `https://api.yourdomain.com` (set your production API)
+- **Auto-detection:** Automatically selects based on build environment
 
 ### 4. Start Development Server
 

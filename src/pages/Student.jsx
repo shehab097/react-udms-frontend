@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getToken } from "../services/tokenService";
 import { Edit2, Check, X, Filter as FilterIcon } from "lucide-react"; // npm install lucide-react
+import { STUDENT_ENDPOINT } from "../config/config";
 
 const Student = () => {
     const [students, setStudents] = useState([]);
@@ -25,7 +26,7 @@ const Student = () => {
     const fetchStudents = async () => {
         const token = getToken();
         try {
-            const response = await fetch("http://localhost:8080/student", {
+            const response = await fetch(STUDENT_ENDPOINT, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -54,7 +55,7 @@ const Student = () => {
         const token = getToken();
         try {
             const response = await fetch(
-                `http://localhost:8080/student/${username}/semester`,
+                `${STUDENT_ENDPOINT}/${username}/semester`,
                 {
                     method: "PUT",
                     headers: {

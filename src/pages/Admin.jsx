@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
+import { ADMIN_ENDPOINT } from "../config/config";
 
 const Admin = () => {
     const [admins, setAdmins] = useState([]);
@@ -16,7 +17,7 @@ const Admin = () => {
         const fetchAdmins = async () => {
             const token = getToken();
             try {
-                const response = await fetch("http://localhost:8080/admin", {
+                const response = await fetch(ADMIN_ENDPOINT, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
