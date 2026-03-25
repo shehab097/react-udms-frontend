@@ -8,11 +8,15 @@ import Course from "./Course";
 import Notice from "./Notice";
 import StudentEnrolled from "./StudentEnrolled";
 import { getRole, getUsername } from "../services/tokenService";
-import StudentProfile from "./student/[username]";
-import TeacherProfile from "./teacher/[username]";
+
+import StudentProfile from "./profile/student/[username]";
+import TeacherProfile from "./profile/teacher/[username]";
+import AdminProfile from "./profile/admin/[username]";
+
 import NotFound from "./NotFound";
-import AdminProfile from "./admin/[username]";
-import Semester from "./Semester"
+import Semester from "./Semester";
+import AttendanceDashboard from "./AttendanceDashboard";
+import MarkAttendance from "./MarkAttendance";
 
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState("Users");
@@ -23,14 +27,15 @@ const Dashboard = () => {
 
     const menuItems = [
         { name: "Users", icon: "👥" },
+        { name: "Admin", icon: "👤" },
         { name: "Teacher", icon: "👩‍🏫" },
         { name: "Student", icon: "🎓" },
-        { name: "Admin", icon: "👤" },
         { name: "Course", icon: "📔" },
+        { name: "Semester", icon: "📰" },
         { name: "Notice", icon: "🪧" },
         { name: "StudentEnrolled", icon: "🧾" },
-        { name: "Reports", icon: "📑" },
-        { name: "Semester", icon: "📰" },
+        { name: "Attendance", icon: "📑" },
+        { name: "Mark Attendance", icon: "✅" },
         { name: "Profile", icon: "⚙️" },
     ];
 
@@ -48,8 +53,12 @@ const Dashboard = () => {
                 return <Course />;
             case "Notice":
                 return <Notice />;
+            case "Attendance":
+                return <AttendanceDashboard />;
             case "Semester":
                 return <Semester />;
+            case "Mark Attendance":
+                return <MarkAttendance />;
             case "StudentEnrolled":
                 return <StudentEnrolled />;
             case "Profile":
@@ -84,7 +93,7 @@ const Dashboard = () => {
         <div className="h-screen bg-ui-background flex flex-col font-sans text-content-primary overflow-hidden">
             {/* FIXED NAVBAR */}
             <div className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-white/5 bg-ui-background/80 backdrop-blur-md">
-                <Navbar />
+            <Navbar />
             </div>
 
             <div className="flex flex-1 pt-16 relative overflow-hidden">

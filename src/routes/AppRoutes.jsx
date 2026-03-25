@@ -13,9 +13,12 @@ import Admin from "../pages/Admin";
 import Course from "../pages/Course";
 import Notice from "../pages/Notice";
 import StudentEnrolled from "../pages/StudentEnrolled";
-import StudentProfile from "../pages/student/[username]";
-import TeacherProfile from "../pages/teacher/[username]";
-import AdminProfile from "../pages/admin/[username]";
+import StudentProfile from "../pages/profile/student/[username]";
+import TeacherProfile from "../pages/profile/teacher/[username]";
+import AdminProfile from "../pages/profile/admin/[username]";
+import StudentProfileView from "../pages/profileView/student/[username]";
+import TeacherProfileView from "../pages/profileView/teacher/[username]";
+import AdminProfileView from "../pages/profileView/admin/[username]";
 // import NotFound from "../pages/NotFound";
 
 export default function AppRoutes() {
@@ -56,6 +59,20 @@ export default function AppRoutes() {
                     <Route
                         path="admin/:username"
                         element={<AdminProfile />}
+                    />
+
+                    {/* profile view */}
+                    <Route
+                        path="view/student/:username"
+                        element={<StudentProfileView />}
+                    />
+                    <Route
+                        path="view/teacher/:username"
+                        element={<TeacherProfileView />}
+                    />
+                    <Route
+                        path="view/admin/:username"
+                        element={<AdminProfileView />}
                     />
 
                     <Route path="/accessdenied" element={<AccessDenied />} />

@@ -1,90 +1,148 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import UserCard from "./UserCard";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const links = ["Dashboard", "Access Denied", "Register"];
+    const location = useLocation();
+    const links = [
+        { name: "Dashboard", path: "/dashboard" },
+        { name: "Access Denied", path: "/accessdenied" },
+        { name: "Register", path: "/register" },
+    ];
+
+    // Close mobile menu when route changes
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location]);
+
+    // Prevent background scrolling when menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isOpen]);
 
     return (
-        <div className="w-full bg-ui-background z-50 sticky top-0 l-0 ">
-            <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between font-sans">
-                {/* Logo */}
-                <a href="/" className="flex items-center gap-3 group z-50">
-                    <span className="w-2.5 h-2.5 rounded-full bg-ui-accent group-hover:bg-ui-highlight transition-colors duration-300 shadow-[0_0_10px_rgba(139,92,246,0.3)]" />
-                    <span className="font-rounded font-bold text-xl text-content-primary tracking-tight leading-none inline-flex gap-1 items-end">
-                        uDMS
+        <header className="w-full sticky top-0 left-0 z-[100] bg-ui-background border-b border-white/10 shadow-lg">
+            <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                {/* Logo Section */}
+                <Link to="/" className="flex items-center gap-3 group shrink-0">
+                    <div className="relative">
+                        <span className="block w-3 h-3 rounded-sm bg-ui-accent rotate-45 group-hover:rotate-180 transition-all duration-500" />
+                        <span className="absolute inset-0 w-3 h-3 rounded-sm bg-ui-accent/50 animate-ping" />
+                    </div>
+                    <span className="font-mono font-black text-xl text-content-primary tracking-tighter uppercase">
+                        uDMS<span className="text-ui-accent">.</span>
                     </span>
-                </a>
+                </Link>
 
-                {/* Desktop Links */}
-                <div className="hidden md:flex items-center justify-end space-x-10 flex-1">
-                    <div className="flex items-center space-x-8">
-                        {links.map((item) => (
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center gap-8">
+                    <div className="flex items-center space-x-1">
+                        {links.map((link) => (
                             <Link
-                                key={item}
-                                to={`/${item.toLowerCase().replace(" ","")}`}
-                                className="text-content-secondary hover:text-ui-highlight text-sm font-medium transition-colors duration-200"
+                                key={link.name}
+                                to={link.path}
+                                className={`px-4 py-2 rounded-md text-xs font-mono uppercase tracking-widest transition-all ${
+                                    location.pathname === link.path
+                                        ? "text-ui-accent bg-ui-accent/5"
+                                        : "text-content-secondary hover:text-ui-highlight hover:bg-white/5"
+                                }`}
                             >
-                                {item}
+                                {link.name}
                             </Link>
                         ))}
                     </div>
-                    <div className="h-4 w-px bg-ui-surface" />
-                    <UserCard />
-                    <Link
-                        to="/logout"
-                        className="text-content-primary hover:text-ui-secondary text-sm font-bold font-rounded transition-colors duration-200 border-2 px-5 py-2 rounded-full border-ui-accent"
-                    >
-                        Log out
-                    </Link>
+
+                    <div className="h-6 w-px bg-white/10" />
+
+                    <div className="flex items-center gap-6">
+                        <UserCard />
+                        <Link
+                            to="/logout"
+                            className="bg-ui-secondary/10 hover:bg-ui-secondary/20 text-ui-secondary text-[11px] font-bold font-mono px-4 py-2 border border-ui-secondary/20 rounded uppercase tracking-tighter transition-all"
+                        >
+                            Terminate_Session
+                        </Link>
+                    </div>
                 </div>
 
-                {/* Mobile Toggle & UserCard */}
-                <div className="md:hidden flex items-center gap-4 z-50">
+                {/* Mobile Controls */}
+                <div className="md:hidden flex items-center gap-4">
                     {!isOpen && <UserCard />}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="text-content-secondary hover:text-ui-highlight text-xs font-bold font-rounded tracking-widest uppercase focus:outline-none"
+                        className="p-2 text-ui-highlight hover:bg-white/5 rounded-lg transition-colors"
+                        aria-label="Toggle Menu"
                     >
-                        {isOpen ? "Close" : "Menu"}
+                        {isOpen ? (
+                            <span className="font-mono text-xs">[ CLOSE ]</span>
+                        ) : (
+                            <div className="space-y-1 w-5">
+                                <div className="h-0.5 w-full bg-ui-accent" />
+                                <div className="h-0.5 w-full bg-ui-accent" />
+                                <div className="h-0.5 w-3 bg-ui-accent" />
+                            </div>
+                        )}
                     </button>
                 </div>
             </nav>
 
-            {/* Mobile Menu - Full Screen Overlay */}
-            {isOpen && (
-                <div className="fixed inset-0 bg-ui-background z-40 flex flex-col animate-in fade-in zoom-in-95 duration-300">
-                    <div className="flex flex-col items-center justify-center flex-1 space-y-8 px-6 text-center">
-                        {links.map((item) => (
+            {/* Mobile Menu Overlay */}
+            <div
+                className={` fixed inset-0 top-16 z-[90] md:hidden transition-all duration-500 transform ${
+                    isOpen ? "translate-x-0" : "translate-x-full "
+                }`}
+            >
+                {/* 1. The Blur Layer: This blurs the website content behind the menu */}
+                <div className="absolute inset-0 bg-ui-background/80 backdrop-blur-md border" />
+
+                {/* 2. The Content Layer: Solid and focused */}
+                <div className="relative flex flex-col h-full p-8 border-l border-white/5 bg-ui-background shadow-2xl">
+                    <div className="space-y-6">
+                        <p className="text-[10px] font-mono text-ui-accent uppercase tracking-[0.4em] mb-8 flex items-center gap-2">
+                            <span className="w-1 h-1 bg-ui-accent animate-pulse" />
+                            System_Navigation
+                        </p>
+
+                        {links.map((link) => (
                             <Link
-                                key={item}
-                                to={`/${item.toLowerCase().replace(" ","")}`}
-                                className="text-content-primary text-3xl font-rounded font-bold hover:text-ui-accent transition-colors"
+                                key={link.name}
+                                to={link.path}
+                                className="group bg-ui-background block text-3xl font-mono text-content-primary hover:text-ui-accent transition-all"
                                 onClick={() => setIsOpen(false)}
                             >
-                                {item}
+                                <span className="text-ui-accent opacity-0 group-hover:opacity-100 transition-opacity mr-2">
+                                    &gt;
+                                </span>
+                                {link.name}
                             </Link>
                         ))}
+                    </div>
 
-                        <div className="w-12 h-px bg-ui-surface" />
+                    {/* Bottom Section */}
+                    <div className="mt-auto pt-10 border-t border-white/5 space-y-6">
+                        <div className="flex items-center justify-between bg-white/5 p-4 rounded-lg">
+                            <span className="text-[11px] font-mono text-content-secondary uppercase tracking-widest">
+                                Active_User
+                            </span>
+                            <UserCard />
+                        </div>
 
                         <Link
                             to="/logout"
-                            className="text-ui-secondary text-2xl font-bold font-rounded"
+                            className="block w-full text-center py-4 bg-ui-secondary text-ui-background font-mono font-bold uppercase tracking-widest hover:bg-ui-highlight transition-colors"
                             onClick={() => setIsOpen(false)}
                         >
-                            Log out →
+                            Terminate_Session
                         </Link>
                     </div>
-
-                    {/* Bottom branding for the full screen menu */}
-                    <div className="p-12 text-center opacity-20 font-mono text-[10px] tracking-[0.5em] uppercase">
-                        uDMS / System Navigation
-                    </div>
                 </div>
-            )}
-        </div>
+            </div>
+        </header>
     );
 };
 

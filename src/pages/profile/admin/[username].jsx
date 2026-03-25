@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getToken, getUsername } from "../../services/tokenService";
+import { getToken, getUsername } from "../../../services/tokenService";
 
-const TeacherProfile = ({ username: propUsername }) => {
+const AdminProfile = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
     const username = propUsername || urlUsername || getUsername();
 
@@ -14,17 +14,17 @@ const TeacherProfile = ({ username: propUsername }) => {
         email: "",
         phone: "",
         address: "",
-        gender: "MALE", // Default enum value to prevent Spring Boot parse errors
+        gender: "MALE", // Default to match Gender Enum
     });
 
     useEffect(() => {
         if (!username) return;
 
-        const fetchTeacher = async () => {
+        const fetchAdmin = async () => {
             const token = getToken();
             try {
                 const response = await fetch(
-                    `http://localhost:8080/teacher/${username}`,
+                    `http://localhost:8080/admin/${username}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     },
@@ -40,12 +40,12 @@ const TeacherProfile = ({ username: propUsername }) => {
                     });
                 }
             } catch (err) {
-                console.error("FAILED_TO_LOAD_TEACHER_PROFILE", err);
+                console.error("FAILED_TO_LOAD_ADMIN_PROFILE", err);
             } finally {
                 setLoading(false);
             }
         };
-        fetchTeacher();
+        fetchAdmin();
     }, [username]);
 
     const handleChange = (e) => {
@@ -58,7 +58,7 @@ const TeacherProfile = ({ username: propUsername }) => {
         setIsUpdating(true);
         const token = getToken();
 
-        // Ensure gender is never an empty string for the backend Enum
+        // Ensure gender is a valid Enum string, not empty
         const payload = {
             ...formData,
             gender: formData.gender || "MALE",
@@ -66,7 +66,7 @@ const TeacherProfile = ({ username: propUsername }) => {
 
         try {
             const response = await fetch(
-                `http://localhost:8080/teacher/${username}`,
+                `http://localhost:8080/admin/${username}`,
                 {
                     method: "PUT",
                     headers: {
@@ -78,12 +78,12 @@ const TeacherProfile = ({ username: propUsername }) => {
             );
 
             if (response.ok) {
-                alert("TEACHER_PROFILE_UPDATED");
+                alert("ADMIN_PROFILE_SYNCHRONIZED");
             } else {
-                alert("UPDATE_FAILED: UNAUTHORIZED_OR_INVALID_DATA");
+                alert("UPDATE_FAILED: ACCESS_DENIED_OR_INVALID_INPUT");
             }
         } catch (err) {
-            alert("NETWORK_ERROR");
+            alert("NETWORK_COMMUNICATION_ERROR");
         } finally {
             setIsUpdating(false);
         }
@@ -91,8 +91,8 @@ const TeacherProfile = ({ username: propUsername }) => {
 
     if (loading)
         return (
-            <div className="p-10 font-mono text-[10px] text-ui-secondary animate-pulse tracking-widest">
-                AUTHENTICATING_FACULTY_DATA...
+            <div className="p-10 font-mono text-[10px] text-ui-accent animate-pulse tracking-widest uppercase">
+                Accessing_Secure_Admin_Records...
             </div>
         );
 
@@ -101,19 +101,19 @@ const TeacherProfile = ({ username: propUsername }) => {
             {/* Header Section */}
             <div className="mb-10 border-b border-white/5 pb-6 flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">
-                        {formData.name || "FACULTY_MEMBER"}
+                    <h1 className="text-2xl font-bold text-white tracking-tight italic">
+                        {formData.name || "ROOT_ADMINISTRATOR"}
                     </h1>
-                    <p className="text-[10px] font-mono text-ui-secondary uppercase mt-1 tracking-widest">
-                        Faculty ID // {username}
+                    <p className="text-[10px] font-mono text-ui-accent uppercase mt-1 tracking-widest">
+                        System Principal // {username}
                     </p>
                 </div>
-                <div className="bg-ui-secondary/10 border border-ui-secondary/20 px-4 py-2 rounded-lg">
-                    <div className="text-[9px] font-mono text-ui-secondary uppercase">
-                        Status
+                <div className="bg-ui-accent/10 border border-ui-accent/30 px-5 py-2 rounded-xl">
+                    <div className="text-[9px] font-mono text-ui-accent uppercase tracking-tighter">
+                        Auth_Level
                     </div>
-                    <div className="text-xs font-bold text-white">
-                        ACTIVE_FACULTY
+                    <div className="text-xs font-black text-white">
+                        ROOT_ACCESS
                     </div>
                 </div>
             </div>
@@ -122,21 +122,21 @@ const TeacherProfile = ({ username: propUsername }) => {
                 onSubmit={handleUpdate}
                 className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-                {/* Profile Information */}
+                {/* Identification */}
                 <div className="space-y-6">
-                    <h2 className="text-[11px] font-bold text-ui-secondary uppercase tracking-[0.2em] mb-4">
-                        Faculty_Identity
+                    <h2 className="text-[11px] font-bold text-ui-highlight uppercase tracking-[0.2em] mb-4">
+                        Core_Identity
                     </h2>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Full Name
+                            Display Name
                         </label>
                         <input
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 transition-all"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 transition-all"
                         />
                     </div>
 
@@ -148,7 +148,7 @@ const TeacherProfile = ({ username: propUsername }) => {
                             name="gender"
                             value={formData.gender}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 appearance-none"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none"
                         >
                             <option value="MALE">MALE</option>
                             <option value="FEMALE">FEMALE</option>
@@ -157,68 +157,68 @@ const TeacherProfile = ({ username: propUsername }) => {
                     </div>
                 </div>
 
-                {/* Contact Information */}
+                {/* Contact & Location */}
                 <div className="space-y-6">
-                    <h2 className="text-[11px] font-bold text-ui-secondary uppercase tracking-[0.2em] mb-4">
-                        Communication_Nodes
+                    <h2 className="text-[11px] font-bold text-ui-highlight uppercase tracking-[0.2em] mb-4">
+                        Secure_Contact
                     </h2>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Professional Email
+                            Admin Email
                         </label>
                         <input
                             name="email"
                             type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                         />
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Phone Number
+                            Phone
                         </label>
                         <input
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                         />
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Office/Home Address
+                            HQ Address
                         </label>
                         <textarea
                             name="address"
                             rows="2"
                             value={formData.address}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 resize-none"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 resize-none"
                         />
                     </div>
                 </div>
 
-                {/* Action Bar */}
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-end items-center gap-6">
-                    <span className="text-[9px] font-mono text-content-secondary/40 uppercase">
-                        Confidential Faculty Record
-                    </span>
+                {/* Submit Area */}
+                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-between items-center">
+                    <p className="text-[9px] font-mono text-content-secondary/30 italic uppercase">
+                        Modified records are logged in system audit trails.
+                    </p>
                     <button
                         type="submit"
                         disabled={isUpdating}
-                        className={`bg-ui-secondary text-white px-10 py-3 rounded-xl text-[11px] font-bold tracking-widest transition-all ${
+                        className={`bg-ui-accent text-white px-12 py-3 rounded-xl text-[11px] font-black tracking-widest transition-all ${
                             isUpdating
                                 ? "opacity-50 cursor-wait"
-                                : "hover:brightness-110 active:scale-95 shadow-lg shadow-ui-secondary/20"
+                                : "hover:scale-[1.02] active:scale-95 shadow-lg shadow-ui-accent/20"
                         }`}
                     >
                         {isUpdating
-                            ? "SYNCING_RECORDS..."
-                            : "UPDATE_FACULTY_DATA"}
+                            ? "UPDATING_ROOT..."
+                            : "CONFIRM_ADMIN_CHANGES"}
                     </button>
                 </div>
             </form>
@@ -226,4 +226,4 @@ const TeacherProfile = ({ username: propUsername }) => {
     );
 };
 
-export default TeacherProfile;
+export default AdminProfile;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getToken, getUsername } from "../../services/tokenService";
+import { getToken, getUsername } from "../../../services/tokenService";
+import Toast from "../../../components/Toast"; // Import the alert component
 
 const StudentProfile = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -8,6 +9,11 @@ const StudentProfile = ({ username: propUsername }) => {
 
     const [loading, setLoading] = useState(true);
     const [isUpdating, setIsUpdating] = useState(false);
+    const [toast, setToast] = useState({
+        show: false,
+        message: "",
+        type: "error",
+    });
 
     const [formData, setFormData] = useState({
         name: "",
@@ -15,9 +21,14 @@ const StudentProfile = ({ username: propUsername }) => {
         email: "",
         phone: "",
         address: "",
-        department: "CSE", // Set a default valid Enum value
-        gender: "MALE", // Set a default valid Enum value
+        department: "CSE",
+        gender: "MALE",
+        currSemester: 1, // Defaulting to 1 (Integer)
     });
+
+    const showToast = (message, type = "error") => {
+        setToast({ show: true, message, type });
+    };
 
     useEffect(() => {
         if (!username) return;
@@ -27,9 +38,7 @@ const StudentProfile = ({ username: propUsername }) => {
             try {
                 const response = await fetch(
                     `http://localhost:8080/student/${username}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    },
+                    { headers: { Authorization: `Bearer ${token}` } },
                 );
                 if (response.ok) {
                     const data = await response.json();
@@ -41,10 +50,11 @@ const StudentProfile = ({ username: propUsername }) => {
                         address: data.address || "",
                         department: data.department || "CSE",
                         gender: data.gender || "MALE",
+                        currSemester: data.currSemester || 1,
                     });
                 }
             } catch (err) {
-                console.error("FAILED_TO_LOAD_PROFILE", err);
+                showToast("FAILED_TO_LOAD_PROFILE_DATA");
             } finally {
                 setLoading(false);
             }
@@ -54,7 +64,11 @@ const StudentProfile = ({ username: propUsername }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        // Logic to ensure numeric fields stay numeric
+        setFormData((prev) => ({
+            ...prev,
+            [name]: name === "currSemester" ? parseInt(value) || 0 : value,
+        }));
     };
 
     const handleUpdate = async (e) => {
@@ -62,12 +76,12 @@ const StudentProfile = ({ username: propUsername }) => {
         setIsUpdating(true);
         const token = getToken();
 
-        // Clean data: Convert empty strings to null for Enums if necessary
-        // but since we provided defaults, we just ensure they aren't empty.
+        // Ensure numeric fields are sent as integers and Enums aren't empty
         const payload = {
             ...formData,
-            department: formData.department === "" ? null : formData.department,
-            gender: formData.gender === "" ? null : formData.gender,
+            currSemester: Number(formData.currSemester),
+            department: formData.department || "CSE",
+            gender: formData.gender || "MALE",
         };
 
         try {
@@ -84,12 +98,12 @@ const StudentProfile = ({ username: propUsername }) => {
             );
 
             if (response.ok) {
-                alert("PROFILE_UPDATED_SUCCESSFULLY");
+                showToast("PROFILE_SYNCHRONIZED_SUCCESSFULLY", "success");
             } else {
-                alert("UPDATE_FAILED: DATA_FORMAT_ERROR");
+                showToast("UPDATE_FAILED: DATA_FORMAT_ERROR");
             }
         } catch (err) {
-            alert("NETWORK_ERROR");
+            showToast("NETWORK_COMMUNICATION_ERROR");
         } finally {
             setIsUpdating(false);
         }
@@ -97,20 +111,30 @@ const StudentProfile = ({ username: propUsername }) => {
 
     if (loading)
         return (
-            <div className="p-10 font-mono text-[10px] text-ui-accent tracking-widest">
-                LOADING_PROFILE_DATA...
+            <div className="p-10 font-mono text-[10px] text-ui-accent animate-pulse tracking-widest uppercase">
+                Accessing_Student_Records...
             </div>
         );
 
     return (
         <div className="max-w-4xl mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Toast Alert */}
+            {toast.show && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast({ ...toast, show: false })}
+                />
+            )}
+
+            {/* Header */}
             <div className="mb-10 border-b border-white/5 pb-6 flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-white tracking-tight">
                         {formData.name || "UNNAMED_ENTITY"}
                     </h1>
                     <p className="text-[10px] font-mono text-ui-highlight uppercase mt-1 tracking-widest">
-                        System User // {username}
+                        System Student // {username}
                     </p>
                 </div>
                 <div className="text-right">
@@ -127,10 +151,12 @@ const StudentProfile = ({ username: propUsername }) => {
                 onSubmit={handleUpdate}
                 className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
+                {/* Academic Section */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-highlight uppercase tracking-[0.2em] mb-4">
                         Academic_&_Personal
                     </h2>
+
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
                             Full Name
@@ -168,16 +194,18 @@ const StudentProfile = ({ username: propUsername }) => {
                                 <option value="CSE">CSE</option>
                                 <option value="EEE">EEE</option>
                                 <option value="ME">ME</option>
-                                <option value="BBA">BBA</option>
+                                <option value="FDAE">FDAE</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
+                {/* Contact Section */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-highlight uppercase tracking-[0.2em] mb-4">
                         Contact_Details
                     </h2>
+
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
                             Email Address
@@ -190,16 +218,18 @@ const StudentProfile = ({ username: propUsername }) => {
                             className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                         />
                     </div>
+
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <label className="text-[10px] font-mono text-content-secondary uppercase">
-                                Phone Number
+                                Current Semester
                             </label>
                             <input
-                                name="phone"
-                                value={formData.phone}
+                                name="currSemester"
+                                type="number"
+                                value={formData.currSemester}
                                 onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none"
+                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                             />
                         </div>
                         <div className="space-y-2">
@@ -210,7 +240,7 @@ const StudentProfile = ({ username: propUsername }) => {
                                 name="gender"
                                 value={formData.gender}
                                 onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none appearance-none"
+                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none"
                             >
                                 <option value="MALE">MALE</option>
                                 <option value="FEMALE">FEMALE</option>
@@ -218,16 +248,29 @@ const StudentProfile = ({ username: propUsername }) => {
                             </select>
                         </div>
                     </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                            Phone
+                        </label>
+                        <input
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
+                        />
+                    </div>
+
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
                             Address
                         </label>
                         <textarea
                             name="address"
-                            rows="2"
+                            rows="1"
                             value={formData.address}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none resize-none"
+                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 resize-none"
                         />
                     </div>
                 </div>
@@ -236,9 +279,15 @@ const StudentProfile = ({ username: propUsername }) => {
                     <button
                         type="submit"
                         disabled={isUpdating}
-                        className={`bg-ui-secondary text-white px-10 py-3 rounded-xl text-[11px] font-bold tracking-widest ${isUpdating ? "opacity-50" : "hover:brightness-110"}`}
+                        className={`bg-ui-accent text-white px-10 py-3 rounded-xl text-[11px] font-black tracking-widest transition-all ${
+                            isUpdating
+                                ? "opacity-50 cursor-wait"
+                                : "hover:scale-[1.02] active:scale-95 shadow-lg shadow-ui-accent/20"
+                        }`}
                     >
-                        {isUpdating ? "SYNCHRONIZING..." : "SAVE_CHANGES"}
+                        {isUpdating
+                            ? "SYNCHRONIZING..."
+                            : "SAVE_PROFILE_CHANGES"}
                     </button>
                 </div>
             </form>
