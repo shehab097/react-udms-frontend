@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
+import { STUDENT_ENROLLED_ENDPOINT, STUDENT_ENDPOINT, SEMESTER_ENDPOINT, COURSES_ENDPOINT } from "../config/config";
 
 const StudentEnrolled = () => {
     // API Data States
@@ -32,10 +33,10 @@ const StudentEnrolled = () => {
         const headers = { Authorization: `Bearer ${token}` };
         try {
             const [enRes, stRes, smRes, crRes] = await Promise.all([
-                fetch("http://localhost:8080/student-enrolled", { headers }),
-                fetch("http://localhost:8080/student", { headers }),
-                fetch("http://localhost:8080/semester", { headers }),
-                fetch("http://localhost:8080/course", { headers }),
+                fetch(STUDENT_ENROLLED_ENDPOINT, { headers }),
+                fetch(STUDENT_ENDPOINT, { headers }),
+                fetch(SEMESTER_ENDPOINT, { headers }),
+                fetch(COURSES_ENDPOINT, { headers }),
             ]);
 
             if (enRes.ok) setEnrollments(await enRes.json());
@@ -75,8 +76,8 @@ const StudentEnrolled = () => {
         const token = getToken();
         const method = editingId ? "PUT" : "POST";
         const url = editingId
-            ? `http://localhost:8080/student-enrolled/${editingId}`
-            : "http://localhost:8080/student-enrolled";
+            ? `${STUDENT_ENROLLED_ENDPOINT}/${editingId}`
+            : STUDENT_ENROLLED_ENDPOINT;
 
         // Ensuring exact JSON format for DTO Record
         const payload = {
@@ -112,7 +113,7 @@ const StudentEnrolled = () => {
         const token = getToken();
         try {
             const res = await fetch(
-                `http://localhost:8080/student-enrolled/${id}`,
+                `${STUDENT_ENROLLED_ENDPOINT}/${id}`,
                 {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${token}` },

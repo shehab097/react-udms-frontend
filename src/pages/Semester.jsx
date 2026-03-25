@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { getToken } from "../services/tokenService";
+import { SEMESTER_ENDPOINT } from "../config/config";
 
 const Semester = () => {
     const [semesters, setSemesters] = useState([]);
@@ -23,7 +24,7 @@ const Semester = () => {
     const fetchSemesters = async () => {
         const token = getToken();
         try {
-            const response = await fetch("http://localhost:8080/semester", {
+            const response = await fetch(SEMESTER_ENDPOINT, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.ok) {
@@ -80,8 +81,8 @@ const Semester = () => {
         e.preventDefault();
         const token = getToken();
         const url = isEditing
-            ? `http://localhost:8080/semester/${currentId}`
-            : "http://localhost:8080/semester";
+            ? `${SEMESTER_ENDPOINT}/${currentId}`
+            : SEMESTER_ENDPOINT;
 
         const method = isEditing ? "PUT" : "POST";
 
@@ -121,7 +122,7 @@ const Semester = () => {
         const token = getToken();
         try {
             const response = await fetch(
-                `http://localhost:8080/semester/${id}`,
+                `${SEMESTER_ENDPOINT}/${id}`,
                 {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${token}` },

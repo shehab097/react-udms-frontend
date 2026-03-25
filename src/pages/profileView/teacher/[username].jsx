@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getToken } from "../../../services/tokenService";
 import { getUsername } from "../../../services/tokenService";
+import { TEACHER_ENDPOINT } from "../../../config/config";
 
 
 const TeacherProfileView = ({ username: propUsername }) => {
@@ -18,7 +19,7 @@ const TeacherProfileView = ({ username: propUsername }) => {
             const token = getToken();
             try {
                 const response = await fetch(
-                    `http://localhost:8080/teacher/${username}`,
+                    `${TEACHER_ENDPOINT}/${username}`,
                     { headers: { Authorization: `Bearer ${token}` } },
                 );
                 if (response.ok) {

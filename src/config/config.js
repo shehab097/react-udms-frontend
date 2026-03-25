@@ -21,6 +21,7 @@ const BASE_URL =
 // API endpoints
 export const API_ENDPOINT = `/api`;
 export const AUTH_ENDPOINT = `${BASE_URL}/auth`;
+export const REGISTER_ENDPOINT = `${BASE_URL}/register`;
 export const USERS_ENDPOINT = `${BASE_URL}/users`;
 export const COURSES_ENDPOINT = `${BASE_URL}/course`;
 export const ATTENDANCE_ENDPOINT = `${BASE_URL}/attendance`;
@@ -28,6 +29,8 @@ export const NOTICE_ENDPOINT = `${BASE_URL}/notice`;
 export const STUDENT_ENDPOINT = `${BASE_URL}/student`;
 export const TEACHER_ENDPOINT = `${BASE_URL}/teacher`;
 export const ADMIN_ENDPOINT = `${BASE_URL}/admin`;
+export const SEMESTER_ENDPOINT = `${BASE_URL}/semester`;
+export const STUDENT_ENROLLED_ENDPOINT = `${BASE_URL}/student-enrolled`;
 
 // Full endpoint builder
 export const buildEndpoint = (endpoint, path = "") => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getToken, getUsername } from "../../../services/tokenService";
+import { ADMIN_ENDPOINT } from "../../../config/config";
 
 const AdminProfile = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -24,7 +25,7 @@ const AdminProfile = ({ username: propUsername }) => {
             const token = getToken();
             try {
                 const response = await fetch(
-                    `http://localhost:8080/admin/${username}`,
+                    `${ADMIN_ENDPOINT}/${username}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     },
@@ -66,7 +67,7 @@ const AdminProfile = ({ username: propUsername }) => {
 
         try {
             const response = await fetch(
-                `http://localhost:8080/admin/${username}`,
+                `${ADMIN_ENDPOINT}/${username}`,
                 {
                     method: "PUT",
                     headers: {
