@@ -4,7 +4,6 @@ import { getToken } from "../../../services/tokenService";
 import { getUsername } from "../../../services/tokenService";
 import { STUDENT_ENDPOINT } from "../../../config/config";
 
-
 const StudentProfileView = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
     const username = propUsername || urlUsername || getUsername();

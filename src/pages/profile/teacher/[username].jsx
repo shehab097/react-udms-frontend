@@ -66,17 +66,14 @@ const TeacherProfile = ({ username: propUsername }) => {
         };
 
         try {
-            const response = await fetch(
-                `${TEACHER_ENDPOINT}/${username}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(payload),
+            const response = await fetch(`${TEACHER_ENDPOINT}/${username}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+                body: JSON.stringify(payload),
+            });
 
             if (response.ok) {
                 alert("TEACHER_PROFILE_UPDATED");

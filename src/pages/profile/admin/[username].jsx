@@ -24,12 +24,9 @@ const AdminProfile = ({ username: propUsername }) => {
         const fetchAdmin = async () => {
             const token = getToken();
             try {
-                const response = await fetch(
-                    `${ADMIN_ENDPOINT}/${username}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    },
-                );
+                const response = await fetch(`${ADMIN_ENDPOINT}/${username}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setFormData({
@@ -66,17 +63,14 @@ const AdminProfile = ({ username: propUsername }) => {
         };
 
         try {
-            const response = await fetch(
-                `${ADMIN_ENDPOINT}/${username}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(payload),
+            const response = await fetch(`${ADMIN_ENDPOINT}/${username}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+                body: JSON.stringify(payload),
+            });
 
             if (response.ok) {
                 alert("ADMIN_PROFILE_SYNCHRONIZED");

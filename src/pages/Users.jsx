@@ -35,7 +35,7 @@ const Users = () => {
                 }
             } catch (err) {
                 setError("CONNECTION_FAILURE: Backend unreachable.");
-                console.log(err)
+                console.log(err);
             } finally {
                 setLoading(false);
             }

@@ -17,10 +17,9 @@ const AdminProfileView = ({ username: propUsername }) => {
         const fetchAdmin = async () => {
             const token = getToken();
             try {
-                const response = await fetch(
-                    `${ADMIN_ENDPOINT}/${username}`,
-                    { headers: { Authorization: `Bearer ${token}` } },
-                );
+                const response = await fetch(`${ADMIN_ENDPOINT}/${username}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setProfileData(data);

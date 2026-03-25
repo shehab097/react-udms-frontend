@@ -8,7 +8,12 @@ import {
     Calendar as CalendarIcon,
 } from "lucide-react";
 import { getToken } from "../services/tokenService"; // Added your service import
-import { STUDENT_ENDPOINT, COURSES_ENDPOINT, SEMESTER_ENDPOINT, ATTENDANCE_ENDPOINT } from "../config/config";
+import {
+    STUDENT_ENDPOINT,
+    COURSES_ENDPOINT,
+    SEMESTER_ENDPOINT,
+    ATTENDANCE_ENDPOINT,
+} from "../config/config";
 
 const MarkAttendance = () => {
     const [students, setStudents] = useState([]);

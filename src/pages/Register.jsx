@@ -100,7 +100,9 @@ const Register = () => {
                                 >
                                     <option value="STUDENT">STUDENT</option>
                                     <option value="TEACHER">TEACHER</option>
-                                    <option value="ADMIN" disabled={true} >ADMIN</option>
+                                    <option value="ADMIN" disabled={true}>
+                                        ADMIN
+                                    </option>
                                 </select>
                             </div>
                         </div>

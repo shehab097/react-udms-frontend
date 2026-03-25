@@ -121,13 +121,10 @@ const Semester = () => {
         if (!window.confirm("ARE_YOU_SURE_BY_DELETING_THIS_RECORD?")) return;
         const token = getToken();
         try {
-            const response = await fetch(
-                `${SEMESTER_ENDPOINT}/${id}`,
-                {
-                    method: "DELETE",
-                    headers: { Authorization: `Bearer ${token}` },
-                },
-            );
+            const response = await fetch(`${SEMESTER_ENDPOINT}/${id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
             if (response.ok) fetchSemesters();
         } catch (err) {
             alert("DELETE_FAILED");
