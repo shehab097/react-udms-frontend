@@ -10,6 +10,7 @@ Before setting up UDMS Frontend, ensure you have the following installed:
 - **Code Editor**: VS Code, WebStorm, or your preferred IDE
 
 ### Verify Installation
+
 ```bash
 node --version    # Should show v14.0.0+
 npm --version     # Should show v6.0.0+
@@ -21,6 +22,7 @@ git --version     # Should show v2.0.0+
 ## Installation Steps
 
 ### 1. Clone Repository
+
 ```bash
 cd path/to/your/workspace
 git clone https://github.com/shehab097/react-udms-frontend.git
@@ -28,11 +30,13 @@ cd udmp
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
 This will install all packages listed in `package.json`:
+
 - React 19.2.4
 - React Router DOM 6.30.3
 - Vite 8.0.0
@@ -44,6 +48,7 @@ This will install all packages listed in `package.json`:
 ### 3. Environment Configuration
 
 Create a `.env` file in the root directory:
+
 ```bash
 # .env
 VITE_API_URL=http://localhost:5000
@@ -51,11 +56,13 @@ VITE_API_TIMEOUT=30000
 ```
 
 **Common Environment Variables:**
+
 - `VITE_API_URL` - Backend API base URL
 - `VITE_API_TIMEOUT` - Request timeout in milliseconds
 - `VITE_APP_ENV` - Environment (development, production)
 
 ### 4. Start Development Server
+
 ```bash
 npm run dev
 ```
@@ -67,24 +74,32 @@ Server will start at: `http://localhost:5173`
 ## Project Configuration Files
 
 ### vite.config.js
+
 Vite build configuration:
+
 - React plugin for JSX support
 - Development server settings
 - Build output configuration
 
 ### tailwind.config.js
+
 Tailwind CSS configuration:
+
 - Custom theme colors
 - Spacing scales
 - Plugin extensions
 
 ### postcss.config.js
+
 PostCSS configuration:
+
 - Tailwind CSS plugin
 - Autoprefixer for vendor prefixes
 
 ### eslint.config.js
+
 ESLint configuration:
+
 - Code quality rules
 - React plugin settings
 - Recommended rules
@@ -94,6 +109,7 @@ ESLint configuration:
 ## Development Workflow
 
 ### 1. Daily Startup
+
 ```bash
 # Navigate to project
 cd udmp
@@ -106,11 +122,13 @@ npm run lint
 ```
 
 ### 2. Make Changes
+
 - Edit files in `src/` directory
 - Changes auto-refresh in browser (HMR)
 - Check console for errors
 
 ### 3. Commit Changes
+
 ```bash
 git add .
 git commit -m "Description of changes"
@@ -122,33 +140,41 @@ git push origin branch-name
 ## Available Commands
 
 ### Development
+
 ```bash
 npm run dev
 ```
+
 - Starts Vite dev server
 - Enables HMR for live reloading
 - Runs on http://localhost:5173
 
 ### Production Build
+
 ```bash
 npm run build
 ```
+
 - Creates optimized production build
 - Output in `dist/` directory
 - Minifies and optimizes assets
 
 ### Preview Build
+
 ```bash
 npm run preview
 ```
+
 - Serves production build locally
 - Use to test production build before deployment
 - Access at http://localhost:4173
 
 ### Linting
+
 ```bash
 npm run lint
 ```
+
 - Checks code quality
 - Shows linting errors and warnings
 - Use `npm run lint -- --fix` to auto-fix issues
@@ -194,7 +220,9 @@ udmp/
 ## Troubleshooting Setup
 
 ### Issue: `npm install` fails
+
 **Solution:**
+
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -207,20 +235,25 @@ npm install
 ```
 
 ### Issue: Port 5173 already in use
+
 **Solution on Windows:**
+
 ```bash
 netstat -ano | findstr :5173
 taskkill /PID <PID> /F
 ```
 
 **Solution on Mac/Linux:**
+
 ```bash
 lsof -i :5173
 kill -9 <PID>
 ```
 
 ### Issue: Vite dev server won't start
+
 **Solution:**
+
 ```bash
 # Check Node version
 node --version
@@ -231,7 +264,9 @@ npm run dev
 ```
 
 ### Issue: Module not found errors
+
 **Solution:**
+
 ```bash
 # Ensure all dependencies are installed
 npm install
@@ -241,7 +276,9 @@ npm run dev
 ```
 
 ### Issue: Tailwind CSS classes not working
+
 **Solution:**
+
 ```bash
 # Rebuild Tailwind (stop dev server and restart)
 # Development server > Press q to stop
@@ -255,28 +292,33 @@ npm run dev
 ## Git Workflow
 
 ### Initial Setup
+
 ```bash
 git config user.name "Your Name"
 git config user.email "your.email@example.com"
 ```
 
 ### Create Feature Branch
+
 ```bash
 git checkout -b feature/your-feature
 ```
 
 ### Commit Changes
+
 ```bash
 git add .
 git commit -m "Add: Description of feature"
 ```
 
 ### Push Changes
+
 ```bash
 git push origin feature/your-feature
 ```
 
 ### Create Pull Request
+
 1. Go to GitHub repository
 2. Click "New Pull Request"
 3. Select your branch
@@ -290,6 +332,7 @@ git push origin feature/your-feature
 ### VS Code Recommendations
 
 **Install Extensions:**
+
 - ES7+ React/Redux/React-Native snippets
 - ESLint
 - Prettier - Code formatter
@@ -297,19 +340,21 @@ git push origin feature/your-feature
 - Thunder Client (for API testing)
 
 **Settings (`.vscode/settings.json`):**
+
 ```json
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "tailwindCSS.classAttributes": ["class", "className"]
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "tailwindCSS.classAttributes": ["class", "className"]
 }
 ```
 
 ### WebStorm Recommendations
+
 - Built-in support for React, Vite, and Tailwind
 - Excellent refactoring capabilities
 - Integrated terminal
@@ -319,22 +364,24 @@ git push origin feature/your-feature
 ## Browser Developer Tools
 
 ### DevTools Tips
+
 1. **Open DevTools:** F12 or Ctrl+Shift+I
 2. **Console Tab:** Check for errors and warnings
 3. **Network Tab:** Monitor API requests
-   - Click on request to see headers and response
-   - Check for 401 (Unauthorized) errors
+    - Click on request to see headers and response
+    - Check for 401 (Unauthorized) errors
 4. **Elements/Inspector:** Debug CSS and DOM
 5. **Application Tab:** Check localStorage/sessionStorage for tokens
 
 ### Debugging
+
 ```javascript
 // Add debugger statement in code
 debugger; // Execution pauses here when DevTools open
 
 // Or use console methods
-console.log('Variable:', variable);
-console.error('Error:', error);
+console.log("Variable:", variable);
+console.error("Error:", error);
 console.table(arrayOfObjects);
 ```
 
@@ -345,9 +392,9 @@ console.table(arrayOfObjects);
 1. **Use React DevTools Extension** to profile components
 2. **Check bundle size:** `npm run build` then analyze `dist/`
 3. **Lazy load routes:**
-   ```javascript
-   const Dashboard = lazy(() => import('./pages/Dashboard'));
-   ```
+    ```javascript
+    const Dashboard = lazy(() => import("./pages/Dashboard"));
+    ```
 4. **Monitor API requests** in Network tab
 5. **Optimize images** before committing
 
@@ -356,6 +403,7 @@ console.table(arrayOfObjects);
 ## Deployment Preparation
 
 ### Before Deployment
+
 ```bash
 # 1. Run linter
 npm run lint
@@ -371,13 +419,16 @@ ls -lh dist/
 ```
 
 ### Environment for Production
+
 Create `.env.production`:
+
 ```
 VITE_API_URL=https://api.yourdomain.com
 VITE_APP_ENV=production
 ```
 
 ### Deployment Options
+
 - **Vercel:** Automatic deployment from Git
 - **Netlify:** Connect GitHub repo for auto-build
 - **GitHub Pages:** Static hosting for free

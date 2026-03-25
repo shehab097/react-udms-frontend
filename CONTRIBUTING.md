@@ -12,12 +12,14 @@ Welcome to UDMS Frontend! We appreciate your interest in contributing. This guid
 ## Getting Started
 
 ### 1. Fork the Repository
+
 ```bash
 git clone https://github.com/shehab097/react-udms-frontend.git
 cd udmp
 ```
 
 ### 2. Create a Feature Branch
+
 ```bash
 git checkout -b feature/your-feature-name
 # Or for bug fixes:
@@ -25,6 +27,7 @@ git checkout -b fix/your-bug-fix-name
 ```
 
 ### 3. Set Up Development Environment
+
 ```bash
 npm install
 npm run dev
@@ -35,35 +38,37 @@ npm run dev
 ### Before Starting Work
 
 1. **Sync with main branch:**
-   ```bash
-   git fetch origin
-   git rebase origin/main
-   ```
+
+    ```bash
+    git fetch origin
+    git rebase origin/main
+    ```
 
 2. **Create a descriptive branch name:**
-   - Features: `feature/add-user-authentication`
-   - Bugs: `fix/login-token-expired`
-   - Documentation: `docs/update-readme`
-   - Styles: `style/fix-navbar-spacing`
+    - Features: `feature/add-user-authentication`
+    - Bugs: `fix/login-token-expired`
+    - Documentation: `docs/update-readme`
+    - Styles: `style/fix-navbar-spacing`
 
 ### While Working
 
 1. **Follow code style:**
-   ```bash
-   npm run lint
-   ```
+
+    ```bash
+    npm run lint
+    ```
 
 2. **Test your changes:**
-   - Manually test in browser
-   - Test on multiple screen sizes
-   - Check console for errors
+    - Manually test in browser
+    - Test on multiple screen sizes
+    - Check console for errors
 
 3. **Commit with clear messages:**
-   ```bash
-   git commit -m "Add: User profile editing feature"
-   # or
-   git commit -m "Fix: Token refresh not working"
-   ```
+    ```bash
+    git commit -m "Add: User profile editing feature"
+    # or
+    git commit -m "Fix: Token refresh not working"
+    ```
 
 ### Commit Message Format
 
@@ -76,6 +81,7 @@ npm run dev
 ```
 
 **Types:**
+
 - `Add` - New feature
 - `Fix` - Bug fix
 - `Refactor` - Code refactoring
@@ -85,6 +91,7 @@ npm run dev
 - `Chore` - Build/dependencies/config
 
 **Examples:**
+
 ```
 Add: User profile page with edit functionality
 
@@ -111,87 +118,93 @@ Fixes #456
 ### Before Submitting
 
 1. **Update your branch:**
-   ```bash
-   git fetch origin
-   git rebase origin/main
-   ```
+
+    ```bash
+    git fetch origin
+    git rebase origin/main
+    ```
 
 2. **Run linter:**
-   ```bash
-   npm run lint
-   ```
+
+    ```bash
+    npm run lint
+    ```
 
 3. **Build and test:**
-   ```bash
-   npm run build
-   npm run preview
-   ```
+    ```bash
+    npm run build
+    npm run preview
+    ```
 
 ### Submit Pull Request
 
 1. **Create PR with description:**
-   ```markdown
-   ## Description
-   Brief description of changes
 
-   ## Type of Change
-   - [ ] Bug fix
-   - [ ] New feature
-   - [ ] Breaking change
-   - [ ] Documentation update
+    ```markdown
+    ## Description
 
-   ## Testing
-   - [ ] Tested on desktop
-   - [ ] Tested on mobile
-   - [ ] All tests passing
+    Brief description of changes
 
-   ## Related Issues
-   Closes #123
-   ```
+    ## Type of Change
+
+    - [ ] Bug fix
+    - [ ] New feature
+    - [ ] Breaking change
+    - [ ] Documentation update
+
+    ## Testing
+
+    - [ ] Tested on desktop
+    - [ ] Tested on mobile
+    - [ ] All tests passing
+
+    ## Related Issues
+
+    Closes #123
+    ```
 
 2. **Wait for review:**
-   - Address feedback promptly
-   - Keep discussions professional
-   - Update PR based on comments
+    - Address feedback promptly
+    - Keep discussions professional
+    - Update PR based on comments
 
 ## Code Standards
 
 ### Component Structure
+
 ```javascript
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ComponentName() {
-  const navigate = useNavigate();
-  const [state, setState] = useState('');
+    const navigate = useNavigate();
+    const [state, setState] = useState("");
 
-  useEffect(() => {
-    // initialization logic
-  }, []);
+    useEffect(() => {
+        // initialization logic
+    }, []);
 
-  const handleAction = () => {
-    // handler logic
-  };
+    const handleAction = () => {
+        // handler logic
+    };
 
-  return (
-    <div className="container">
-      {/* JSX content */}
-    </div>
-  );
+    return <div className="container">{/* JSX content */}</div>;
 }
 ```
 
 ### Naming Conventions
+
 - **Components:** `PascalCase` (e.g., `UserProfile`)
 - **Functions:** `camelCase` (e.g., `getUserData`)
 - **Constants:** `UPPER_SNAKE_CASE` (e.g., `API_TIMEOUT`)
 - **CSS Classes:** `kebab-case` (e.g., `user-profile`)
 
 ### Styling Guidelines
+
 ```javascript
 // Use Tailwind CSS classes
 <div className="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
-  <h1 className="text-2xl font-bold text-gray-900">Title</h1>
+    <h1 className="text-2xl font-bold text-gray-900">Title</h1>
 </div>
 
 // For complex styles, use CSS modules or separate CSS files
@@ -201,19 +214,21 @@ export default function ComponentName() {
 ```
 
 ### Error Handling
+
 ```javascript
 // Always handle errors gracefully
 try {
-  const data = await fetchWithAuth('/api/endpoint');
-  setState(data);
+    const data = await fetchWithAuth("/api/endpoint");
+    setState(data);
 } catch (error) {
-  console.error('Error fetching data:', error);
-  // Show user-friendly error message
-  showToast('Error', 'Failed to load data', 'error');
+    console.error("Error fetching data:", error);
+    // Show user-friendly error message
+    showToast("Error", "Failed to load data", "error");
 }
 ```
 
 ### Comments and Documentation
+
 ```javascript
 /**
  * Fetches user data and updates state
@@ -221,21 +236,22 @@ try {
  * @returns {Promise<void>}
  */
 const fetchUser = async (userId) => {
-  // Only fetch if userId is provided
-  if (!userId) return;
-  
-  try {
-    const data = await fetchWithAuth(`/api/users/${userId}`);
-    setUser(data);
-  } catch (error) {
-    handleError(error);
-  }
+    // Only fetch if userId is provided
+    if (!userId) return;
+
+    try {
+        const data = await fetchWithAuth(`/api/users/${userId}`);
+        setUser(data);
+    } catch (error) {
+        handleError(error);
+    }
 };
 ```
 
 ## Testing
 
 ### Manual Testing Checklist
+
 - [ ] Feature works on desktop (Chrome, Firefox, Safari, Edge)
 - [ ] Feature works on mobile (iOS, Android)
 - [ ] No console errors
@@ -249,19 +265,19 @@ const fetchUser = async (userId) => {
 ### Testing Different Scenarios
 
 1. **Success path:**
-   - Normal user flow works correctly
-   - Data displays properly
+    - Normal user flow works correctly
+    - Data displays properly
 
 2. **Error path:**
-   - Network errors handled
-   - API errors displayed
-   - User cannot proceed with invalid data
+    - Network errors handled
+    - API errors displayed
+    - User cannot proceed with invalid data
 
 3. **Edge cases:**
-   - Empty data
-   - Very long text
-   - Special characters
-   - Multiple rapid clicks
+    - Empty data
+    - Very long text
+    - Special characters
+    - Multiple rapid clicks
 
 ## Documentation
 
@@ -275,6 +291,7 @@ When contributing new features, update relevant documentation:
 ## Common Issues
 
 ### Issue: Lint errors
+
 ```bash
 npm run lint
 # Fix automatically if possible
@@ -282,6 +299,7 @@ npm run lint -- --fix
 ```
 
 ### Issue: Build fails
+
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
@@ -290,6 +308,7 @@ npm run build
 ```
 
 ### Issue: Port already in use
+
 ```bash
 # On Windows, kill process using port 5173
 netstat -ano | findstr :5173
@@ -303,6 +322,7 @@ kill -9 <PID>
 ## Review Process
 
 ### What Reviewers Look For
+
 - Code quality and style compliance
 - No breaking changes
 - Proper error handling
@@ -311,6 +331,7 @@ kill -9 <PID>
 - Testing coverage
 
 ### Timeline
+
 - Initial review: 24-48 hours
 - Follow-up feedback: 12-24 hours
 - Approval and merge: Once approved and all comments addressed
@@ -325,6 +346,7 @@ kill -9 <PID>
 ## Recognition
 
 Contributors will be recognized in:
+
 - Project README
 - Release notes
 - GitHub contributors page
