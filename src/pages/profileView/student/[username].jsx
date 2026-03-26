@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getToken } from "../../../services/tokenService";
 import { getUsername } from "../../../services/tokenService";
-import { STUDENT_ENDPOINT } from "../../../config/config";
+
 
 const StudentProfileView = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -18,7 +18,7 @@ const StudentProfileView = ({ username: propUsername }) => {
             const token = getToken();
             try {
                 const response = await fetch(
-                    `${STUDENT_ENDPOINT}/${username}`,
+                    `http://localhost:8080/student/${username}`,
                     { headers: { Authorization: `Bearer ${token}` } },
                 );
                 if (response.ok) {

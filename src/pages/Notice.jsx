@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import { NOTICE_ENDPOINT } from "../config/config";
 
 const Notice = () => {
     const [notices, setNotices] = useState([]);
@@ -30,7 +29,7 @@ const Notice = () => {
     const fetchNotices = async () => {
         const token = getToken();
         try {
-            const response = await fetch(NOTICE_ENDPOINT, {
+            const response = await fetch("http://localhost:8080/notice", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.ok) {
@@ -52,7 +51,7 @@ const Notice = () => {
         if (!window.confirm("Confirm deletion?")) return;
         const token = getToken();
         try {
-            const response = await fetch(`${NOTICE_ENDPOINT}/${id}`, {
+            const response = await fetch(`http://localhost:8080/notice/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -83,8 +82,8 @@ const Notice = () => {
 
         const method = editingNotice ? "PUT" : "POST";
         const url = editingNotice
-            ? `${NOTICE_ENDPOINT}/${editingNotice.id}`
-            : NOTICE_ENDPOINT;
+            ? `http://localhost:8080/notice/${editingNotice.id}`
+            : "http://localhost:8080/notice";
 
         try {
             const response = await fetch(url, {
@@ -100,7 +99,7 @@ const Notice = () => {
                 closeModal();
             }
         } catch (err) {
-            console.log(err);
+            console.log(err)
             alert("PUBLISH_FAILED");
         }
     };

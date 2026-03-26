@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { REGISTER_ENDPOINT } from "../config/config";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -24,7 +23,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(REGISTER_ENDPOINT, {
+            const response = await fetch("http://localhost:8080/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,9 +99,7 @@ const Register = () => {
                                 >
                                     <option value="STUDENT">STUDENT</option>
                                     <option value="TEACHER">TEACHER</option>
-                                    <option value="ADMIN" disabled={true}>
-                                        ADMIN
-                                    </option>
+                                    <option value="ADMIN" disabled={true} >ADMIN</option>
                                 </select>
                             </div>
                         </div>

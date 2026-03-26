@@ -8,12 +8,6 @@ import {
     Calendar as CalendarIcon,
 } from "lucide-react";
 import { getToken } from "../services/tokenService"; // Added your service import
-import {
-    STUDENT_ENDPOINT,
-    COURSES_ENDPOINT,
-    SEMESTER_ENDPOINT,
-    ATTENDANCE_ENDPOINT,
-} from "../config/config";
 
 const MarkAttendance = () => {
     const [students, setStudents] = useState([]);
@@ -38,9 +32,9 @@ const MarkAttendance = () => {
         const loadInitialData = async () => {
             try {
                 const [stdRes, crsRes, semRes] = await Promise.all([
-                    fetch(STUDENT_ENDPOINT, { headers }),
-                    fetch(COURSES_ENDPOINT, { headers }),
-                    fetch(SEMESTER_ENDPOINT, { headers }),
+                    fetch("http://localhost:8080/student", { headers }),
+                    fetch("http://localhost:8080/course", { headers }),
+                    fetch("http://localhost:8080/semester", { headers }),
                 ]);
                 setStudents(await stdRes.json());
                 setCourses(await crsRes.json());
@@ -86,7 +80,7 @@ const MarkAttendance = () => {
                         date: attendanceDate,
                     };
 
-                    return fetch(ATTENDANCE_ENDPOINT, {
+                    return fetch("http://localhost:8080/attendence", {
                         method: "POST",
                         headers,
                         body: JSON.stringify(payload),

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import { COURSES_ENDPOINT, TEACHER_ENDPOINT } from "../config/config";
 
 const Course = () => {
     // State Management
@@ -36,8 +35,8 @@ const Course = () => {
         const headers = { Authorization: `Bearer ${token}` };
         try {
             const [courseRes, teacherRes] = await Promise.all([
-                fetch(COURSES_ENDPOINT, { headers }),
-                fetch(TEACHER_ENDPOINT, { headers }),
+                fetch("http://localhost:8080/course", { headers }),
+                fetch("http://localhost:8080/teacher", { headers }),
             ]);
 
             if (courseRes.ok && teacherRes.ok) {
@@ -60,8 +59,8 @@ const Course = () => {
         const token = getToken();
         const method = editingCourse ? "PUT" : "POST";
         const url = editingCourse
-            ? `${COURSES_ENDPOINT}/${editingCourse.id}`
-            : COURSES_ENDPOINT;
+            ? `http://localhost:8080/course/${editingCourse.id}`
+            : "http://localhost:8080/course";
 
         const payload = {
             ...formData,
@@ -94,7 +93,7 @@ const Course = () => {
         const token = getToken();
         try {
             const response = await fetch(
-                `${COURSES_ENDPOINT}/${courseId}/assign/${teacherUsername}`,
+                `http://localhost:8080/course/${courseId}/assign/${teacherUsername}`,
                 {
                     method: "PUT",
                     headers: { Authorization: `Bearer ${token}` },
@@ -115,7 +114,7 @@ const Course = () => {
             return;
         const token = getToken();
         try {
-            const response = await fetch(`${COURSES_ENDPOINT}/${id}`, {
+            const response = await fetch(`http://localhost:8080/course/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });

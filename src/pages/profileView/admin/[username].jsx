@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getToken } from "../../../services/tokenService";
 import { getUsername } from "../../../services/tokenService";
-import { ADMIN_ENDPOINT } from "../../../config/config";
 
 const AdminProfileView = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -17,9 +16,10 @@ const AdminProfileView = ({ username: propUsername }) => {
         const fetchAdmin = async () => {
             const token = getToken();
             try {
-                const response = await fetch(`${ADMIN_ENDPOINT}/${username}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                const response = await fetch(
+                    `http://localhost:8080/admin/${username}`,
+                    { headers: { Authorization: `Bearer ${token}` } },
+                );
                 if (response.ok) {
                     const data = await response.json();
                     setProfileData(data);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import { ADMIN_ENDPOINT } from "../config/config";
 
 const Admin = () => {
     const [admins, setAdmins] = useState([]);
@@ -17,7 +16,7 @@ const Admin = () => {
         const fetchAdmins = async () => {
             const token = getToken();
             try {
-                const response = await fetch(ADMIN_ENDPOINT, {
+                const response = await fetch("http://localhost:8080/admin", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -36,7 +35,7 @@ const Admin = () => {
                     setError(`SYSTEM_ERROR: Status ${response.status}`);
                 }
             } catch (err) {
-                console.log(err);
+                console.log(err)
                 setError("CONNECTION_FAILURE: Admin service offline.");
             } finally {
                 setLoading(false);

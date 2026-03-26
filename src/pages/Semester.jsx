@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { getToken } from "../services/tokenService";
-import { SEMESTER_ENDPOINT } from "../config/config";
 
 const Semester = () => {
     const [semesters, setSemesters] = useState([]);
@@ -24,7 +23,7 @@ const Semester = () => {
     const fetchSemesters = async () => {
         const token = getToken();
         try {
-            const response = await fetch(SEMESTER_ENDPOINT, {
+            const response = await fetch("http://localhost:8080/semester", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.ok) {
@@ -81,8 +80,8 @@ const Semester = () => {
         e.preventDefault();
         const token = getToken();
         const url = isEditing
-            ? `${SEMESTER_ENDPOINT}/${currentId}`
-            : SEMESTER_ENDPOINT;
+            ? `http://localhost:8080/semester/${currentId}`
+            : "http://localhost:8080/semester";
 
         const method = isEditing ? "PUT" : "POST";
 
@@ -121,10 +120,13 @@ const Semester = () => {
         if (!window.confirm("ARE_YOU_SURE_BY_DELETING_THIS_RECORD?")) return;
         const token = getToken();
         try {
-            const response = await fetch(`${SEMESTER_ENDPOINT}/${id}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const response = await fetch(
+                `http://localhost:8080/semester/${id}`,
+                {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}` },
+                },
+            );
             if (response.ok) fetchSemesters();
         } catch (err) {
             alert("DELETE_FAILED");

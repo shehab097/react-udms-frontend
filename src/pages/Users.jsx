@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import { USERS_ENDPOINT } from "../config/config";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -15,7 +14,7 @@ const Users = () => {
         const fetchUsers = async () => {
             const token = getToken();
             try {
-                const response = await fetch(USERS_ENDPOINT, {
+                const response = await fetch("http://localhost:8080/users", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -35,7 +34,7 @@ const Users = () => {
                 }
             } catch (err) {
                 setError("CONNECTION_FAILURE: Backend unreachable.");
-                console.log(err);
+                console.log(err)
             } finally {
                 setLoading(false);
             }

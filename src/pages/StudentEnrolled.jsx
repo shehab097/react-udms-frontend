@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import {
-    STUDENT_ENROLLED_ENDPOINT,
-    STUDENT_ENDPOINT,
-    SEMESTER_ENDPOINT,
-    COURSES_ENDPOINT,
-} from "../config/config";
 
 const StudentEnrolled = () => {
     // API Data States
@@ -38,10 +32,10 @@ const StudentEnrolled = () => {
         const headers = { Authorization: `Bearer ${token}` };
         try {
             const [enRes, stRes, smRes, crRes] = await Promise.all([
-                fetch(STUDENT_ENROLLED_ENDPOINT, { headers }),
-                fetch(STUDENT_ENDPOINT, { headers }),
-                fetch(SEMESTER_ENDPOINT, { headers }),
-                fetch(COURSES_ENDPOINT, { headers }),
+                fetch("http://localhost:8080/student-enrolled", { headers }),
+                fetch("http://localhost:8080/student", { headers }),
+                fetch("http://localhost:8080/semester", { headers }),
+                fetch("http://localhost:8080/course", { headers }),
             ]);
 
             if (enRes.ok) setEnrollments(await enRes.json());
@@ -81,8 +75,8 @@ const StudentEnrolled = () => {
         const token = getToken();
         const method = editingId ? "PUT" : "POST";
         const url = editingId
-            ? `${STUDENT_ENROLLED_ENDPOINT}/${editingId}`
-            : STUDENT_ENROLLED_ENDPOINT;
+            ? `http://localhost:8080/student-enrolled/${editingId}`
+            : "http://localhost:8080/student-enrolled";
 
         // Ensuring exact JSON format for DTO Record
         const payload = {
@@ -117,10 +111,13 @@ const StudentEnrolled = () => {
         if (!window.confirm("Permanently remove this enrollment?")) return;
         const token = getToken();
         try {
-            const res = await fetch(`${STUDENT_ENROLLED_ENDPOINT}/${id}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const res = await fetch(
+                `http://localhost:8080/student-enrolled/${id}`,
+                {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}` },
+                },
+            );
             if (res.ok) fetchRegistry();
         } catch (err) {
             console.error("DELETE_ERROR", err);

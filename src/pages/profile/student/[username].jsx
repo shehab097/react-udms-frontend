@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getToken, getUsername } from "../../../services/tokenService";
 import Toast from "../../../components/Toast"; // Import the alert component
-import { STUDENT_ENDPOINT } from "../../../config/config";
 
 const StudentProfile = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -38,7 +37,7 @@ const StudentProfile = ({ username: propUsername }) => {
             const token = getToken();
             try {
                 const response = await fetch(
-                    `${STUDENT_ENDPOINT}/${username}`,
+                    `http://localhost:8080/student/${username}`,
                     { headers: { Authorization: `Bearer ${token}` } },
                 );
                 if (response.ok) {
@@ -86,14 +85,17 @@ const StudentProfile = ({ username: propUsername }) => {
         };
 
         try {
-            const response = await fetch(`${STUDENT_ENDPOINT}/${username}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+            const response = await fetch(
+                `http://localhost:8080/student/${username}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(payload),
                 },
-                body: JSON.stringify(payload),
-            });
+            );
 
             if (response.ok) {
                 showToast("PROFILE_SYNCHRONIZED_SUCCESSFULLY", "success");

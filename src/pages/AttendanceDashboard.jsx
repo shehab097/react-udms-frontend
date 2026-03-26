@@ -7,7 +7,6 @@ import {
     AlertTriangle,
 } from "lucide-react";
 import { getToken } from "../services/tokenService";
-import { ATTENDANCE_ENDPOINT } from "../config/config";
 
 const AttendanceDashboard = () => {
     const [attendances, setAttendances] = useState([]);
@@ -25,12 +24,15 @@ const AttendanceDashboard = () => {
             setLoading(true);
             try {
                 const token = getToken();
-                const response = await fetch(ATTENDANCE_ENDPOINT, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                const response = await fetch(
+                    "http://localhost:8080/attendence",
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
                     },
-                });
+                );
                 if (!response.ok)
                     throw new Error(`ERR_CODE: ${response.status}`);
                 const data = await response.json();

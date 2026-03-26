@@ -1,7 +1,6 @@
-import { AUTH_ENDPOINT } from "../config/config";
-
 export async function login(username, password) {
-    const response = await fetch(`${AUTH_ENDPOINT}/login`, {
+
+    const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

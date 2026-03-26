@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
-import { TEACHER_ENDPOINT } from "../config/config";
 
 const Teacher = () => {
     const [teachers, setTeachers] = useState([]);
@@ -20,7 +19,7 @@ const Teacher = () => {
         const fetchTeachers = async () => {
             const token = getToken();
             try {
-                const response = await fetch(TEACHER_ENDPOINT, {
+                const response = await fetch("http://localhost:8080/teacher", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
