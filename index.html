@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>udmp</title>
+
+    <style>
+        
+
+/* Target the scrollbar globally or apply to a specific container */
+*::-webkit-scrollbar {
+    width: 5px;  /* Vertical scrollbar width */
+    height: 5px; /* Horizontal scrollbar height */
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent; /* Makes the track background invisible */
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1); /* Subtle white tint */
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--ui-accent, #00ffcc); /* Glows with your accent color on hover */
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+    </style>
+    <script>
+        // Polyfill for sockjs-client
+        window.global = window;
+    </script>
+  </head>
+  <body style="background-color: black;">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
