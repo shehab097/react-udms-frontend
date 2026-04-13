@@ -12,10 +12,9 @@
 
 // Environment-specific base URLs
 // const DEV_BASE_URL = "http://localhost:8080";
-// const DEV_BASE_URL = "http://localhost:8080";
-const DEV_BASE_URL = "http://192.168.48.55:8080";
+const DEV_BASE_URL = "http://localhost:8080";
+// const DEV_BASE_URL = "http://192.168.0.208:8080";
 const PROD_BASE_URL = "https://api.yourdomain.com";
-// 192.168.0.218
 
 // Automatically select BASE_URL based on environment
 const BASE_URL =

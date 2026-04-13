@@ -149,7 +149,7 @@ const Dashboard = () => {
                         {/* Mobile Header in Sidebar */}
                         <div className="flex items-center justify-between p-4 md:hidden border-b border-white/5">
                             <span className="font-black text-ui-accent tracking-widest uppercase text-sm">
-                                Navigation
+                                Navigation 
                             </span>
                             <button
                                 onClick={() => setIsSidebarOpen(false)}
@@ -183,7 +183,7 @@ const Dashboard = () => {
                                         </abbr>
                                     </span>
                                     <span className="ml-3 font-medium whitespace-nowrap">
-                                        {item.name}
+                                        {item.name} 
                                     </span>
                                 </button>
                             ))}
@@ -194,24 +194,26 @@ const Dashboard = () => {
                 {/* MAIN CONTENT */}
                 <main className="flex-1 overflow-y-auto bg-ui-background/30 custom-scrollbar relative">
                     <div className="p-4 md:p-8 max-w-7xl mx-auto w-full">
-                        <header className="mb-6 flex items-center justify-between">
+                        <header className=" flex items-center justify-between">
                             <div>
-                                <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase italic">
-                                    {activeTab}
-                                </h1>
+                                {/* <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase italic">
+                                    {activeTab} 
+                                </h1> */}
                                 {/* <p className="text-[10px] md:text-xs text-ui-accent font-mono uppercase tracking-[0.2em] mt-1 opacity-80">
                                     System_Core //{" "}
                                     {activeTab.replace(/\s+/g, "_")}
                                 </p> */}
                             </div>
 
-                            <button
+                            {/* BUTTON FOR OPENING IN NEW TAB */}
+
+                            {/* <button
                                 onClick={handleOpenInNewTab}
                                 className="p-2.5 rounded-xl bg-ui-surface border border-white/5 hover:border-ui-accent transition-all group text-content-secondary hover:text-ui-accent"
                                 title="Open in new window"
                             >
                                 <ExternalLink size={20} />
-                            </button>
+                            </button> */}
                         </header>
 
                         {/* Content Area */}
@@ -227,6 +229,8 @@ const Dashboard = () => {
                         className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 md:hidden transition-opacity duration-300"
                         onClick={() => setIsSidebarOpen(false)}
                     />
+
+                    
                 )}
             </div>
         </div>

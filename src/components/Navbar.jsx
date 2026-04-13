@@ -8,7 +8,7 @@ const Navbar = () => {
     const location = useLocation();
     const links = [
         { name: "Dashboard", path: "/dashboard" },
-        { name: "Scan QR", path: "/qrscan" },
+        // { name: "Scan QR", path: "/qrscan" },
         { name: "Generate QR", path: "/qr" },
         { name: "Register", path: "/register" },
     ];
@@ -55,7 +55,9 @@ const Navbar = () => {
                                     location.pathname === link.path
                                         ? "text-ui-accent bg-ui-accent/5"
                                         : "text-content-secondary hover:text-ui-highlight hover:bg-white/5"
-                                }`}
+                                }`
+                                    
+                                }
                             >
                                 {link.name}
                             </Link>
@@ -68,9 +70,9 @@ const Navbar = () => {
                         <UserCard />
                         <Link
                             to="/logout"
-                            className="bg-ui-secondary/10 hover:bg-ui-secondary/20 text-ui-secondary text-[11px] font-bold font-mono px-4 py-2 border border-ui-secondary/20 rounded uppercase tracking-tighter transition-all"
+                            className="bg-ui-secondary/10 text-[1rem] hover:bg-ui-secondary/20 text-ui-secondary font-bold font-mono px-4 py-2 border border-ui-secondary/20 rounded uppercase tracking-tighter transition-all"
                         >
-                            Terminate_Session
+                            Logout
                         </Link>
                     </div>
                 </div>
@@ -142,7 +144,7 @@ const Navbar = () => {
                             className="block w-full text-center py-4 bg-ui-secondary text-ui-background font-mono font-bold uppercase tracking-widest hover:bg-ui-highlight transition-colors"
                             onClick={() => setIsOpen(false)}
                         >
-                            Terminate_Session
+                            Logout
                         </Link>
                     </div>
                 </div>

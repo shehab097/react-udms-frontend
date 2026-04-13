@@ -201,11 +201,11 @@ const StudentEnrolled = () => {
             <div className="flex flex-col md:flex-row gap-4 justify-between items-end">
                 <div className="w-full md:w-1/2">
                     <label className="text-[10px] font-mono text-ui-highlight uppercase">
-                        Registry Filter
+                        Filter
                     </label>
                     <input
                         className="w-full bg-ui-surface/20 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:border-ui-accent outline-none"
-                        placeholder="Search Name or ID..."
+                        placeholder="Search Name or Student ID..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />

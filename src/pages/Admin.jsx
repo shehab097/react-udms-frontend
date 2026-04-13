@@ -101,7 +101,7 @@ const Admin = () => {
                 <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
                     <div className="w-full md:w-64">
                         <label className="block text-[11px] font-mono text-ui-highlight uppercase tracking-widest mb-1.5 ml-1">
-                            Admin_Search
+                            Search
                         </label>
                         <input
                             type="text"
@@ -114,7 +114,7 @@ const Admin = () => {
 
                     <div className="w-full md:w-48">
                         <label className="block text-[11px] font-mono text-ui-highlight uppercase tracking-widest mb-1.5 ml-1">
-                            Sort_Order
+                            Sort
                         </label>
                         <select
                             onChange={handleSortChange}
@@ -126,14 +126,14 @@ const Admin = () => {
                         </select>
                     </div>
                 </div>
-                <div className="text-right hidden md:block">
+                {/* <div className="text-right hidden md:block">
                     <p className="text-[10px] font-mono text-content-secondary uppercase tracking-widest">
                         Security_Privilege
                     </p>
                     <p className="text-sm font-bold text-ui-accent">
                         LEVEL_ADMIN
                     </p>
-                </div>
+                </div> */}
             </div>
 
             {/* Admin Table */}

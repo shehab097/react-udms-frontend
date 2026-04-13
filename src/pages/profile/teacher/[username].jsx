@@ -135,18 +135,18 @@ const TeacherProfile = ({ username: propUsername }) => {
                     <h1 className="text-2xl font-bold text-white tracking-tight">
                         {formData.name || "FACULTY_MEMBER"}
                     </h1>
-                    <p className="text-[10px] font-mono text-ui-secondary uppercase mt-1 tracking-widest opacity-70">
+                    {/* <p className="text-[10px] font-mono text-ui-secondary uppercase mt-1 tracking-widest opacity-70">
                         Faculty ID // {username}
-                    </p>
+                    </p> */}
                 </div>
-                <div className="bg-ui-secondary/10 border border-ui-secondary/20 px-4 py-2 rounded-lg">
+                {/* <div className="bg-ui-secondary/10 border border-ui-secondary/20 px-4 py-2 rounded-lg">
                     <div className="text-[9px] font-mono text-ui-secondary uppercase">
                         Status
                     </div>
                     <div className="text-xs font-bold text-white">
                         ACTIVE_FACULTY
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <form
@@ -156,7 +156,7 @@ const TeacherProfile = ({ username: propUsername }) => {
                 {/* Profile Information */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-secondary uppercase tracking-[0.2em] mb-4">
-                        Faculty_Identity
+                        Identity
                     </h2>
 
                     <div className="space-y-2">
@@ -206,12 +206,12 @@ const TeacherProfile = ({ username: propUsername }) => {
                 {/* Contact Information */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-secondary uppercase tracking-[0.2em] mb-4">
-                        Communication_Nodes
+                        Contact
                     </h2>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Professional Email
+                            Email
                         </label>
                         <input
                             name="email"
@@ -236,7 +236,7 @@ const TeacherProfile = ({ username: propUsername }) => {
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            Office/Home Address
+                            Address
                         </label>
                         <textarea
                             name="address"
@@ -249,10 +249,10 @@ const TeacherProfile = ({ username: propUsername }) => {
                 </div>
 
                 {/* Action Bar */}
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-end items-center gap-6">
-                    <span className="text-[9px] font-mono text-content-secondary/40 uppercase">
+                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-between items-center gap-6">
+                    {/* <span className="text-[9px] font-mono text-content-secondary/40 uppercase">
                         Confidential Faculty Record
-                    </span>
+                    </span> */}
                     <button
                         type="submit"
                         disabled={isUpdating}
@@ -264,7 +264,7 @@ const TeacherProfile = ({ username: propUsername }) => {
                     >
                         {isUpdating
                             ? "SYNCING_RECORDS..."
-                            : "UPDATE_FACULTY_DATA"}
+                            : "UPDATE TEACHER'S DATA"}
                     </button>
                 </div>
             </form>

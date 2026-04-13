@@ -146,9 +146,9 @@ const Semester = () => {
 
             <div className="flex justify-between items-center mb-4">
                 <div className="space-y-1">
-                    <h2 className="text-sm font-mono text-ui-highlight tracking-widest uppercase">
+                    {/* <h2 className="text-sm font-mono text-ui-highlight tracking-widest uppercase">
                         Academic_Cycles
-                    </h2>
+                    </h2> */}
                 </div>
                 {isAdmin && (
                     <button

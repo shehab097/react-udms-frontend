@@ -3,7 +3,6 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { motion, AnimatePresence } from "framer-motion";
 
-// const BASE_URL = "http://192.168.0.218:8080";
 import BASE_URL from "../config/config";
 
 const LiveAttendance = ({ semesterId, courseId }) => {

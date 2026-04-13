@@ -120,7 +120,7 @@ const Users = () => {
                         />
                         <input
                             type="text"
-                            placeholder="Filter by identifier..."
+                            placeholder="Filter by id..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full xl:w-64 bg-white/5 border border-white/10 rounded-xl py-2.5 pl-11 pr-4 text-xs font-mono focus:border-ui-accent outline-none transition-all placeholder:text-gray-600"
@@ -143,10 +143,10 @@ const Users = () => {
                     <thead>
                         <tr className="border-b border-white/5 bg-white/[0.02]">
                             <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-gray-500 font-mono">
-                                User_Identifier
+                                User ID
                             </th>
                             <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-gray-500 font-mono">
-                                Access_Level
+                                Role
                             </th>
                         </tr>
                     </thead>

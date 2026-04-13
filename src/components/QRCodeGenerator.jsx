@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { getToken } from "../services/tokenService";
 import { ATTENDANCE_ENDPOINT } from "../config/config";
 
-const TIME_COUNT_DOWN = 60;
+const TIME_COUNT_DOWN = 55;
 
 const QRCodeGenerator = ({ courseId, semesterId }) => {
     // We store the Base64 image string directly from the backend

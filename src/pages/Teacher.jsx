@@ -4,6 +4,7 @@ import Toast from "../components/Toast";
 import Loading from "../components/Loading";
 
 import { TEACHER_ENDPOINT } from "../config/config";
+import { Link } from "react-router-dom";
 
 const Teacher = () => {
     const [teachers, setTeachers] = useState([]);
@@ -121,25 +122,25 @@ const Teacher = () => {
             <div className="flex flex-col md:flex-row justify-between items-end gap-4">
                 <div className="w-full md:w-64">
                     <label className="block text-[10px] font-mono text-ui-highlight uppercase tracking-widest mb-2 ml-1">
-                        Search_Registry
+                        Search
                     </label>
                     <input
                         type="text"
-                        placeholder="Search faculty..."
+                        placeholder="Search ID or Name ..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-ui-accent text-white"
                     />
                 </div>
                 {/* Manual Test Button to verify toast works */}
-                <button
+                {/* <button
                     onClick={() =>
                         showToast("Manual system ping successful", "success")
                     }
                     className="text-[10px] font-mono text-white/20 hover:text-ui-accent transition-colors"
                 >
                     [ TEST_TOAST ]
-                </button>
+                </button> */}
             </div>
 
             {/* Table */}
@@ -147,7 +148,7 @@ const Teacher = () => {
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="border-b border-white/5 bg-white/5 text-[10px] font-mono text-ui-highlight uppercase">
-                            <th className="p-5">Faculty_Member</th>
+                            <th className="p-5">Teacher</th>
                             <th className="p-5">Contact</th>
                             <th className="p-5">Gender</th>
                             <th className="p-5">Address</th>
@@ -176,8 +177,12 @@ const Teacher = () => {
                                                         ▼
                                                     </span>
                                                 </div>
-                                                <div className="text-[10px] font-mono text-white/40 uppercase">
-                                                    @{t.username}
+                                                <div className="text-[10px] font-mono text-white/40 hover:text-white transition-colors hover:underline">
+                                                    <Link
+                                                        to={`teacher/t.username`}
+                                                    >
+                                                        @{t.username}
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>

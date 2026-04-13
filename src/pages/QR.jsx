@@ -5,7 +5,7 @@ import LiveAttendance from "../components/LiveAttendance";
 import { Maximize, Minimize, BookOpen, Calendar } from "lucide-react";
 
 import BASE_URL from "../config/config";
-import { getToken } from "../services/tokenService";
+import { getRole, getToken } from "../services/tokenService";
 
 export default function QR() {
     const screenRef = useRef(null);
@@ -30,8 +30,8 @@ export default function QR() {
         const fetchData = async () => {
             try {
                 const [semRes, courseRes] = await Promise.all([
-                    fetch(`${BASE_URL}/semester`,{headers}),
-                    fetch(`${BASE_URL}/course`,{headers}),
+                    fetch(`${BASE_URL}/semester`, { headers }),
+                    fetch(`${BASE_URL}/course`, { headers }),
                 ]);
                 const semData = await semRes.json();
                 const courseData = await courseRes.json();
@@ -52,6 +52,8 @@ export default function QR() {
     }, []);
 
     const toggleFullScreen = () => {
+        // on click F toggle fullscreen for the screenRef container
+
         if (!document.fullscreenElement) {
             screenRef.current.requestFullscreen().catch((err) => {
                 alert(`Error: ${err.message}`);
@@ -63,6 +65,7 @@ export default function QR() {
         }
     };
 
+
     useEffect(() => {
         const handleFSChange = () =>
             setIsFullScreen(!!document.fullscreenElement);
@@ -71,9 +74,25 @@ export default function QR() {
             document.removeEventListener("fullscreenchange", handleFSChange);
     }, []);
 
+    if (getRole() !== "TEACHER") {
+        return (
+            <div className="h-screen w-full bg-gray-50 items-center justify-center font-sans">
+                <Navbar />
+                <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+                    <h1 className="text-2xl font-bold text-gray-800 mb-4">
+                        Access Denied
+                    </h1>
+                    <p className="text-gray-600">
+                        You do not have permission to view this page.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="h-screen w-full bg-gray-50 flex flex-col overflow-hidden font-sans">
-            <Navbar />
+            {/* <Navbar /> */}
 
             {/* Selection Bar */}
             <div className="bg-white border-b border-gray-200 p-4 flex gap-6 items-center justify-center shadow-sm z-10">

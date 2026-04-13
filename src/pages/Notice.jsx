@@ -314,8 +314,8 @@ const Notice = () => {
                 <table className="w-full text-left border-collapse min-w-[800px]">
                     <thead>
                         <tr className="border-b border-white/5 bg-white/5 text-[12px] text-ui-highlight font-bold uppercase tracking-[0.2em]">
-                            <th className="p-5 w-40">Time_Stamp</th>
-                            <th className="p-5">Bulletin_Content</th>
+                            <th className="p-5 w-40">Date</th>
+                            <th className="p-5">Content</th>
                             <th className="p-5 w-36 text-center">Audience</th>
                             {!isStudent && (
                                 <th className="p-5 w-32 text-center">
@@ -359,12 +359,12 @@ const Notice = () => {
                                     <div
                                         className={`text-[10px] font-black px-3 py-1 rounded-full border inline-block mb-1.5 ${n.department ? "bg-ui-accent/10 border-ui-accent/30 text-ui-accent" : "bg-white/5 border-white/20 text-content-secondary"}`}
                                     >
-                                        {n.department || "GLOBAL"}
+                                        {n.department || "To all"}
                                     </div>
                                     <div className="text-[10px] text-content-secondary font-mono uppercase tracking-widest block">
                                         {n.noticeForSem
-                                            ? `SEM_${n.noticeForSem}`
-                                            : "ALL_LEVELS"}
+                                            ? `SEM ${n.noticeForSem}`
+                                            : ""}
                                     </div>
                                 </td>
                                 {!isStudent && (

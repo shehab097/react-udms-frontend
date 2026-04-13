@@ -161,13 +161,13 @@ const StudentProfile = ({ username: propUsername }) => {
                     <h1 className="text-2xl font-bold text-white tracking-tight">
                         {formData.name || "UNNAMED_ENTITY"}
                     </h1>
-                    <p className="text-[10px] font-mono text-ui-accent uppercase mt-1 tracking-widest opacity-70">
+                    {/* <p className="text-[10px] font-mono text-ui-accent uppercase mt-1 tracking-widest opacity-70">
                         System Student // {username}
-                    </p>
+                    </p> */}
                 </div>
                 <div className="text-right">
                     <div className="text-[10px] font-mono text-ui-accent uppercase opacity-60">
-                        ID_RECORDED
+                        Student ID
                     </div>
                     <div className="text-lg font-bold text-white">
                         {formData.studentID || "PENDING"}
@@ -181,7 +181,7 @@ const StudentProfile = ({ username: propUsername }) => {
             >
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
-                        Academic_&_Personal
+                        Personal Information
                     </h2>
 
                     <div className="space-y-2">
@@ -234,7 +234,7 @@ const StudentProfile = ({ username: propUsername }) => {
 
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
-                        Contact_Details
+                        Contact
                     </h2>
 
                     <div className="space-y-2">
@@ -259,7 +259,7 @@ const StudentProfile = ({ username: propUsername }) => {
                                 name="currSemester"
                                 type="number"
                                 disabled={`${true}`}
-                                value={formData.currSemester}
+                                value={formData.currSemester.semesterNo}
                                 onChange={handleChange}
                                 className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                             />
@@ -313,7 +313,7 @@ const StudentProfile = ({ username: propUsername }) => {
                     </div>
                 </div>
 
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-end">
+                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex ">
                     <button
                         type="submit"
                         disabled={isUpdating}
@@ -325,7 +325,7 @@ const StudentProfile = ({ username: propUsername }) => {
                     >
                         {isUpdating
                             ? "SYNCHRONIZING..."
-                            : "SAVE_PROFILE_CHANGES"}
+                            : "SAVE PROFILE CHANGES"}
                     </button>
                 </div>
             </form>

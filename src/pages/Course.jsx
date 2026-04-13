@@ -217,7 +217,7 @@ const Course = () => {
                 <div className="flex gap-4 w-full md:w-auto">
                     <div className="w-full md:w-64">
                         <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1.5 ml-1">
-                            Search_Curriculum
+                            Search
                         </label>
                         <input
                             type="text"
@@ -245,11 +245,11 @@ const Course = () => {
                     <thead>
                         <tr className="border-b border-white/5 bg-white/5 font-mono text-[10px] text-ui-highlight uppercase tracking-widest">
                             <th className="p-4">ID_Code</th>
-                            <th className="p-4">Module_Title</th>
-                            <th className="p-4 text-center w-24">Sem</th>
+                            <th className="p-4">Title</th>
+                            <th className="p-4 text-center w-24">Semester</th>
                             <th className="p-4 text-center w-24">Credits</th>
                             <th className="p-4 w-32">Dept</th>
-                            <th className="p-4">Faculty_Lead</th>
+                            <th className="p-4">Course Teacher</th>
                             {/* Actions column only for Admins */}
                             {isAdmin && (
                                 <th className="p-4 text-center w-36">

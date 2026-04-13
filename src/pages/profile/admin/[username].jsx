@@ -141,14 +141,14 @@ const AdminProfile = ({ username: propUsername }) => {
                         System Principal // {username}
                     </p>
                 </div>
-                <div className="bg-ui-accent/10 border border-ui-accent/30 px-5 py-2 rounded-xl">
+                {/* <div className="bg-ui-accent/10 border border-ui-accent/30 px-5 py-2 rounded-xl">
                     <div className="text-[9px] font-mono text-ui-accent uppercase tracking-tighter">
                         Auth_Level
                     </div>
                     <div className="text-xs font-black text-white">
                         ROOT_ACCESS
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <form
@@ -158,7 +158,7 @@ const AdminProfile = ({ username: propUsername }) => {
                 {/* Identification */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
-                        Core_Identity
+                        Identity
                     </h2>
 
                     <div className="space-y-2">
@@ -208,7 +208,7 @@ const AdminProfile = ({ username: propUsername }) => {
                 {/* Contact & Location */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
-                        Secure_Contact
+                        Contact
                     </h2>
 
                     <div className="space-y-2">
@@ -238,7 +238,7 @@ const AdminProfile = ({ username: propUsername }) => {
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-mono text-content-secondary uppercase">
-                            HQ Address
+                            Address
                         </label>
                         <textarea
                             name="address"
@@ -252,9 +252,9 @@ const AdminProfile = ({ username: propUsername }) => {
 
                 {/* Submit Area */}
                 <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-between items-center">
-                    <p className="text-[9px] font-mono text-content-secondary/30 italic uppercase">
+                    {/* <p className="text-[9px] font-mono text-content-secondary/30 italic uppercase">
                         Modified records are logged in system audit trails.
-                    </p>
+                    </p> */}
                     <button
                         type="submit"
                         disabled={isUpdating}
@@ -266,7 +266,7 @@ const AdminProfile = ({ username: propUsername }) => {
                     >
                         {isUpdating
                             ? "UPDATING_ROOT..."
-                            : "CONFIRM_ADMIN_CHANGES"}
+                            : "CONFIRM ADMIN CHANGES"}
                     </button>
                 </div>
             </form>
