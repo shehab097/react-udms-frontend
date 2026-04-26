@@ -20,6 +20,8 @@ import NotFound from "./NotFound";
 import StudentProfile from "./profile/student/[username]";
 import TeacherProfile from "./profile/teacher/[username]";
 import AdminProfile from "./profile/admin/[username]";
+import AttendanceInfo from "./AttendanceInfo";
+import AttendanceByCourse from "../components/AttandanceByCourse";
 
 const menuItems = [
     { name: "Users", icon: "👥", permissions: ["ADMIN"] },
@@ -28,7 +30,7 @@ const menuItems = [
     {
         name: "Student",
         icon: "🎓",
-        permissions: ["ADMIN", "TEACHER", "STUDENT"],
+        permissions: ["ADMIN", "TEACHER"],
     },
     { name: "Course", icon: "📔", permissions: ["ADMIN", "TEACHER"] },
     { name: "Semester", icon: "📰", permissions: ["ADMIN", "TEACHER"] },
@@ -40,6 +42,7 @@ const menuItems = [
     { name: "Student Enrolled", icon: "🧾", permissions: ["ADMIN", "TEACHER"] },
     { name: "Attendance", icon: "📑", permissions: ["ADMIN", "TEACHER"] },
     { name: "Mark Attendance", icon: "✅", permissions: ["ADMIN", "TEACHER"] },
+    { name: "AttendanceInfo", icon: "✅", permissions: ["ADMIN", "TEACHER"] },
     {
         name: "Profile",
         icon: "⚙️",
@@ -88,6 +91,8 @@ const Dashboard = () => {
                 return <AttendanceDashboard />;
             case "Mark Attendance":
                 return <MarkAttendance />;
+            case "AttendanceInfo":
+                return <AttendanceByCourse />; ///
             case "Student Enrolled":
                 return <StudentEnrolled />;
             case "Profile":

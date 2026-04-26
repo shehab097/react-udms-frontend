@@ -4,6 +4,7 @@ import { getToken, getUsername } from "../../../services/tokenService";
 import Toast from "../../../components/Toast";
 import { STUDENT_ENDPOINT } from "../../../config/config";
 import Loading from "../../../components/Loading";
+import UserAttendanceStats from "../../../components/UserAttendanceStats";
 
 const StudentProfile = ({ username: propUsername }) => {
     const { username: urlUsername } = useParams();
@@ -19,6 +20,7 @@ const StudentProfile = ({ username: propUsername }) => {
     });
 
     const [formData, setFormData] = useState({
+        id: null,
         name: "",
         studentID: "",
         email: "",
@@ -26,7 +28,7 @@ const StudentProfile = ({ username: propUsername }) => {
         address: "",
         department: "CSE",
         gender: "MALE",
-        currSemester: " ",
+        currSemester: null,
     });
 
     const showToast = (message, type = "error") => {
@@ -47,7 +49,6 @@ const StudentProfile = ({ username: propUsername }) => {
         const fetchStudent = async () => {
             const token = getToken();
             try {
-                // Ensure the URL is constructed correctly (checking for trailing slashes)
                 const baseUrl = STUDENT_ENDPOINT.endsWith("/")
                     ? STUDENT_ENDPOINT
                     : `${STUDENT_ENDPOINT}/`;
@@ -61,8 +62,9 @@ const StudentProfile = ({ username: propUsername }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data)
+                    console.log(data);
                     setFormData({
+                        id: data.id,
                         name: data.name || "",
                         studentID: data.studentID || "",
                         email: data.email || "",
@@ -70,7 +72,7 @@ const StudentProfile = ({ username: propUsername }) => {
                         address: data.address || "",
                         department: data.department || "CSE",
                         gender: data.gender || "MALE",
-                        currSemester: data.currSemester || 1,
+                        currSemester: data.currSemester,
                     });
                 } else {
                     const errorMsg =
@@ -93,7 +95,7 @@ const StudentProfile = ({ username: propUsername }) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: name === "currSemester" ? parseInt(value) || 0 : value,
+            [name]: value,
         }));
     };
 
@@ -102,12 +104,18 @@ const StudentProfile = ({ username: propUsername }) => {
         setIsUpdating(true);
         const token = getToken();
 
-        // Strict formatting for Spring Boot Backend
+        // Prepare payload for Spring Boot Backend
         const payload = {
-            ...formData,
-            currSemester: Number(formData.currSemester),
-            gender: formData.gender.toUpperCase(),
-            department: formData.department.toUpperCase(),
+            name: formData.name || null,
+            studentID: formData.studentID || null,
+            email: formData.email || null,
+            phone: formData.phone || null,
+            address: formData.address || null,
+            department: formData.department
+                ? formData.department.toUpperCase()
+                : null,
+            gender: formData.gender ? formData.gender.toUpperCase() : null,
+            currSemester: null, // Don't send semester in update (it has separate endpoint)
         };
 
         try {
@@ -125,6 +133,19 @@ const StudentProfile = ({ username: propUsername }) => {
 
             if (response.ok) {
                 showToast("PROFILE_SYNCHRONIZED_SUCCESSFULLY", "success");
+                // Refresh the data after successful update
+                const refreshedData = await response.json();
+                setFormData((prev) => ({
+                    ...prev,
+                    name: refreshedData.name || "",
+                    studentID: refreshedData.studentID || "",
+                    email: refreshedData.email || "",
+                    phone: refreshedData.phone || "",
+                    address: refreshedData.address || "",
+                    department: refreshedData.department || "CSE",
+                    gender: refreshedData.gender || "MALE",
+                    currSemester: refreshedData.currSemester,
+                }));
             } else {
                 const errorData = await response.json().catch(() => ({}));
                 showToast(
@@ -133,6 +154,7 @@ const StudentProfile = ({ username: propUsername }) => {
                 );
             }
         } catch (err) {
+            console.error("UPDATE_ERROR:", err);
             showToast("COMMUNICATION_LINK_FAILURE", "error");
         } finally {
             setIsUpdating(false);
@@ -161,9 +183,6 @@ const StudentProfile = ({ username: propUsername }) => {
                     <h1 className="text-2xl font-bold text-white tracking-tight">
                         {formData.name || "UNNAMED_ENTITY"}
                     </h1>
-                    {/* <p className="text-[10px] font-mono text-ui-accent uppercase mt-1 tracking-widest opacity-70">
-                        System Student // {username}
-                    </p> */}
                 </div>
                 <div className="text-right">
                     <div className="text-[10px] font-mono text-ui-accent uppercase opacity-60">
@@ -190,7 +209,7 @@ const StudentProfile = ({ username: propUsername }) => {
                         </label>
                         <input
                             name="name"
-                            value={formData.name}
+                            value={formData.name || ""}
                             onChange={handleChange}
                             className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 transition-all"
                         />
@@ -203,7 +222,7 @@ const StudentProfile = ({ username: propUsername }) => {
                             </label>
                             <input
                                 name="studentID"
-                                value={formData.studentID}
+                                value={formData.studentID || ""}
                                 onChange={handleChange}
                                 className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                             />
@@ -214,7 +233,7 @@ const StudentProfile = ({ username: propUsername }) => {
                             </label>
                             <select
                                 name="department"
-                                value={formData.department}
+                                value={formData.department || "CSE"}
                                 onChange={handleChange}
                                 className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none cursor-pointer"
                             >
@@ -234,7 +253,7 @@ const StudentProfile = ({ username: propUsername }) => {
 
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
-                        Contact
+                        Contact & Academic
                     </h2>
 
                     <div className="space-y-2">
@@ -244,7 +263,7 @@ const StudentProfile = ({ username: propUsername }) => {
                         <input
                             name="email"
                             type="email"
-                            value={formData.email}
+                            value={formData.email || ""}
                             onChange={handleChange}
                             className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                         />
@@ -256,12 +275,14 @@ const StudentProfile = ({ username: propUsername }) => {
                                 Current Semester
                             </label>
                             <input
-                                name="currSemester"
-                                type="number"
-                                disabled={`${true}`}
-                                value={formData.currSemester.semesterNo}
-                                onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
+                                type="text"
+                                disabled
+                                value={
+                                    formData.currSemester
+                                        ? `${formData.currSemester.semesterNo} (Batch: ${formData.currSemester.batch})`
+                                        : "NOT ASSIGNED"
+                                }
+                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/70 outline-none cursor-not-allowed"
                             />
                         </div>
                         <div className="space-y-2">
@@ -270,7 +291,7 @@ const StudentProfile = ({ username: propUsername }) => {
                             </label>
                             <select
                                 name="gender"
-                                value={formData.gender}
+                                value={formData.gender || "MALE"}
                                 onChange={handleChange}
                                 className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none cursor-pointer"
                             >
@@ -293,7 +314,7 @@ const StudentProfile = ({ username: propUsername }) => {
                         </label>
                         <input
                             name="phone"
-                            value={formData.phone}
+                            value={formData.phone || ""}
                             onChange={handleChange}
                             className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
                         />
@@ -306,14 +327,14 @@ const StudentProfile = ({ username: propUsername }) => {
                         <textarea
                             name="address"
                             rows="1"
-                            value={formData.address}
+                            value={formData.address || ""}
                             onChange={handleChange}
                             className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 resize-none"
                         />
                     </div>
                 </div>
 
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex ">
+                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex">
                     <button
                         type="submit"
                         disabled={isUpdating}
@@ -329,6 +350,12 @@ const StudentProfile = ({ username: propUsername }) => {
                     </button>
                 </div>
             </form>
+
+            {formData.id && (
+                <div className="mt-4">
+                    <UserAttendanceStats userId={formData.id} />
+                </div>
+            )}
         </div>
     );
 };

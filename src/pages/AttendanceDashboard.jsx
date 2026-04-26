@@ -19,6 +19,7 @@ import {
 import { getToken } from "../services/tokenService";
 import { ATTENDANCE_ENDPOINT } from "../config/config";
 import Toast from "../components/Toast";
+import { Link } from "react-router-dom";
 
 // --- Reducer for filter state management ---
 const filterReducer = (state, action) => {
@@ -477,6 +478,14 @@ const AttendanceDashboard = () => {
                             </span>
                         )}
                     </div>
+                    <div className="block">
+                        <Link
+                            className="border-red-600 py-1 px-3 font-thin text-gray-200  border rounded block hover:bg-red-500 "
+                            to="/attendance-info"
+                        >
+                            Attendance Percengate
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Filters */}
@@ -707,7 +716,7 @@ const AttendanceDashboard = () => {
             </div>
 
             {/* Debug Panel */}
-            <details className="mt-4">
+            <details className="mt-4 hidden">
                 <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-400">
                     Debug Info
                 </summary>

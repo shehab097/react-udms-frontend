@@ -24,6 +24,7 @@ import QR from "../pages/QR";
 import QRScan from "../pages/QRScan";
 
 import { getToken } from "../services/tokenService";
+import AttendanceInfo from "../pages/AttendanceInfo";
 // import NotFound from "../pages/NotFound";
 
 export default function AppRoutes() {
@@ -33,16 +34,14 @@ export default function AppRoutes() {
             <div className="">
                 <Routes>
                     {/* Default */}
-                    {
-                        getToken()? null : <Route path="*" element={<Login />} />
-                    }
+                    {getToken() ? null : <Route path="*" element={<Login />} />}
                     <Route path="/" element={<Login />} />
                     <Route path="/home" element={<Dashboard />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    
+
                     <Route path="/qr" element={<QR />} />
                     <Route path="/qrscan" element={<QRScan />} />
 
@@ -52,6 +51,7 @@ export default function AppRoutes() {
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/course" element={<Course />} />
                     <Route path="/notice" element={<Notice />} />
+                    <Route path="/attendance-info" element={<AttendanceInfo />} />
                     <Route
                         path="/studentenrolled"
                         element={<StudentEnrolled />}
@@ -87,8 +87,6 @@ export default function AppRoutes() {
 
                     {/* <Route path="*" element={<NotFound />} /> */}
                     <Route path="*" element={<NotFound />} />
-
-
                 </Routes>
             </div>
         </Router>
