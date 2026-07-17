@@ -125,7 +125,7 @@ const Dashboard = () => {
     return (
         <div className="h-screen bg-ui-background flex flex-col font-sans text-content-primary overflow-hidden">
             {/* NAVBAR with Mobile Toggle */}
-            <div className="z-50 border-b border-white/5">
+            <div className="z-50 border-b border-ui-neutral/20">
                 <div className="flex items-center">
                     {/* Mobile Toggle Button */}
                     <button
@@ -144,7 +144,7 @@ const Dashboard = () => {
                 {/* SIDEBAR (Responsive Drawer) */}
                 <aside
                     className={`
-                        fixed inset-y-0 left-0 z-[60] w-72 bg-ui-surface border-r border-white/5 
+                        fixed inset-y-0 left-0 z-[60] w-72 bg-ui-surface border-r border-ui-neutral/20 
                         transform transition-transform duration-300 ease-in-out
                         md:relative md:translate-x-0 md:z-40 md:w-64
                         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
@@ -152,7 +152,7 @@ const Dashboard = () => {
                 >
                     <div className="flex flex-col h-full">
                         {/* Mobile Header in Sidebar */}
-                        <div className="flex items-center justify-between p-4 md:hidden border-b border-white/5">
+                        <div className="flex items-center justify-between p-4 md:hidden border-b border-ui-neutral/20">
                             <span className="font-black text-ui-accent tracking-widest uppercase text-sm">
                                 Navigation 
                             </span>
@@ -174,8 +174,8 @@ const Dashboard = () => {
                                     }}
                                     className={`w-full flex items-center p-3 rounded-xl transition-all group ${
                                         activeTab === item.name
-                                            ? "bg-ui-accent text-white shadow-lg shadow-ui-accent/20"
-                                            : "text-content-secondary hover:bg-white/5"
+                                            ? "bg-ui-accent text-content-primary shadow-lg shadow-ui-accent/20"
+                                            : "text-content-secondary hover:bg-ui-accent/10"
                                     }`}
                                 >
                                     <span className="flex justify-center shrink-0 text-xl w-8">
@@ -197,11 +197,12 @@ const Dashboard = () => {
                 </aside>
 
                 {/* MAIN CONTENT */}
-                <main className="flex-1 overflow-y-auto bg-ui-background/30 custom-scrollbar relative">
-                    <div className="p-4 md:p-8 max-w-7xl mx-auto w-full">
+                <main className="flex-1 overflow-y-auto bg-ui-background custom-scrollbar relative">
+                    <div className="p-4 md:p-1 max-w-7xl mx-auto w-full">
                         <header className=" flex items-center justify-between">
                             <div>
-                                {/* <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase italic">
+                                
+                                {/* <h1 className="text-2xl md:text-3xl font-black text-content-primary tracking-tighter uppercase italic">
                                     {activeTab} 
                                 </h1> */}
                                 {/* <p className="text-[10px] md:text-xs text-ui-accent font-mono uppercase tracking-[0.2em] mt-1 opacity-80">
@@ -214,7 +215,7 @@ const Dashboard = () => {
 
                             {/* <button
                                 onClick={handleOpenInNewTab}
-                                className="p-2.5 rounded-xl bg-ui-surface border border-white/5 hover:border-ui-accent transition-all group text-content-secondary hover:text-ui-accent"
+                                className="p-2.5 rounded-xl bg-ui-surface border border-ui-neutral/20 hover:border-ui-accent transition-all group text-content-secondary hover:text-ui-accent"
                                 title="Open in new window"
                             >
                                 <ExternalLink size={20} />
@@ -222,7 +223,7 @@ const Dashboard = () => {
                         </header>
 
                         {/* Content Area */}
-                        <div className="w-full bg-ui-surface/40 border border-white/5 rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-2xl backdrop-blur-sm min-h-[60vh]">
+                        <div className="w-full bg-ui-surface border border-ui-neutral rounded md:rounded p-4 md:p-8 shadow-2xl backdrop-blur-sm min-h-[calc(100vh-200px)] mt-4">
                             {renderContent()}
                         </div>
                     </div>
@@ -243,3 +244,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

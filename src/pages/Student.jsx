@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { getToken } from "../services/tokenService";
 import { Edit2, Check, X, ChevronUp, ChevronDown, FilterX } from "lucide-react";
@@ -155,6 +155,14 @@ const Student = () => {
         return 0;
     });
 
+    // Calculate student count statistics
+    const studentCounts = useMemo(() => {
+        return {
+            total: students.length,
+            displayed: sortedStudents.length,
+        };
+    }, [students, sortedStudents]);
+
     const SortIcon = ({ column }) => {
         if (sortConfig.key !== column) return null;
         return sortConfig.direction === "asc" ? (
@@ -173,6 +181,7 @@ const Student = () => {
 
     return (
         <div className="w-full space-y-6">
+            {/* 🍞 THE TOAST */}
             {toastConfig.show && (
                 <Toast
                     message={toastConfig.message}
@@ -184,9 +193,9 @@ const Student = () => {
             )}
 
             {/* Filter Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-white/[0.02] p-4 rounded-xl border border-white/5">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-ui-surface p-4 rounded-xl border border-ui-neutral shadow-sm">
                 <div>
-                    <label className="block text-[10px] font-mono text-ui-highlight uppercase tracking-[0.2em] mb-1.5 ml-1">
+                    <label className="block text-[10px] font-mono text-ui-secondary uppercase tracking-[0.2em] mb-1.5 ml-1">
                         Search
                     </label>
                     <input
@@ -194,18 +203,18 @@ const Student = () => {
                         placeholder="Name, ID, or @username"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-gray-200"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-lg px-3 py-2 text-sm focus:border-ui-accent focus:ring-2 focus:ring-ui-accent/10 outline-none text-content-primary placeholder:text-content-muted transition-all"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-mono text-ui-highlight uppercase tracking-[0.2em] mb-1.5 ml-1">
+                    <label className="block text-[10px] font-mono text-ui-secondary uppercase tracking-[0.2em] mb-1.5 ml-1">
                         Department
                     </label>
                     <select
                         value={deptFilter}
                         onChange={(e) => setDeptFilter(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-gray-200"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-content-primary transition-all"
                     >
                         <option value="">All Departments</option>
                         {departments.map((d) => (
@@ -217,13 +226,13 @@ const Student = () => {
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-mono text-ui-highlight uppercase tracking-[0.2em] mb-1.5 ml-1">
+                    <label className="block text-[10px] font-mono text-ui-secondary uppercase tracking-[0.2em] mb-1.5 ml-1">
                         Semester
                     </label>
                     <select
                         value={semFilter}
                         onChange={(e) => setSemFilter(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-gray-200"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-content-primary transition-all"
                     >
                         <option value="">All Semesters</option>
                         {[
@@ -246,79 +255,94 @@ const Student = () => {
                         setDeptFilter("");
                         setSemFilter("");
                     }}
-                    className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono text-gray-400 hover:text-ui-accent transition-colors"
+                    className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono text-content-secondary hover:text-ui-accent transition-colors group"
                 >
-                    <FilterX size={14} /> RESET FILTERS
+                    <FilterX
+                        size={14}
+                        className="group-hover:rotate-12 transition-transform"
+                    />
+                    RESET FILTERS
                 </button>
             </div>
 
-            <div className="w-full overflow-x-auto rounded-xl border border-white/5 shadow-2xl">
+            {/* Student Count Summary */}
+            <div className="flex items-center gap-4 p-4 bg-ui-surface rounded-xl border border-ui-neutral shadow-sm">
+                <span className="text-xs font-mono text-content-secondary">
+                    TOTAL_STUDENTS:{" "}
+                    <span className="text-ui-accent font-bold">
+                        {studentCounts.total}
+                    </span>
+                </span>
+                <span className="text-xs font-mono text-content-secondary">
+                    DISPLAYED:{" "}
+                    <span className="text-ui-highlight font-bold">
+                        {studentCounts.displayed}
+                    </span>
+                </span>
+            </div>
+
+            {/* Table Section */}
+            <div className="w-full overflow-x-auto rounded-xl border border-ui-neutral bg-ui-surface shadow-sm">
                 <table className="w-full text-left border-collapse min-w-[1100px]">
-                    <thead className="bg-white/[0.03] text-[10px] font-mono uppercase tracking-widest text-ui-highlight">
+                    <thead className="bg-ui-background text-[10px] font-mono uppercase tracking-widest text-content-secondary border-b border-ui-neutral">
                         <tr>
                             <th
                                 onClick={() => handleSort("studentID")}
-                                className="p-4 border-b border-white/5 cursor-pointer hover:text-ui-accent"
+                                className="p-4 cursor-pointer hover:text-ui-accent transition-colors"
                             >
                                 Student ID <SortIcon column="studentID" />
                             </th>
                             <th
                                 onClick={() => handleSort("name")}
-                                className="p-4 border-b border-white/5 cursor-pointer hover:text-ui-accent"
+                                className="p-4 cursor-pointer hover:text-ui-accent transition-colors"
                             >
                                 Identity <SortIcon column="name" />
                             </th>
                             <th
                                 onClick={() => handleSort("department")}
-                                className="p-4 border-b border-white/5 cursor-pointer hover:text-ui-accent"
+                                className="p-4 cursor-pointer hover:text-ui-accent transition-colors"
                             >
                                 Department <SortIcon column="department" />
                             </th>
                             <th
                                 onClick={() => handleSort("currSemester")}
-                                className="p-4 border-b border-white/5 cursor-pointer hover:text-ui-accent"
+                                className="p-4 cursor-pointer hover:text-ui-accent transition-colors"
                             >
                                 Semester <SortIcon column="currSemester" />
                             </th>
-                            <th className="p-4 border-b border-white/5">
-                                Contact
-                            </th>
-                            <th className="p-4 border-b border-white/5">
-                                Gender
-                            </th>
-                            <th className="p-4 border-b border-white/5">
-                                Location
-                            </th>
+                            <th className="p-4">Contact</th>
+                            <th className="p-4">Gender</th>
+                            <th className="p-4">Location</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm">
+                    <tbody className="divide-y divide-ui-neutral text-sm">
                         {sortedStudents.map((s) => (
                             <tr
                                 key={s.id}
-                                className="hover:bg-white/[0.01] transition-colors group"
+                                className="hover:bg-ui-background/50 transition-colors group"
                             >
                                 <td className="p-4 font-mono text-ui-accent font-semibold">
                                     {s.studentID || "N/A"}
                                 </td>
                                 <td className="p-4">
-                                    <div className="font-semibold text-gray-200">
+                                    <div className="font-semibold text-content-primary">
                                         {s.name}
                                     </div>
                                     <Link
                                         to={`/view/student/${s.username}`}
-                                        className="text-[10px] text-ui-accent/50 hover:text-ui-accent"
+                                        className="text-[10px] text-ui-secondary hover:text-ui-accent transition-colors"
                                     >
                                         @{s.username}
                                     </Link>
                                 </td>
                                 <td className="p-4">
-                                    <span className="px-2 py-1 rounded bg-purple-500/5 border border-purple-500/10 text-[11px] text-purple-400 font-mono">
+                                    <span className="px-2 py-1 rounded bg-secondary/10 border border-secondary/20 text-[11px] text-secondary font-mono font-medium">
                                         {s.department || "UNDEFINED"}
                                     </span>
                                 </td>
                                 <td className="p-4">
                                     {editingUsername === s.username ? (
-                                        <div className="flex items-center gap-1 animate-in slide-in-from-left-2">
+                                        <div className="flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200">
                                             <select
                                                 value={newSemValue}
                                                 onChange={(e) =>
@@ -326,7 +350,7 @@ const Student = () => {
                                                         e.target.value,
                                                     )
                                                 }
-                                                className="bg-ui-background border border-ui-accent rounded px-2 py-1 text-xs outline-none text-gray-200 max-w-[150px]"
+                                                className="bg-white border border-ui-accent rounded px-2 py-1 text-xs outline-none text-content-primary shadow-sm"
                                             >
                                                 <option value="">
                                                     Select Sem...
@@ -338,7 +362,7 @@ const Student = () => {
                                                             value={sem.id}
                                                         >
                                                             Sem {sem.semesterNo}{" "}
-                                                            (Batch {sem.batch})
+                                                            (B{sem.batch})
                                                         </option>
                                                     ),
                                                 )}
@@ -349,7 +373,7 @@ const Student = () => {
                                                         s.username,
                                                     )
                                                 }
-                                                className="text-green-500 p-1"
+                                                className="text-highlight p-1 hover:bg-highlight/10 rounded"
                                             >
                                                 <Check size={16} />
                                             </button>
@@ -357,14 +381,14 @@ const Student = () => {
                                                 onClick={() =>
                                                     setEditingUsername(null)
                                                 }
-                                                className="text-red-500 p-1"
+                                                className="text-content-muted p-1 hover:bg-ui-background rounded"
                                             >
                                                 <X size={16} />
                                             </button>
                                         </div>
                                     ) : (
                                         <div className="flex items-center gap-2">
-                                            <span className="font-mono text-gray-300 text-xs">
+                                            <span className="font-mono text-content-secondary text-xs">
                                                 {s.currSemester
                                                     ? `Sem ${s.currSemester.semesterNo} (B${s.currSemester.batch})`
                                                     : "--"}
@@ -380,7 +404,7 @@ const Student = () => {
                                                                 ?.id || "",
                                                         );
                                                     }}
-                                                    className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-ui-accent"
+                                                    className="opacity-0 group-hover:opacity-100 text-ui-secondary hover:text-ui-accent transition-all"
                                                 >
                                                     <Edit2 size={12} />
                                                 </button>
@@ -389,22 +413,26 @@ const Student = () => {
                                     )}
                                 </td>
                                 <td className="p-4">
-                                    <div className="text-xs text-gray-300">
+                                    <div className="text-xs text-content-secondary font-medium">
                                         {s.email}
                                     </div>
-                                    <div className="text-[10px] text-gray-500 font-mono">
+                                    <div className="text-[10px] text-content-muted font-mono">
                                         {s.phone}
                                     </div>
                                 </td>
                                 <td className="p-4">
                                     <span
-                                        className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase ${s.gender === "MALE" ? "border-blue-500/20 text-blue-400" : "border-pink-500/20 text-pink-400"}`}
+                                        className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase ${
+                                            s.gender === "MALE"
+                                                ? "border-ui-accent/30 bg-ui-accent/5 text-ui-accent"
+                                                : "border-pink-200 bg-pink-50 text-pink-600"
+                                        }`}
                                     >
                                         {s.gender?.charAt(0) || "U"}
                                     </span>
                                 </td>
                                 <td
-                                    className="p-4 text-xs text-gray-500 max-w-[150px] truncate"
+                                    className="p-4 text-xs text-content-secondary max-w-[150px] truncate"
                                     title={s.address}
                                 >
                                     {s.address || "---"}
@@ -622,34 +650,34 @@ export default Student;
 //                         placeholder="Name, ID, or @username"
 //                         value={searchTerm}
 //                         onChange={(e) => setSearchTerm(e.target.value)}
-//                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-gray-200"
+//                         className="w-full bg-ui-accent/10 border border-ui-neutral/20 rounded-lg px-3 py-2 text-sm focus:border-ui-accent outline-none text-gray-200"
 //                     />
 //                 </div>
 //             </div>
 
-//             <div className="w-full overflow-x-auto rounded-xl border border-white/5 shadow-2xl">
+//             <div className="w-full overflow-x-auto rounded-xl border border-ui-neutral/20 shadow-2xl">
 //                 <table className="w-full text-left border-collapse min-w-[1100px]">
-//                     <thead className="bg-white/[0.03] text-[10px] font-mono uppercase tracking-widest text-ui-highlight">
+//                     <thead className="bg-ui-accent/10 text-[10px] font-mono uppercase tracking-widest text-ui-highlight">
 //                         <tr>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Student_ID
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Identity
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Department
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Semester
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Contact
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Gender
 //                             </th>
-//                             <th className="p-4 border-b border-white/5">
+//                             <th className="p-4 border-b border-ui-neutral/20">
 //                                 Location
 //                             </th>
 //                         </tr>
@@ -716,7 +744,7 @@ export default Student;
 //                                                         s.username,
 //                                                     )
 //                                                 }
-//                                                 className="text-green-500 hover:text-green-400 p-1"
+//                                                 className="text-ui-highlight hover:text-ui-highlight p-1"
 //                                             >
 //                                                 <Check size={16} />
 //                                             </button>
@@ -724,7 +752,7 @@ export default Student;
 //                                                 onClick={() =>
 //                                                     setEditingUsername(null)
 //                                                 }
-//                                                 className="text-red-500 hover:text-red-400 p-1"
+//                                                 className="text-ui-secondary hover:text-ui-secondary p-1"
 //                                             >
 //                                                 <X size={16} />
 //                                             </button>
@@ -732,7 +760,7 @@ export default Student;
 //                                     ) : (
 //                                         <div className="flex items-center gap-2">
 //                                             {/* Render DTO fields correctly */}
-//                                             <span className="font-mono text-gray-300 text-xs">
+//                                             <span className="font-mono text-content-muted text-xs">
 //                                                 {s.currSemester
 //                                                     ? `Sem ${s.currSemester.semesterNo} (B${s.currSemester.batch})`
 //                                                     : "--"}
@@ -749,7 +777,7 @@ export default Student;
 //                                                                 ?.id || "",
 //                                                         );
 //                                                     }}
-//                                                     className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-ui-accent transition-all"
+//                                                     className="opacity-0 group-hover:opacity-100 text-content-muted hover:text-ui-accent transition-all"
 //                                                 >
 //                                                     <Edit2 size={12} />
 //                                                 </button>
@@ -759,22 +787,22 @@ export default Student;
 //                                 </td>
 
 //                                 <td className="p-4">
-//                                     <div className="text-xs text-gray-300">
+//                                     <div className="text-xs text-content-muted">
 //                                         {s.email}
 //                                     </div>
-//                                     <div className="text-[10px] text-gray-500 font-mono">
+//                                     <div className="text-[10px] text-content-muted font-mono">
 //                                         {s.phone}
 //                                     </div>
 //                                 </td>
 //                                 <td className="p-4">
 //                                     <span
-//                                         className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase ${s.gender === "MALE" ? "border-blue-500/20 text-blue-400" : "border-pink-500/20 text-pink-400"}`}
+//                                         className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase ${s.gender === "MALE" ? "border-ui-accent/20 text-ui-accent" : "border-pink-500/20 text-pink-400"}`}
 //                                     >
 //                                         {s.gender?.charAt(0) || "U"}
 //                                     </span>
 //                                 </td>
 //                                 <td
-//                                     className="p-4 text-xs text-gray-500 max-w-[150px] truncate"
+//                                     className="p-4 text-xs text-content-muted max-w-[150px] truncate"
 //                                     title={s.address}
 //                                 >
 //                                     {s.address || "---"}

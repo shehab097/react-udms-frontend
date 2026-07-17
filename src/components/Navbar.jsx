@@ -31,7 +31,7 @@ const Navbar = () => {
     }, [isOpen]);
 
     return (
-        <header className="w-full sticky top-0 left-0 z-[100] bg-ui-background border-b border-white/10 shadow-lg">
+        <header className="w-full sticky top-0 left-0 z-[100] bg-ui-background border-b border-ui-neutral/20 shadow-lg">
             <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                 {/* Logo Section */}
                 <Link to="/" className="flex items-center gap-3 group shrink-0">
@@ -54,7 +54,7 @@ const Navbar = () => {
                                 className={`px-4 py-2 rounded-md text-xs font-mono uppercase tracking-widest transition-all ${
                                     location.pathname === link.path
                                         ? "text-ui-accent bg-ui-accent/5"
-                                        : "text-content-secondary hover:text-ui-highlight hover:bg-white/5"
+                                        : "text-content-secondary hover:text-ui-highlight hover:bg-ui-accent/10"
                                 }`
                                     
                                 }
@@ -82,7 +82,7 @@ const Navbar = () => {
                     {!isOpen && <UserCard />}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="p-2 text-ui-highlight hover:bg-white/5 rounded-lg transition-colors"
+                        className="p-2 text-ui-highlight hover:bg-ui-accent/10 rounded-lg transition-colors"
                         aria-label="Toggle Menu"
                     >
                         {isOpen ? (
@@ -108,7 +108,7 @@ const Navbar = () => {
                 <div className="absolute inset-0 bg-ui-background/80 backdrop-blur-md border" />
 
                 {/* 2. The Content Layer: Solid and focused */}
-                <div className="relative flex flex-col h-full p-8 border-l border-white/5 bg-ui-background shadow-2xl">
+                <div className="relative flex flex-col h-full p-8 border-l border-ui-neutral/20 bg-ui-background shadow-2xl">
                     <div className="space-y-6">
                         <p className="text-[10px] font-mono text-ui-accent uppercase tracking-[0.4em] mb-8 flex items-center gap-2">
                             <span className="w-1 h-1 bg-ui-accent animate-pulse" />
@@ -131,8 +131,8 @@ const Navbar = () => {
                     </div>
 
                     {/* Bottom Section */}
-                    <div className="mt-auto pt-10 border-t border-white/5 space-y-6">
-                        <div className="flex items-center justify-between bg-white/5 p-4 rounded-lg">
+                    <div className="mt-auto pt-10 border-t border-ui-neutral/20 space-y-6">
+                        <div className="flex items-center justify-between bg-ui-accent/10 p-4 rounded-lg">
                             <span className="text-[11px] font-mono text-content-secondary uppercase tracking-widest">
                                 Active_User
                             </span>
@@ -154,3 +154,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

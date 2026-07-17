@@ -264,9 +264,9 @@ const useAttendanceData = () => {
 // --- Helper Components ---
 const SelectField = ({ label, icon, children, required = false }) => (
     <div className="space-y-2">
-        <label className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-blue-400">
+        <label className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-ui-accent">
             {icon} {label}
-            {required && <span className="text-red-400 text-xs">*</span>}
+            {required && <span className="text-ui-secondary text-xs">*</span>}
         </label>
         {children}
     </div>
@@ -280,10 +280,10 @@ const StatusButton = ({ active, type, onClick, disabled = false }) => {
     let statusClasses;
     if (active) {
         statusClasses = isP
-            ? "bg-green-500 text-black font-bold shadow-lg shadow-green-500/30"
-            : "bg-red-500 text-white font-bold shadow-lg shadow-red-500/30";
+            ? "bg-ui-highlight text-black font-bold shadow-lg shadow-green-500/30"
+            : "bg-ui-secondary text-content-primary font-bold shadow-lg shadow-red-500/30";
     } else {
-        statusClasses = "bg-white/5 text-gray-400 hover:bg-white/10";
+        statusClasses = "bg-ui-surface text-content-muted hover:bg-white/10";
     }
 
     return (
@@ -303,13 +303,13 @@ const StatusButton = ({ active, type, onClick, disabled = false }) => {
 };
 
 const StatsCard = ({ totalStudents, markedCount }) => (
-    <div className="flex gap-4 text-xs font-mono text-gray-400">
+    <div className="flex gap-4 text-xs font-mono text-content-muted">
         <div className="flex items-center gap-2">
             <Users size={14} />
             <span>Total: {totalStudents}</span>
         </div>
         <div className="flex items-center gap-2">
-            <CheckCircle size={14} className="text-green-400" />
+            <CheckCircle size={14} className="text-ui-highlight" />
             <span>Marked: {markedCount}</span>
         </div>
         {markedCount < totalStudents && totalStudents > 0 && (
@@ -376,18 +376,18 @@ const MarkAttendance = () => {
     if (state.error && !state.students.length) {
         return (
             <div className="w-full max-w-6xl mx-auto p-4">
-                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-8 text-center">
+                <div className="bg-ui-secondary/10 border border-ui-secondary/30 rounded-lg p-8 text-center">
                     <AlertCircle
-                        className="mx-auto mb-4 text-red-400"
+                        className="mx-auto mb-4 text-ui-secondary"
                         size={48}
                     />
-                    <h3 className="text-lg font-semibold text-red-400 mb-2">
+                    <h3 className="text-lg font-semibold text-ui-secondary mb-2">
                         Failed to Load Data
                     </h3>
-                    <p className="text-gray-400">{state.error}</p>
+                    <p className="text-content-muted">{state.error}</p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-4 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded text-sm"
+                        className="mt-4 px-4 py-2 bg-ui-secondary/20 hover:bg-ui-secondary/30 rounded text-sm"
                     >
                         Retry
                     </button>
@@ -405,12 +405,10 @@ const MarkAttendance = () => {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                     Mark Attendance
                 </h1>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-content-muted mt-1">
                     Record and manage student attendance
                 </p>
             </div>
-
-
 
             {/* Selection Controls */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -420,7 +418,8 @@ const MarkAttendance = () => {
                     required
                 >
                     <select
-                        className="w-full bg-white/5 border border-white/10 rounded-md p-3 text-sm focus:border-blue-500 outline-none transition-colors"
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-md p-3 text-sm focus:border-ui-accent 
+                        text-content-primary outline-none transition-colors"
                         onChange={(e) => {
                             const course = state.courses.find(
                                 (c) => c.id === parseInt(e.target.value),
@@ -447,7 +446,8 @@ const MarkAttendance = () => {
                     required
                 >
                     <select
-                        className="w-full bg-white/5 border border-white/10 rounded-md p-3 text-sm focus:border-blue-500 outline-none transition-colors"
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-md p-3 text-sm focus:border-ui-accent 
+                        text-content-primary outline-none transition-colors"
                         onChange={(e) => {
                             const semester = state.semesters.find(
                                 (s) => s.id === parseInt(e.target.value),
@@ -477,7 +477,8 @@ const MarkAttendance = () => {
                     <input
                         type="date"
                         value={selection.date}
-                        className="w-full bg-white/5 border border-white/10 rounded-md p-3 text-sm outline-none transition-colors"
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-md p-3 text-sm 
+                        text-content-primary outline-none transition-colors"
                         onChange={(e) =>
                             setSelection((prev) => ({
                                 ...prev,
@@ -489,10 +490,10 @@ const MarkAttendance = () => {
             </div>
 
             {/* Attendance Table */}
-            <div className="border border-white/5 rounded-xl overflow-hidden backdrop-blur-sm bg-white/[0.02]">
-                <div className="bg-white/[0.03] px-6 py-4 border-b border-white/5 flex flex-wrap justify-between items-center gap-4">
+            <div className="border border-ui-neutral rounded-xl overflow-hidden backdrop-blur-sm bg-ui-accent/[0.05]">
+                <div className="bg-ui-surface px-6 py-4 border-b border-ui-neutral flex flex-wrap justify-between items-center gap-4">
                     <div className="space-y-1">
-                        <h3 className="text-[10px] font-mono uppercase tracking-widest text-gray-400">
+                        <h3 className="text-[10px] font-mono uppercase tracking-widest text-content-muted">
                             Attendance Registry
                         </h3>
                         {selection.course && selection.semester && (
@@ -512,7 +513,7 @@ const MarkAttendance = () => {
                         <button
                             onClick={markAllPresent}
                             disabled={!filteredStudents.length}
-                            className="text-[9px] font-mono bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                            className="text-[9px] font-mono bg-ui-accent hover:bg-ui-secondary border border-ui-neutral px-3 py-1.5 rounded transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                         >
                             Mark All Present
                         </button>
@@ -521,7 +522,7 @@ const MarkAttendance = () => {
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm min-w-[600px]">
-                        <thead className="bg-white/[0.01] text-[10px] font-mono uppercase tracking-widest text-gray-500 border-b border-white/5">
+                        <thead className="bg-white/[0.01] text-[10px] font-mono uppercase tracking-widest text-content-muted border-b border-ui-neutral">
                             <tr>
                                 <th className="px-6 py-4 font-normal">
                                     Student Info
@@ -545,7 +546,7 @@ const MarkAttendance = () => {
                                             className="animate-spin mx-auto mb-2"
                                             size={24}
                                         />
-                                        <p className="text-gray-500 text-sm">
+                                        <p className="text-content-muted text-sm">
                                             Loading students...
                                         </p>
                                     </td>
@@ -557,10 +558,10 @@ const MarkAttendance = () => {
                                         className="hover:bg-white/[0.01] transition-colors group"
                                     >
                                         <td className="px-6 py-4">
-                                            <div className="font-medium text-white group-hover:text-blue-400 transition-colors">
+                                            <div className="font-medium text-content-primary group-hover:text-ui-accent transition-colors">
                                                 {student.name}
                                             </div>
-                                            <div className="text-[10px] text-gray-500 font-mono mt-0.5">
+                                            <div className="text-[10px] text-content-muted font-mono mt-0.5">
                                                 {student.department}
                                             </div>
                                             {/* Display semester info for debugging */}
@@ -570,7 +571,7 @@ const MarkAttendance = () => {
                                                     "N/A"}
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 font-mono text-blue-400/80 text-sm">
+                                        <td className="px-6 py-4 font-mono text-ui-accent/80 text-sm">
                                             {student.studentID}
                                         </td>
                                         <td className="px-6 py-4">
@@ -615,7 +616,7 @@ const MarkAttendance = () => {
                                         colSpan="3"
                                         className="px-6 py-12 text-center"
                                     >
-                                        <div className="text-gray-500">
+                                        <div className="text-content-muted">
                                             <Users
                                                 className="mx-auto mb-2 opacity-50"
                                                 size={32}
@@ -640,7 +641,7 @@ const MarkAttendance = () => {
                 <button
                     disabled={isSubmitDisabled || !hasUnsavedChanges}
                     onClick={submitAttendance}
-                    className="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3 rounded-md font-mono font-black uppercase tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
+                    className="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-content-primary px-8 py-3 rounded-md font-mono font-black uppercase tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
                 >
                     {state.loading ? (
                         <>
@@ -658,23 +659,23 @@ const MarkAttendance = () => {
 
             {/* Debug Panel */}
             <details className="mt-8">
-                <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-400">
+                <summary className="text-xs text-content-muted cursor-pointer hover:text-content-muted">
                     Debug Info
                 </summary>
-                <div className="mt-2 p-4 bg-black/50 border border-white/10 rounded text-xs space-y-2">
+                <div className="mt-2 p-4 bg-black/50 border border-ui-neutral rounded text-xs space-y-2">
                     <div>
-                        <strong className="text-blue-400">
+                        <strong className="text-ui-accent">
                             Selected Semester:
                         </strong>
-                        <pre className="mt-1 text-gray-400">
+                        <pre className="mt-1 text-content-muted">
                             {JSON.stringify(selection.semester, null, 2)}
                         </pre>
                     </div>
                     <div>
-                        <strong className="text-blue-400">
+                        <strong className="text-ui-accent">
                             Filtered Students (by Semester ID):
                         </strong>
-                        <pre className="mt-1 text-gray-400">
+                        <pre className="mt-1 text-content-muted">
                             {JSON.stringify(
                                 filteredStudents.map((s) => ({
                                     id: s.id,
@@ -688,10 +689,10 @@ const MarkAttendance = () => {
                         </pre>
                     </div>
                     <div>
-                        <strong className="text-blue-400">
+                        <strong className="text-ui-accent">
                             Attendance Map:
                         </strong>
-                        <pre className="mt-1 text-gray-400">
+                        <pre className="mt-1 text-content-muted">
                             {JSON.stringify(attendanceMap, null, 2)}
                         </pre>
                     </div>
@@ -702,3 +703,4 @@ const MarkAttendance = () => {
 };
 
 export default MarkAttendance;
+

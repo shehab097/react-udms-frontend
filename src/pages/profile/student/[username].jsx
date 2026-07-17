@@ -169,7 +169,7 @@ const StudentProfile = ({ username: propUsername }) => {
         );
 
     return (
-        <div className="max-w-4xl mx-auto p-6 ">
+        <div className="max-w-4xl mx-auto p-6">
             {toast.show && (
                 <Toast
                     message={toast.message}
@@ -178,17 +178,18 @@ const StudentProfile = ({ username: propUsername }) => {
                 />
             )}
 
-            <div className="mb-10 border-b border-white/5 pb-6 flex items-center justify-between">
+            {/* Header Section */}
+            <div className="mb-10 border-b border-ui-neutral/10 pb-6 flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">
+                    <h1 className="text-2xl font-bold text-content-primary tracking-tight">
                         {formData.name || "UNNAMED_ENTITY"}
                     </h1>
                 </div>
                 <div className="text-right">
-                    <div className="text-[10px] font-mono text-ui-accent uppercase opacity-60">
+                    <div className="text-[10px] font-mono text-ui-accent uppercase opacity-80 tracking-widest">
                         Student ID
                     </div>
-                    <div className="text-lg font-bold text-white">
+                    <div className="text-lg font-bold text-content-primary">
                         {formData.studentID || "PENDING"}
                     </div>
                 </div>
@@ -198,66 +199,75 @@ const StudentProfile = ({ username: propUsername }) => {
                 onSubmit={handleUpdate}
                 className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
+                {/* Left Column: Personal Information */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
                         Personal Information
                     </h2>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Full Name
                         </label>
                         <input
                             name="name"
                             value={formData.name || ""}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 transition-all"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent transition-all"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-mono text-content-secondary uppercase">
+                            <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                                 Student ID
                             </label>
                             <input
                                 name="studentID"
                                 value={formData.studentID || ""}
                                 onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
+                                className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent transition-all"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-mono text-content-secondary uppercase">
+                            <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                                 Department
                             </label>
-                            <select
-                                name="department"
-                                value={formData.department || "CSE"}
-                                onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none cursor-pointer"
-                            >
-                                {["CSE", "EEE", "ME", "FDAE"].map((dept) => (
-                                    <option
-                                        key={dept}
-                                        value={dept}
-                                        className="bg-ui-surface text-white"
-                                    >
-                                        {dept}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <select
+                                    name="department"
+                                    value={formData.department || "CSE"}
+                                    onChange={handleChange}
+                                    className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent appearance-none cursor-pointer transition-all"
+                                >
+                                    {["CSE", "EEE", "ME", "FDAE"].map(
+                                        (dept) => (
+                                            <option
+                                                key={dept}
+                                                value={dept}
+                                                className="bg-ui-surface text-content-primary"
+                                            >
+                                                {dept}
+                                            </option>
+                                        ),
+                                    )}
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ui-accent opacity-50 text-[10px]">
+                                    ▼
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                {/* Right Column: Contact & Academic */}
                 <div className="space-y-6">
                     <h2 className="text-[11px] font-bold text-ui-accent uppercase tracking-[0.2em] mb-4">
                         Contact & Academic
                     </h2>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Email Address
                         </label>
                         <input
@@ -265,13 +275,13 @@ const StudentProfile = ({ username: propUsername }) => {
                             type="email"
                             value={formData.email || ""}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent transition-all"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-mono text-content-secondary uppercase">
+                            <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                                 Current Semester
                             </label>
                             <input
@@ -282,46 +292,51 @@ const StudentProfile = ({ username: propUsername }) => {
                                         ? `${formData.currSemester.semesterNo} (Batch: ${formData.currSemester.batch})`
                                         : "NOT ASSIGNED"
                                 }
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/70 outline-none cursor-not-allowed"
+                                className="w-full bg-ui-surface/5 border border-ui-neutral/10 rounded-xl px-4 py-3 text-sm text-content-secondary outline-none cursor-not-allowed opacity-60"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-mono text-content-secondary uppercase">
+                            <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                                 Gender
                             </label>
-                            <select
-                                name="gender"
-                                value={formData.gender || "MALE"}
-                                onChange={handleChange}
-                                className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 appearance-none cursor-pointer"
-                            >
-                                {["MALE", "FEMALE", "OTHER"].map((g) => (
-                                    <option
-                                        key={g}
-                                        value={g}
-                                        className="bg-ui-surface text-white"
-                                    >
-                                        {g}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <select
+                                    name="gender"
+                                    value={formData.gender || "MALE"}
+                                    onChange={handleChange}
+                                    className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent appearance-none cursor-pointer transition-all"
+                                >
+                                    {["MALE", "FEMALE", "OTHER"].map((g) => (
+                                        <option
+                                            key={g}
+                                            value={g}
+                                            className="bg-ui-surface text-content-primary"
+                                        >
+                                            {g}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ui-accent opacity-50 text-[10px]">
+                                    ▼
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Phone
                         </label>
                         <input
                             name="phone"
                             value={formData.phone || ""}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent transition-all"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Address
                         </label>
                         <textarea
@@ -329,19 +344,20 @@ const StudentProfile = ({ username: propUsername }) => {
                             rows="1"
                             value={formData.address || ""}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-accent/50 resize-none"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-accent resize-none transition-all"
                         />
                     </div>
                 </div>
 
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex">
+                {/* Submit Area */}
+                <div className="md:col-span-2 pt-6 border-t border-ui-neutral/10 mt-4 flex">
                     <button
                         type="submit"
                         disabled={isUpdating}
-                        className={`bg-ui-accent text-white px-10 py-3 rounded-xl text-[11px] font-black tracking-widest transition-all ${
+                        className={`bg-ui-accent text-white px-10 py-3 rounded-xl text-[11px] font-black tracking-[0.15em] transition-all ${
                             isUpdating
                                 ? "opacity-50 cursor-wait"
-                                : "hover:scale-[1.02] active:scale-95 shadow-lg shadow-ui-accent/20"
+                                : "hover:brightness-110 active:scale-95 shadow-lg shadow-ui-accent/20"
                         }`}
                     >
                         {isUpdating
@@ -352,7 +368,7 @@ const StudentProfile = ({ username: propUsername }) => {
             </form>
 
             {formData.id && (
-                <div className="mt-4">
+                <div className="mt-8 border-t border-ui-neutral/5 pt-8">
                     <UserAttendanceStats userId={formData.id} />
                 </div>
             )}

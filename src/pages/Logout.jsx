@@ -65,7 +65,7 @@ const Logout = () => {
                     {/* Button using ui.accent */}
                     <button
                         onClick={() => navigate("/home")}
-                        className="w-full bg-ui-accent text-white py-4 rounded-2xl font-rounded font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-ui-accent/20"
+                        className="w-full bg-ui-accent text-content-primary py-4 rounded-2xl font-rounded font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-ui-accent/20"
                     >
                         Login Again
                     </button>
@@ -80,3 +80,4 @@ const Logout = () => {
 };
 
 export default Logout;
+

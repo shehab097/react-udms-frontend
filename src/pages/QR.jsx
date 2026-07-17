@@ -163,7 +163,7 @@ export default function QR() {
                         </div>
                     </>
                 ) : (
-                    <div className="w-full flex items-center justify-center text-gray-400 italic">
+                    <div className="w-full flex items-center justify-center text-content-muted italic">
                         Please select a Semester and Course to generate QR code.
                     </div>
                 )}
@@ -171,3 +171,4 @@ export default function QR() {
         </div>
     );
 }
+

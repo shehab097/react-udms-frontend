@@ -1,0 +1,35 @@
+
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    theme: {
+        extend: {
+            // tailwind.config.js
+            colors: {
+                ui: {
+                    background: "#F3F4F6", // Gray 100
+                    surface: "#FFFFFF", // White
+                    accent: "#3B82F6", // Blue 500 (Vibrant but trusted)
+                    secondary: "#6366F1", // Indigo 500
+                    highlight: "#10B981", // Emerald 500
+                    neutral: "#E5E7EB", // Gray 200 (For borders)
+                },
+                content: {
+                    primary: "#0F172A", // Slate 900 - High contrast for headings
+                    secondary: "#4B5563", // Gray 600 - Descriptive body text
+                    muted: "#9CA3AF", // Gray 400 - Timestamps/placeholders
+                },
+            },
+            fontFamily: {
+                // Cleaner, more professional font pairings
+                sans: ["Inter", "ui-sans-serif", "system-ui"],
+                rounded: ["Nunito", "sans-serif"],
+            },
+            borderRadius: {
+                // Softened corners for a modern, approachable feel
+                layout: "12px",
+            },
+        },
+    },
+    plugins: [],
+};

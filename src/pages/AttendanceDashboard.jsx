@@ -298,20 +298,20 @@ const StatusBadge = ({ status }) => {
     const config = isPresent
         ? {
               label: "PRESENT",
-              color: "text-green-400",
-              bg: "bg-green-500/10",
+              color: "text-ui-highlight",
+              bg: "bg-ui-highlight/10",
               border: "border-green-500/30",
           }
         : isAbsent
           ? {
                 label: "ABSENT",
-                color: "text-red-400",
-                bg: "bg-red-500/10",
-                border: "border-red-500/30",
+                color: "text-ui-secondary",
+                bg: "bg-ui-secondary/10",
+                border: "border-ui-secondary/30",
             }
           : {
                 label: status || "UNKNOWN",
-                color: "text-gray-400",
+                color: "text-content-muted",
                 bg: "bg-gray-500/10",
                 border: "border-gray-500/30",
             };
@@ -330,9 +330,9 @@ const SortIcon = ({ column, currentSort }) => {
         return <ChevronDown size={12} className="opacity-30" />;
     }
     return currentSort.direction === "asc" ? (
-        <ChevronUp size={12} className="text-blue-400" />
+        <ChevronUp size={12} className="text-ui-accent" />
     ) : (
-        <ChevronDown size={12} className="text-blue-400" />
+        <ChevronDown size={12} className="text-ui-accent" />
     );
 };
 
@@ -348,13 +348,13 @@ const FilterSelect = ({
         {Icon && (
             <Icon
                 size={12}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-content-muted"
             />
         )}
         <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className={`bg-white/5 border border-white/10 text-[11px] rounded-md px-3 py-1.5 text-gray-300 outline-none focus:border-blue-500 transition-all ${Icon ? "pl-7" : ""}`}
+            className={`bg-ui-accent/10 border border-ui-neutral/20 text-[11px] rounded-md px-3 py-1.5 text-content-muted outline-none focus:border-ui-accent transition-all ${Icon ? "pl-7" : ""}`}
         >
             <option value="" className="bg-[#0a0a0a]">
                 {placeholder}
@@ -373,9 +373,9 @@ const FilterSelect = ({
 );
 
 const StatCard = ({ label, value, color, icon: Icon }) => (
-    <div className="bg-white/[0.02] border border-white/5 p-4 rounded-lg hover:bg-white/[0.04] transition-all">
+    <div className="bg-ui-accent/[0.05] border border-ui-neutral/20 p-4 rounded-lg hover:bg-white/[0.04] transition-all">
         <div className="flex items-center justify-between mb-2">
-            <p className="text-[9px] uppercase font-mono text-gray-500 tracking-[0.2em]">
+            <p className="text-[9px] uppercase font-mono text-content-muted tracking-[0.2em]">
                 {label}
             </p>
             {Icon && <Icon size={14} className={`${color} opacity-70`} />}
@@ -389,19 +389,19 @@ const TableSkeleton = () => (
         {[...Array(5)].map((_, i) => (
             <tr key={i} className="animate-pulse">
                 <td className="px-6 py-4">
-                    <div className="h-4 bg-white/5 rounded w-24"></div>
+                    <div className="h-4 bg-ui-accent/10 rounded w-24"></div>
                 </td>
                 <td className="px-6 py-4">
-                    <div className="h-4 bg-white/5 rounded w-20"></div>
+                    <div className="h-4 bg-ui-accent/10 rounded w-20"></div>
                 </td>
                 <td className="px-6 py-4">
-                    <div className="h-4 bg-white/5 rounded w-32"></div>
+                    <div className="h-4 bg-ui-accent/10 rounded w-32"></div>
                 </td>
                 <td className="px-6 py-4">
-                    <div className="h-4 bg-white/5 rounded w-16"></div>
+                    <div className="h-4 bg-ui-accent/10 rounded w-16"></div>
                 </td>
                 <td className="px-6 py-4">
-                    <div className="h-6 bg-white/5 rounded w-20 mx-auto"></div>
+                    <div className="h-6 bg-ui-accent/10 rounded w-20 mx-auto"></div>
                 </td>
             </tr>
         ))}
@@ -429,18 +429,18 @@ const AttendanceDashboard = () => {
     if (error && !loading) {
         return (
             <div className="w-full space-y-6">
-                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-8 text-center">
+                <div className="bg-ui-secondary/10 border border-ui-secondary/30 rounded-lg p-8 text-center">
                     <AlertCircle
-                        className="mx-auto mb-4 text-red-400"
+                        className="mx-auto mb-4 text-ui-secondary"
                         size={48}
                     />
-                    <h3 className="text-lg font-semibold text-red-400 mb-2">
+                    <h3 className="text-lg font-semibold text-ui-secondary mb-2">
                         Failed to Load Data
                     </h3>
-                    <p className="text-gray-400 mb-4">{error}</p>
+                    <p className="text-content-muted mb-4">{error}</p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-md text-sm transition-colors"
+                        className="px-4 py-2 bg-ui-secondary/20 hover:bg-ui-secondary/30 rounded-md text-sm transition-colors"
                     >
                         Retry
                     </button>
@@ -460,19 +460,19 @@ const AttendanceDashboard = () => {
             )}
 
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/5 pb-4 gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-ui-neutral/20 pb-4 gap-4">
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                         Attendance Dashboard
                     </h1>
-                    <div className="flex items-center gap-3 text-[10px] font-mono text-gray-500">
+                    <div className="flex items-center gap-3 text-[10px] font-mono text-content-muted">
                         <span className="flex items-center gap-1">
                             <Users size={10} />
                             {loading ? "..." : `${stats.total} records`}
                         </span>
                         {stats.total > 0 && (
                             <span
-                                className={`${stats.attendanceRate >= 75 ? "text-green-400" : stats.attendanceRate >= 50 ? "text-yellow-400" : "text-red-400"}`}
+                                className={`${stats.attendanceRate >= 75 ? "text-ui-highlight" : stats.attendanceRate >= 50 ? "text-yellow-400" : "text-ui-secondary"}`}
                             >
                                 {stats.attendanceRate}% present
                             </span>
@@ -480,7 +480,7 @@ const AttendanceDashboard = () => {
                     </div>
                     <div className="block">
                         <Link
-                            className="border-red-600 py-1 px-3 font-thin text-gray-200  border rounded block hover:bg-red-500 "
+                            className="border-ui-secondary py-1 px-3 font-thin text-gray-200  border rounded block hover:bg-ui-secondary "
                             to="/attendance-info"
                         >
                             Attendance Percengate
@@ -490,7 +490,7 @@ const AttendanceDashboard = () => {
 
                 {/* Filters */}
                 <div className="flex flex-wrap gap-2 items-center">
-                    <Filter size={12} className="text-gray-500" />
+                    <Filter size={12} className="text-content-muted" />
 
                     {/* Semester Filter - FIXED: using semester ID */}
                     <FilterSelect
@@ -529,7 +529,7 @@ const AttendanceDashboard = () => {
                     <div className="relative">
                         <Calendar
                             size={12}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-content-muted"
                         />
                         <input
                             type="date"
@@ -537,14 +537,14 @@ const AttendanceDashboard = () => {
                             onChange={(e) =>
                                 updateFilter("date", e.target.value)
                             }
-                            className="bg-white/5 border border-white/10 text-[11px] rounded-md px-3 py-1.5 pl-7 text-gray-300 outline-none focus:border-blue-500 transition-all color-scheme-dark"
+                            className="bg-ui-accent/10 border border-ui-neutral/20 text-[11px] rounded-md px-3 py-1.5 pl-7 text-content-muted outline-none focus:border-ui-accent transition-all color-scheme-dark"
                         />
                     </div>
 
                     {/* Reset Button */}
                     <button
                         onClick={resetFilters}
-                        className="flex items-center gap-1 text-[10px] font-mono text-blue-400 border border-blue-400/30 px-3 py-1.5 rounded-md hover:bg-blue-400/10 transition-all uppercase"
+                        className="flex items-center gap-1 text-[10px] font-mono text-ui-accent border border-ui-accent/30 px-3 py-1.5 rounded-md hover:bg-blue-400/10 transition-all uppercase"
                     >
                         <RotateCcw size={10} /> Reset
                     </button>
@@ -556,30 +556,30 @@ const AttendanceDashboard = () => {
                 <StatCard
                     label="Total Records"
                     value={loading ? "..." : stats.total}
-                    color="text-blue-400"
+                    color="text-ui-accent"
                     icon={Users}
                 />
                 <StatCard
                     label="Present"
                     value={loading ? "..." : stats.present}
-                    color="text-green-400"
+                    color="text-ui-highlight"
                     icon={null}
                 />
                 <StatCard
                     label="Absent"
                     value={loading ? "..." : stats.absent}
-                    color="text-red-400"
+                    color="text-ui-secondary"
                     icon={null}
                 />
             </div>
 
             {/* Table Container */}
-            <div className="overflow-x-auto border border-white/5 rounded-xl bg-white/[0.02]">
+            <div className="overflow-x-auto border border-ui-neutral/20 rounded-xl bg-ui-accent/[0.05]">
                 <table className="w-full text-left border-collapse">
-                    <thead className="bg-white/[0.03] text-[10px] font-mono text-gray-500 uppercase tracking-widest border-b border-white/5">
+                    <thead className="bg-ui-accent/10 text-[10px] font-mono text-content-muted uppercase tracking-widest border-b border-ui-neutral/20">
                         <tr>
                             <th
-                                className="px-6 py-4 cursor-pointer hover:text-white transition-colors"
+                                className="px-6 py-4 cursor-pointer hover:text-content-primary transition-colors"
                                 onClick={() => handleSort("date")}
                             >
                                 <div className="flex items-center gap-2">
@@ -591,7 +591,7 @@ const AttendanceDashboard = () => {
                                 </div>
                             </th>
                             <th
-                                className="px-6 py-4 cursor-pointer hover:text-white transition-colors"
+                                className="px-6 py-4 cursor-pointer hover:text-content-primary transition-colors"
                                 onClick={() => handleSort("studentID")}
                             >
                                 <div className="flex items-center gap-2">
@@ -603,7 +603,7 @@ const AttendanceDashboard = () => {
                                 </div>
                             </th>
                             <th
-                                className="px-6 py-4 cursor-pointer hover:text-white transition-colors"
+                                className="px-6 py-4 cursor-pointer hover:text-content-primary transition-colors"
                                 onClick={() => handleSort("name")}
                             >
                                 <div className="flex items-center gap-2">
@@ -636,7 +636,7 @@ const AttendanceDashboard = () => {
                                             size={32}
                                             className="text-gray-600"
                                         />
-                                        <p className="font-mono text-xs text-gray-500 uppercase tracking-widest">
+                                        <p className="font-mono text-xs text-content-muted uppercase tracking-widest">
                                             No attendance records found
                                         </p>
                                         {(filters.course ||
@@ -648,7 +648,7 @@ const AttendanceDashboard = () => {
                                                     .split("T")[0]) && (
                                             <button
                                                 onClick={resetFilters}
-                                                className="text-xs text-blue-400 hover:text-blue-300 mt-2"
+                                                className="text-xs text-ui-accent hover:text-blue-300 mt-2"
                                             >
                                                 Clear filters to see all records
                                             </button>
@@ -662,20 +662,20 @@ const AttendanceDashboard = () => {
                             {processedData.map((record) => (
                                 <tr
                                     key={record.id}
-                                    className="hover:bg-white/[0.02] transition-colors group"
+                                    className="hover:bg-ui-accent/[0.05] transition-colors group"
                                 >
-                                    <td className="px-6 py-4 font-mono text-xs text-gray-500">
+                                    <td className="px-6 py-4 font-mono text-xs text-content-muted">
                                         {record.date}
                                     </td>
-                                    <td className="px-6 py-4 font-mono font-bold text-blue-400">
+                                    <td className="px-6 py-4 font-mono font-bold text-ui-accent">
                                         {record.student?.studentID || "N/A"}
                                     </td>
-                                    <td className="px-6 py-4 text-gray-300 font-medium">
+                                    <td className="px-6 py-4 text-content-muted font-medium">
                                         {record.student?.name || "Unknown"}
                                     </td>
                                     <td className="px-6 py-4">
                                         <div>
-                                            <div className="font-mono text-xs text-gray-400">
+                                            <div className="font-mono text-xs text-content-muted">
                                                 {record.course?.courseCode ||
                                                     "N/A"}
                                             </div>
@@ -691,7 +691,7 @@ const AttendanceDashboard = () => {
                                         <StatusBadge status={record.status} />
                                     </td>
                                     <td className="px-6 py-4 text-center">
-                                        <div className="text-[10px] font-mono text-gray-500">
+                                        <div className="text-[10px] font-mono text-content-muted">
                                             Sem {record.semester?.semesterNo}
                                             <br />
                                             <span className="text-[8px] text-gray-600">
@@ -706,8 +706,8 @@ const AttendanceDashboard = () => {
                 </table>
 
                 {!loading && processedData.length > 0 && (
-                    <div className="px-6 py-3 border-t border-white/5 bg-white/[0.01]">
-                        <p className="text-[10px] font-mono text-gray-500">
+                    <div className="px-6 py-3 border-t border-ui-neutral/20 bg-white/[0.01]">
+                        <p className="text-[10px] font-mono text-content-muted">
                             Showing {processedData.length} of {stats.total}{" "}
                             records
                         </p>
@@ -717,23 +717,23 @@ const AttendanceDashboard = () => {
 
             {/* Debug Panel */}
             <details className="mt-4 hidden">
-                <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-400">
+                <summary className="text-xs text-content-muted cursor-pointer hover:text-content-muted">
                     Debug Info
                 </summary>
-                <div className="mt-2 p-4 bg-black/50 border border-white/10 rounded text-xs space-y-2">
+                <div className="mt-2 p-4 bg-black/50 border border-ui-neutral/20 rounded text-xs space-y-2">
                     <div>
-                        <strong className="text-blue-400">
+                        <strong className="text-ui-accent">
                             Active Filters:
                         </strong>
-                        <pre className="mt-1 text-gray-400">
+                        <pre className="mt-1 text-content-muted">
                             {JSON.stringify(filters, null, 2)}
                         </pre>
                     </div>
                     <div>
-                        <strong className="text-blue-400">
+                        <strong className="text-ui-accent">
                             Available Semesters:
                         </strong>
-                        <pre className="mt-1 text-gray-400">
+                        <pre className="mt-1 text-content-muted">
                             {JSON.stringify(
                                 availableSemesters.semesters,
                                 null,
@@ -748,3 +748,4 @@ const AttendanceDashboard = () => {
 };
 
 export default AttendanceDashboard;
+

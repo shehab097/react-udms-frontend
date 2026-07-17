@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getToken } from "../services/tokenService";
 import { ADMIN_ENDPOINT } from "../config/config";
 
-import Toast from "../components/Toast"; 
+import Toast from "../components/Toast";
 import Loading from "../components/Loading";
 
 const Admin = () => {
@@ -89,7 +89,6 @@ const Admin = () => {
 
     return (
         <div className="w-full space-y-5 overflow-hidden">
-
             {/* <Toast
                 message="Admin directory is currently in read-only mode. Editing features coming soon!"
                 type="warn"
@@ -108,7 +107,7 @@ const Admin = () => {
                             placeholder="Search admins..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-ui-background/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ui-accent transition-all text-content-primary"
+                            className="w-full bg-ui-background/50 border border-ui-neutral/20 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ui-accent transition-all text-content-primary"
                         />
                     </div>
 
@@ -118,7 +117,7 @@ const Admin = () => {
                         </label>
                         <select
                             onChange={handleSortChange}
-                            className="w-full bg-ui-background/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ui-accent text-content-primary cursor-pointer"
+                            className="w-full bg-ui-background/50 border border-ui-neutral/20 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ui-accent text-content-primary cursor-pointer"
                         >
                             <option value="name-asc">Name (A-Z)</option>
                             <option value="username-asc">Username</option>
@@ -137,32 +136,32 @@ const Admin = () => {
             </div>
 
             {/* Admin Table */}
-            <div className="w-full overflow-x-auto rounded-xl border border-white/5 bg-ui-surface/20 shadow-xl custom-scrollbar">
+            <div className="w-full overflow-x-auto rounded-xl border border-ui-neutral/20 bg-ui-surface/20 shadow-xl custom-scrollbar">
                 <table className="w-full text-left border-collapse min-w-[1000px]">
                     <thead>
-                        <tr className="border-b border-white/5 bg-white/5">
-                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-highlight font-bold w-48">
+                        <tr className="border-b border-ui-neutral/20 bg-ui-accent/5">
+                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-accent font-bold w-48">
                                 Administrator
                             </th>
-                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-highlight font-bold">
+                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-accent font-bold">
                                 Email
                             </th>
-                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-highlight font-bold w-40">
+                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-accent font-bold w-40">
                                 Contact
                             </th>
-                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-highlight font-bold w-28">
+                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-accent font-bold w-28">
                                 Gender
                             </th>
-                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-highlight font-bold">
+                            <th className="p-4 text-[11px] uppercase tracking-widest text-ui-accent font-bold">
                                 Location
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm">
+                    <tbody className="divide-y divide-ui-neutral/20 text-sm">
                         {sortedAdmins.map((a) => (
                             <tr
                                 key={a.id}
-                                className="hover:bg-white/[0.02] transition-colors"
+                                className="hover:bg-ui-accent/[0.05] transition-colors"
                             >
                                 {/* Profile */}
                                 <td className="p-4">
@@ -202,10 +201,10 @@ const Admin = () => {
                                     <span
                                         className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-tight ${
                                             a.gender === "MALE"
-                                                ? "border-blue-500/20 bg-blue-500/5 text-blue-400"
+                                                ? "border-ui-accent/20 bg-ui-accent/5 text-ui-accent"
                                                 : a.gender === "FEMALE"
-                                                  ? "border-pink-500/20 bg-pink-500/5 text-pink-400"
-                                                  : "border-white/10 text-content-secondary/40"
+                                                  ? "border-ui-secondary/20 bg-ui-secondary/5 text-ui-secondary"
+                                                  : "border-ui-neutral/20 text-content-secondary/40"
                                         }`}
                                     >
                                         {a.gender || "U"}

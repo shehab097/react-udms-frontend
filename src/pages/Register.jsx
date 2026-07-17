@@ -75,7 +75,7 @@ const Register = () => {
                                 placeholder="Username"
                                 value={formData.username}
                                 onChange={handleChange}
-                                className="w-full bg-transparent border-b border-ui-surface py-3 focus:outline-none focus:border-ui-accent transition-colors placeholder:text-white/40 text-white"
+                                className="w-full bg-transparent border-b border-ui-surface py-3 focus:outline-none focus:border-ui-accent transition-colors placeholder:text-content-primary/40 text-content-primary"
                                 required
                             />
 
@@ -85,7 +85,7 @@ const Register = () => {
                                 placeholder="Password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full bg-transparent border-b border-ui-surface py-3 focus:outline-none focus:border-ui-accent transition-colors placeholder:text-white/40 text-white"
+                                className="w-full bg-transparent border-b border-ui-surface py-3 focus:outline-none focus:border-ui-accent transition-colors placeholder:text-content-primary/40 text-content-primary"
                                 required
                             />
 
@@ -97,7 +97,7 @@ const Register = () => {
                                     name="role"
                                     value={formData.role}
                                     onChange={handleChange}
-                                    className="w-full bg-ui-surface border border-white/5 text-content-primary rounded-xl py-3 px-4 focus:outline-none focus:border-ui-accent transition-all cursor-pointer"
+                                    className="w-full bg-ui-surface border border-ui-neutral/20 text-content-primary rounded-xl py-3 px-4 focus:outline-none focus:border-ui-accent transition-all cursor-pointer"
                                 >
                                     <option value="STUDENT">STUDENT</option>
                                     <option value="TEACHER">TEACHER</option>
@@ -109,7 +109,7 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full bg-ui-accent text-white py-4 rounded-2xl font-bold font-rounded transition-all shadow-lg shadow-ui-accent/20 ${
+                            className={`w-full bg-ui-accent text-content-primary py-4 rounded-2xl font-bold font-rounded transition-all shadow-lg shadow-ui-accent/20 ${
                                 loading
                                     ? "opacity-50 cursor-not-allowed"
                                     : "hover:brightness-110 active:scale-[0.98]"
@@ -121,7 +121,7 @@ const Register = () => {
                         </button>
                     </form>
 
-                    <p className="text-center text-sm text-red-600 font-mono tracking-tighter">
+                    <p className="text-center text-sm text-ui-secondary font-mono tracking-tighter">
                         {msg}
                     </p>
                 </div>
@@ -131,3 +131,4 @@ const Register = () => {
 };
 
 export default Register;
+

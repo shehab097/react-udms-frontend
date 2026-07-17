@@ -1,0 +1,31 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    theme: {
+        extend: {
+            colors: {
+                ui: {
+                    background: "#FFF7ED", // Orange 50 - Warm, airy background
+                    surface: "#FFFFFF",    // White
+                    accent: "#F97316",     // Orange 500 - Clear and vibrant CTA
+                    secondary: "#FB923C",  // Orange 400 - Secondary actions
+                    highlight: "#FDBA74",  // Orange 300 - Light accents/hover
+                    neutral: "#FFEDD5",    // Orange 100 - Soft borders
+                },
+                content: {
+                    primary: "#7C2D12",    // Orange 900 - Deep clay for headings
+                    secondary: "#9A3412",  // Orange 800 - High-contrast body text
+                    muted: "#FB923C",      // Orange 400 - De-emphasized text
+                },
+            },
+            fontFamily: {
+                sans: ["Inter", "ui-sans-serif", "system-ui"],
+                rounded: ["Nunito", "sans-serif"],
+            },
+            borderRadius: {
+                layout: "12px",
+            },
+        },
+    },
+    plugins: [],
+};

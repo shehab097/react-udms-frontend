@@ -68,7 +68,7 @@ const UserAttendanceStats = ({ userId }) => {
         );
     if (error)
         return (
-            <div className="p-10 text-center text-red-400 font-mono">
+            <div className="p-10 text-center text-ui-secondary font-mono">
                 {error}
             </div>
         );
@@ -77,7 +77,7 @@ const UserAttendanceStats = ({ userId }) => {
         <div className="w-full space-y-6">
             {/* Summary Header */}
             <div className="flex items-baseline justify-between px-2">
-                <h2 className="text-xl font-bold text-white tracking-tight">
+                <h2 className="text-xl font-bold text-content-primary tracking-tight">
                     Academic Overview
                 </h2>
                 {/* <span className="text-[10px] font-mono text-ui-highlight uppercase">
@@ -90,19 +90,19 @@ const UserAttendanceStats = ({ userId }) => {
                 {courseStats.map((course) => (
                     <div
                         key={course.code}
-                        className="group bg-[#1a1a2e]/60 border border-white/5 p-6 rounded-2xl backdrop-blur-md hover:border-ui-accent/30 transition-all duration-300 shadow-xl"
+                        className="group bg-ui-background/60 border border-ui-neutral/20 p-6 rounded-2xl backdrop-blur-md hover:border-ui-accent/30 transition-all duration-300 shadow-xl"
                     >
                         <div className="flex justify-between items-start mb-4">
                             <div>
-                                <h3 className="text-white font-bold text-lg leading-tight group-hover:text-ui-accent transition-colors">
+                                <h3 className="text-content-primary font-bold text-lg leading-tight group-hover:text-ui-accent transition-colors">
                                     {course.name}
                                 </h3>
-                                <p className="text-xs font-mono text-ui-highlight mt-1">
+                                <p className="text-xs font-mono text-ui-accent mt-1">
                                     {course.code}
                                 </p>
                             </div>
                             <div className="text-right">
-                                <span className="text-[10px] bg-white/5 text-white/40 px-2 py-1 rounded-md font-mono">
+                                <span className="text-[10px] bg-ui-accent/10 text-ui-accent/60 px-2 py-1 rounded-md font-mono">
                                     SEM {course.semester} • {course.session}
                                 </span>
                             </div>
@@ -113,12 +113,12 @@ const UserAttendanceStats = ({ userId }) => {
                             <div className="flex justify-between items-end">
                                 <div className="flex gap-4">
                                     <div className="flex flex-col">
-                                        <span className="text-[9px] text-white/30 uppercase font-bold tracking-widest">
+                                        <span className="text-[9px] text-content-muted uppercase font-bold tracking-widest">
                                             Attendance
                                         </span>
-                                        <span className="text-white font-mono font-bold">
+                                        <span className="text-content-primary font-mono font-bold">
                                             {course.present}
-                                            <span className="text-white/20 mx-1">
+                                            <span className="text-content-muted mx-1">
                                                 /
                                             </span>
                                             {course.total}
@@ -129,8 +129,8 @@ const UserAttendanceStats = ({ userId }) => {
                                     <span
                                         className={`text-2xl font-black font-mono tracking-tighter ${
                                             parseFloat(course.percentage) < 75
-                                                ? "text-rose-400"
-                                                : "text-ui-accent"
+                                                ? "text-ui-secondary"
+                                                : "text-ui-highlight"
                                         }`}
                                     >
                                         {course.percentage}%
@@ -139,12 +139,12 @@ const UserAttendanceStats = ({ userId }) => {
                             </div>
 
                             {/* Visual Progress Bar */}
-                            <div className="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                            <div className="w-full h-1.5 bg-ui-neutral/20 rounded-full overflow-hidden">
                                 <div
                                     className={`h-full transition-all duration-1000 ease-out rounded-full ${
                                         parseFloat(course.percentage) < 75
-                                            ? "bg-rose-500"
-                                            : "bg-ui-accent"
+                                            ? "bg-ui-secondary"
+                                            : "bg-ui-highlight"
                                     }`}
                                     style={{ width: `${course.percentage}%` }}
                                 />
@@ -152,13 +152,13 @@ const UserAttendanceStats = ({ userId }) => {
                         </div>
 
                         {/* Footer Details */}
-                        <div className="mt-5 pt-4 border-t border-white/5 flex justify-between items-center text-[10px] text-white/40 font-mono">
+                        <div className="mt-5 pt-4 border-t border-ui-neutral/20 flex justify-between items-center text-[10px] text-content-muted font-mono">
                             <span>BATCH {course.batch}</span>
                             <span
                                 className={
                                     parseFloat(course.percentage) < 75
-                                        ? "text-rose-400/60"
-                                        : "text-emerald-400/60"
+                                        ? "text-ui-secondary/60"
+                                        : "text-ui-highlight/60"
                                 }
                             >
                                 {parseFloat(course.percentage) < 75
@@ -171,7 +171,7 @@ const UserAttendanceStats = ({ userId }) => {
             </div>
 
             {courseStats.length === 0 && (
-                <div className="p-20 border border-dashed border-white/10 rounded-2xl text-center text-white/20 font-mono text-sm">
+                <div className="p-20 border border-dashed border-ui-neutral/20 rounded-2xl text-center text-content-muted font-mono text-sm">
                     NO_ATTENDANCE_HISTORY_FOUND
                 </div>
             )}

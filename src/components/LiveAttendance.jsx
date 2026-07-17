@@ -89,27 +89,27 @@ const LiveAttendance = ({ semesterId, courseId }) => {
 
     if (loading)
         return (
-            <div className="p-10 text-center font-black text-gray-300 animate-pulse">
+            <div className="p-10 text-center font-black text-content-secondary animate-pulse">
                 SYNCING ROSTER...
             </div>
         );
 
     return (
-        <div className="h-full flex flex-col p-4 bg-gray-50/30">
-            <div className="flex justify-between items-center mb-6 border-b border-gray-200 pb-1 px-1">
+        <div className="h-full flex flex-col p-4 bg-ui-surface/10">
+            <div className="flex justify-between items-center mb-6 border-b border-ui-neutral/20 pb-1 px-1">
                 <div className="flex items-center gap-3 pt-1">
-                    <h3 className="text-[12px] font-black text-gray-400 uppercase tracking-widest">
+                    <h3 className="text-[12px] font-black text-content-muted uppercase tracking-widest">
                         Live Monitor
                     </h3>
                     <div className="flex gap-2">
-                        <span className="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-sm">
+                        <span className="bg-ui-highlight text-ui-background text-[10px] font-black px-2 py-0.5 rounded shadow-sm">
                             P:{" "}
                             {
                                 students.filter((s) => s.currentStatus === "P")
                                     .length
                             }
                         </span>
-                        <span className="bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-sm">
+                        <span className="bg-ui-secondary text-ui-background text-[10px] font-black px-2 py-0.5 rounded shadow-sm">
                             A:{" "}
                             {
                                 students.filter((s) => s.currentStatus === "A")
@@ -118,11 +118,11 @@ const LiveAttendance = ({ semesterId, courseId }) => {
                         </span>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 bg-white border border-gray-100 px-3 py-1.5 rounded-full shadow-sm">
+                <div className="flex items-center gap-2 bg-ui-surface border border-ui-neutral/20 px-3 py-1.5 rounded-full shadow-sm">
                     <div
-                        className={`w-2 h-2 rounded-full ${status === "connected" ? "bg-emerald-500 animate-pulse" : "bg-rose-500"}`}
+                        className={`w-2 h-2 rounded-full ${status === "connected" ? "bg-ui-highlight animate-pulse" : "bg-ui-secondary"}`}
                     />
-                    <span className="text-[10px] font-black text-gray-500 uppercase">
+                    <span className="text-[10px] font-black text-content-muted uppercase">
                         {status}
                     </span>
                 </div>
@@ -154,28 +154,28 @@ function AttendanceInfoCard({ student }) {
     // স্টাইল কনফিগ
     const config = {
         P: {
-            bg: "bg-white border-emerald-500 shadow-[0_4px_15px_rgba(16,185,129,0.15)] z-10 scale-[1.03]",
-            text: "text-emerald-700",
+            bg: "bg-ui-surface border-ui-highlight shadow-[0_4px_15px_rgba(16,185,129,0.15)] z-10 scale-[1.03]",
+            text: "text-ui-highlight",
             label: "PRESENT",
-            labelBg: "bg-emerald-500 text-white",
-            idColor: "text-emerald-600",
-            nameColor: "text-slate-800",
+            labelBg: "bg-ui-highlight text-ui-background",
+            idColor: "text-ui-highlight",
+            nameColor: "text-content-primary",
         },
         A: {
-            bg: "bg-rose-50 border-rose-200 opacity-90",
-            text: "text-rose-700",
+            bg: "bg-ui-secondary/10 border-ui-secondary/50 opacity-90",
+            text: "text-ui-secondary",
             label: "ABSENT",
-            labelBg: "bg-rose-600 text-white",
-            idColor: "text-rose-400",
-            nameColor: "text-rose-900",
+            labelBg: "bg-ui-secondary text-ui-background",
+            idColor: "text-ui-secondary",
+            nameColor: "text-ui-secondary",
         },
         default: {
-            bg: "bg-slate-100/50 border-slate-100 grayscale-[0.8] opacity-50",
-            text: "text-slate-400",
+            bg: "bg-ui-neutral/20 border-ui-neutral/20 grayscale-[0.8] opacity-50",
+            text: "text-content-muted",
             label: "NO DATA",
-            labelBg: "bg-slate-200 text-slate-500",
-            idColor: "text-slate-300",
-            nameColor: "text-slate-400",
+            labelBg: "bg-ui-neutral/30 text-content-muted",
+            idColor: "text-content-muted",
+            nameColor: "text-content-muted",
         },
     };
 
@@ -208,7 +208,7 @@ function AttendanceInfoCard({ student }) {
             </h4>
 
             {status === "P" && (
-                <div className="mt-3 w-full h-1 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                <div className="mt-3 w-full h-1 bg-ui-highlight rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
             )}
         </motion.div>
     );

@@ -3,26 +3,27 @@ export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
-            // 1. Adding 5 Custom Colors
             colors: {
-                // Your Custom Purple Dark Theme
                 ui: {
-                    background: "#13111C", // Purple-Black
-                    surface: "#1E1B29", // Purple-Gray
-                    accent: "#8B5CF6", // Purple 500
-                    secondary: "#EC4899", // Pink 500
-                    highlight: "#06B6D4", // Cyan 500
+                    background: "#FFFFFF", // Pure white for max contrast
+                    surface: "#F9FAFB", // Slight separation layer
+                    accent: "#2563EB", // Stronger blue (Blue 600)
+                    secondary: "#4F46E5", // Indigo 600
+                    highlight: "#059669", // Emerald 600
+                    neutral: "#D1D5DB", // Gray 300 (clear borders)
                 },
-                // Dedicated text colors for better hierarchy
                 content: {
-                    primary: "#FAF5FF", // Purple 50
-                    secondary: "#C4B5FD", // Purple 300
+                    primary: "#020617", // Almost black (stronger than slate)
+                    secondary: "#374151", // Gray 700 (better readability)
+                    muted: "#6B7280", // Gray 500 (still readable)
                 },
             },
-            // 2. Adding 2 Custom Font Families
             fontFamily: {
-                sans: ["Nunito", "ui-sans-serif", "system-ui"],
-                rounded: ["Quicksand", "sans-serif"],
+                sans: ["Inter", "ui-sans-serif", "system-ui"],
+                rounded: ["Nunito", "sans-serif"],
+            },
+            borderRadius: {
+                layout: "10px", // slightly tighter = sharper UI
             },
         },
     },

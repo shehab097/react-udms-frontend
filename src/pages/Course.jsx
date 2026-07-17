@@ -35,8 +35,6 @@ const Course = () => {
         teacherId: "",
     });
 
-    
-
     const userRole = getRole();
     const isAdmin = userRole === "ADMIN";
 
@@ -199,8 +197,8 @@ const Course = () => {
         );
 
     return (
-        <div className="w-full space-y-6 ">
-            {/* 🍞 Toast Display */}
+        <div className="w-full space-y-6">
+            {/* 🍞 THE TOAST */}
             {toast.show && (
                 <Toast
                     key={toast.key}
@@ -216,13 +214,13 @@ const Course = () => {
             <div className="flex flex-col md:flex-row justify-between items-end gap-4">
                 <div className="flex gap-4 w-full md:w-auto">
                     <div className="w-full md:w-64">
-                        <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1.5 ml-1">
+                        <label className="block text-[10px] font-mono text-ui-highlight uppercase tracking-[0.2em] mb-1.5 ml-1">
                             Search
                         </label>
                         <input
                             type="text"
                             placeholder="Code or Title..."
-                            className="w-full bg-ui-surface/50 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:border-ui-accent outline-none transition-all"
+                            className="w-full bg-ui-surface border border-ui-neutral rounded-lg px-4 py-2 text-sm focus:border-ui-accent outline-none text-content-primary transition-colors"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -231,7 +229,7 @@ const Course = () => {
                     {isAdmin && (
                         <button
                             onClick={() => openModal()}
-                            className="bg-ui-accent hover:brightness-110 min-w-[80px] text-white text-[11px] font-bold px-6 h-[40px] rounded-xl transition-all self-end shadow-lg shadow-ui-accent/20"
+                            className="bg-ui-accent hover:brightness-110 min-w-[80px] text-ui-background text-[11px] font-bold px-6 h-[38px] rounded-lg transition-colors self-end shadow-sm"
                         >
                             + ADD
                         </button>
@@ -240,34 +238,40 @@ const Course = () => {
             </div>
 
             {/* Registry Table */}
-            <div className="overflow-x-auto rounded-2xl border border-white/5 bg-ui-surface/20 backdrop-blur-md shadow-2xl">
+            <div className="overflow-x-auto rounded-lg border border-ui-neutral bg-ui-surface shadow-sm">
                 <table className="w-full text-left border-collapse min-w-[900px]">
                     <thead>
-                        <tr className="border-b border-white/5 bg-white/5 font-mono text-[10px] text-ui-highlight uppercase tracking-widest">
-                            <th className="p-4">ID_Code</th>
-                            <th className="p-4">Title</th>
-                            <th className="p-4 text-center w-24">Semester</th>
-                            <th className="p-4 text-center w-24">Credits</th>
-                            <th className="p-4 w-32">Dept</th>
-                            <th className="p-4">Course Teacher</th>
+                        <tr className="border-b border-ui-neutral bg-ui-background font-mono text-[10px] text-ui-secondary uppercase tracking-widest">
+                            <th className="p-4 font-semibold">ID_Code</th>
+                            <th className="p-4 font-semibold">Title</th>
+                            <th className="p-4 text-center font-semibold w-24">
+                                Semester
+                            </th>
+                            <th className="p-4 text-center font-semibold w-24">
+                                Credits
+                            </th>
+                            <th className="p-4 w-32 font-semibold">Dept</th>
+                            <th className="p-4 font-semibold">
+                                Course Teacher
+                            </th>
                             {/* Actions column only for Admins */}
                             {isAdmin && (
-                                <th className="p-4 text-center w-36">
+                                <th className="p-4 text-center w-36 font-semibold">
                                     Actions
                                 </th>
                             )}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm">
+                    <tbody className="divide-y divide-ui-neutral text-sm">
                         {filteredCourses.map((c) => (
                             <tr
                                 key={c.id}
-                                className="hover:bg-white/[0.03] transition-colors group"
+                                className="hover:bg-ui-background group transition-colors"
                             >
                                 <td className="p-4 font-mono text-ui-accent font-bold">
                                     {c.courseCode}
                                 </td>
-                                <td className="p-4 font-semibold text-content-primary">
+                                <td className="p-4 font-medium text-content-primary">
                                     {c.courseName}
                                 </td>
                                 <td className="p-4 text-center text-content-secondary">
@@ -284,9 +288,9 @@ const Course = () => {
 
                                 <td className="p-4 min-w-[200px]">
                                     {assigningId === c.id && isAdmin ? (
-                                        <div className="flex items-center gap-2 animate-in zoom-in-95 duration-200">
+                                        <div className="flex items-center gap-2">
                                             <select
-                                                className="bg-ui-background border border-ui-accent/50 rounded-lg p-1.5 text-[11px] text-white outline-none w-full"
+                                                className="bg-ui-background border border-ui-neutral rounded p-1 text-[11px] text-content-primary outline-none w-full focus:border-ui-accent"
                                                 onChange={(e) =>
                                                     handleQuickAssign(
                                                         c.id,
@@ -311,9 +315,9 @@ const Course = () => {
                                                 onClick={() =>
                                                     setAssigningId(null)
                                                 }
-                                                className="text-[9px] text-ui-secondary hover:text-white uppercase font-mono"
+                                                className="text-[11px] text-content-muted hover:text-ui-secondary uppercase font-mono transition-colors"
                                             >
-                                                [X]
+                                                Cancel
                                             </button>
                                         </div>
                                     ) : (
@@ -322,7 +326,7 @@ const Course = () => {
                                                 className={
                                                     c.teacher
                                                         ? "text-content-primary"
-                                                        : "text-white/20 italic text-xs font-mono"
+                                                        : "text-content-muted italic text-xs font-mono"
                                                 }
                                             >
                                                 {c.teacher
@@ -335,7 +339,7 @@ const Course = () => {
                                                     onClick={() =>
                                                         setAssigningId(c.id)
                                                     }
-                                                    className="opacity-0 group-hover:opacity-100 text-[9px] font-bold text-ui-highlight border border-ui-highlight/30 px-2 py-1 rounded-md hover:bg-ui-highlight/10 transition-all"
+                                                    className="opacity-0 group-hover:opacity-100 text-[9px] font-bold text-ui-highlight border border-ui-highlight rounded px-2 py-1 hover:bg-ui-highlight hover:text-ui-surface transition-all"
                                                 >
                                                     {c.teacher
                                                         ? "CHANGE"
@@ -351,7 +355,7 @@ const Course = () => {
                                         <div className="flex justify-center gap-4">
                                             <button
                                                 onClick={() => openModal(c)}
-                                                className="text-ui-highlight hover:underline text-[11px] font-bold"
+                                                className="text-ui-highlight hover:brightness-110 text-[11px] font-bold"
                                             >
                                                 EDIT
                                             </button>
@@ -359,7 +363,7 @@ const Course = () => {
                                                 onClick={() =>
                                                     handleDelete(c.id)
                                                 }
-                                                className="text-ui-secondary/60 hover:text-ui-secondary text-[11px] font-bold"
+                                                className="text-ui-secondary hover:brightness-110 text-[11px] font-bold"
                                             >
                                                 DEL
                                             </button>
@@ -374,30 +378,36 @@ const Course = () => {
 
             {/* Modal - only accessible to Admins (though UI blocks it elsewhere too) */}
             {isModalOpen && isAdmin && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-                    <div className="bg-ui-background border border-white/10 p-8 rounded-3xl w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-300">
-                        <header className="flex justify-between items-center mb-8">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
+                    <div className="bg-ui-surface border border-ui-neutral p-8 rounded-lg w-full max-w-md shadow-lg">
+                        <header className="flex justify-between items-center mb-6">
                             <div>
-                                <h2 className="text-lg font-bold text-white uppercase tracking-tighter">
+                                <h2 className="text-lg font-bold text-content-primary uppercase tracking-tighter">
                                     {editingCourse
-                                        ? "Update_Module"
-                                        : "Register_Module"}
+                                        ? "Update Module"
+                                        : "Register Module"}
                                 </h2>
-                                <p className="text-[9px] font-mono text-ui-highlight uppercase tracking-[0.2em]">
-                                    Curriculum_Entry_v4.0.3
+                                <p className="text-[9px] font-mono text-content-muted uppercase tracking-[0.2em]">
+                                    Curriculum_Entry
                                 </p>
                             </div>
+                            <button
+                                onClick={closeModal}
+                                className="text-content-muted hover:text-ui-accent transition-colors"
+                            >
+                                ✕
+                            </button>
                         </header>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                         Code
                                     </label>
                                     <input
                                         required
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                         value={formData.courseCode}
                                         onChange={(e) =>
                                             setFormData({
@@ -408,11 +418,11 @@ const Course = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                         Dept
                                     </label>
                                     <select
-                                        className="w-full bg-ui-surface border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                         value={formData.courseDepartment}
                                         onChange={(e) =>
                                             setFormData({
@@ -432,12 +442,12 @@ const Course = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                     Course_Title
                                 </label>
                                 <input
                                     required
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                    className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                     value={formData.courseName}
                                     onChange={(e) =>
                                         setFormData({
@@ -450,13 +460,13 @@ const Course = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                         Semester
                                     </label>
                                     <input
                                         type="number"
                                         required
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                         value={formData.courseSemester}
                                         onChange={(e) =>
                                             setFormData({
@@ -469,14 +479,14 @@ const Course = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                    <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                         Credits
                                     </label>
                                     <input
                                         type="number"
                                         step="0.5"
                                         required
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                         value={formData.courseCredit}
                                         onChange={(e) =>
                                             setFormData({
@@ -492,11 +502,11 @@ const Course = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1">
+                                <label className="block text-[10px] font-mono text-ui-highlight uppercase mb-1 ml-1 tracking-wider">
                                     Faculty_Association
                                 </label>
                                 <select
-                                    className="w-full bg-ui-surface border border-white/10 rounded-xl p-3 text-sm text-white focus:border-ui-accent outline-none"
+                                    className="w-full bg-ui-background border border-ui-neutral rounded px-3 py-2 text-sm text-content-primary focus:border-ui-accent outline-none transition-colors"
                                     value={formData.teacherId}
                                     onChange={(e) =>
                                         setFormData({
@@ -514,19 +524,19 @@ const Course = () => {
                                 </select>
                             </div>
 
-                            <div className="flex gap-4 pt-6">
+                            <div className="flex gap-4 pt-4">
                                 <button
                                     type="button"
                                     onClick={closeModal}
-                                    className="flex-1 px-4 py-3 text-[10px] text-ui-secondary font-black border border-white/5 rounded-xl hover:bg-white/5 transition-all"
+                                    className="flex-1 px-4 py-2.5 text-sm text-content-secondary font-medium bg-ui-background border border-ui-neutral rounded hover:brightness-95 transition-colors"
                                 >
                                     CANCEL
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 px-4 py-3 bg-ui-accent rounded-xl text-[10px] text-white font-black hover:brightness-110 shadow-lg shadow-ui-accent/20 transition-all"
+                                    className="flex-1 px-4 py-2.5 bg-ui-accent rounded text-sm text-ui-background font-bold hover:brightness-110 transition-colors shadow-sm"
                                 >
-                                    SAVE_CHANGES
+                                    SAVE CHANGES
                                 </button>
                             </div>
                         </form>

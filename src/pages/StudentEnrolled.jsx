@@ -204,7 +204,7 @@ const StudentEnrolled = () => {
                         Filter
                     </label>
                     <input
-                        className="w-full bg-ui-surface/20 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:border-ui-accent outline-none"
+                        className="w-full bg-ui-surface/20 border border-ui-neutral rounded-lg px-4 py-2 text-sm text-content-primary focus:border-ui-accent outline-none"
                         placeholder="Search Name or Student ID..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -213,7 +213,7 @@ const StudentEnrolled = () => {
                 {isAdmin && (
                     <button
                         onClick={() => openModal()}
-                        className="bg-ui-secondary text-white px-6 py-2 rounded-lg text-[11px] font-bold tracking-widest hover:brightness-110"
+                        className="bg-ui-accent text-white px-6 py-2 rounded-lg text-[11px] font-bold tracking-widest hover:brightness-110 shadow-lg shadow-ui-accent/20 transition-all"
                     >
                         + NEW ENROLLMENT
                     </button>
@@ -221,9 +221,9 @@ const StudentEnrolled = () => {
             </div>
 
             {/* Table */}
-            <div className="border border-white/5 rounded-2xl overflow-scroll backdrop-blur-md">
+            <div className="border border-ui-neutral rounded-2xl overflow-scroll backdrop-blur-md bg-ui-surface/5">
                 <table className="w-full text-left border-collapse">
-                    <thead className="bg-white/5 text-[10px] text-ui-highlight uppercase tracking-widest font-bold">
+                    <thead className="bg-ui-accent/10 text-[10px] text-ui-highlight uppercase tracking-widest font-bold">
                         <tr>
                             <th className="p-5">Student Identity</th>
                             <th className="p-5">Term Data</th>
@@ -233,9 +233,12 @@ const StudentEnrolled = () => {
                             )}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm text-white">
+                    <tbody className="divide-y divide-ui-neutral/10 text-sm text-content-primary">
                         {filteredEnrollments.map((e) => (
-                            <tr key={e.id} className="hover:bg-white/[0.02]">
+                            <tr
+                                key={e.id}
+                                className="hover:bg-ui-accent/[0.05] transition-colors"
+                            >
                                 <td className="p-5">
                                     <div className="font-bold">{e.name}</div>
                                     <div className="text-[10px] font-mono text-ui-accent">
@@ -246,7 +249,7 @@ const StudentEnrolled = () => {
                                     <div className="text-xs">
                                         Semester {e.semesterNo}
                                     </div>
-                                    <div className="text-[10px] text-gray-500 uppercase">
+                                    <div className="text-[10px] text-content-muted uppercase">
                                         {e.session} • {e.batch}
                                     </div>
                                 </td>
@@ -268,7 +271,7 @@ const StudentEnrolled = () => {
                                             <button
                                                 disabled
                                                 onClick={() => openModal(e)}
-                                                className="text-[10px] font-bold text-ui-highlight hover:text-white hidden"
+                                                className="text-[10px] font-bold text-ui-highlight hover:text-content-primary hidden"
                                             >
                                                 EDIT
                                             </button>
@@ -276,7 +279,7 @@ const StudentEnrolled = () => {
                                                 onClick={() =>
                                                     handleDelete(e.id)
                                                 }
-                                                className="text-[10px] font-bold text-red-500 hover:text-red-400"
+                                                className="text-[10px] font-bold text-ui-secondary hover:brightness-125 transition-all"
                                             >
                                                 DELETE
                                             </button>
@@ -291,15 +294,15 @@ const StudentEnrolled = () => {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-                    <div className="bg-ui-background border border-white/10 w-full max-w-2xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh]">
-                        <div className="p-6 border-b border-white/5 flex justify-between bg-white/5 items-center">
-                            <h2 className="text-[10px] font-bold text-white uppercase tracking-widest">
+                <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-ui-surface border border-ui-neutral/30 w-full max-w-2xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh] shadow-2xl">
+                        <div className="p-6 border-b border-ui-neutral flex justify-between bg-ui-accent/5 items-center">
+                            <h2 className="text-[10px] font-bold text-content-primary uppercase tracking-widest">
                                 Enrollment Control
                             </h2>
                             <button
                                 onClick={closeModal}
-                                className="text-ui-highlight hover:text-white"
+                                className="text-ui-highlight hover:text-content-primary transition-colors text-[10px] font-bold"
                             >
                                 CLOSE
                             </button>
@@ -312,14 +315,14 @@ const StudentEnrolled = () => {
                                     01. Select Student
                                 </label>
                                 <input
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-xs text-white mb-2"
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-lg p-2 text-xs text-content-primary mb-2 focus:border-ui-accent outline-none"
                                     placeholder="Find student..."
                                     value={studentSearch}
                                     onChange={(e) =>
                                         setStudentSearch(e.target.value)
                                     }
                                 />
-                                <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto p-1">
+                                <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto p-1 custom-scrollbar">
                                     {filteredStudents.map((s) => (
                                         <div
                                             key={s.studentID}
@@ -329,12 +332,12 @@ const StudentEnrolled = () => {
                                                     studentId: s.studentID,
                                                 }))
                                             }
-                                            className={`p-2 rounded border text-[10px] cursor-pointer transition ${formData.studentId === s.studentID ? "border-ui-accent bg-ui-accent/10" : "border-white/5 bg-white/5 hover:border-white/20"}`}
+                                            className={`p-2 rounded border text-[10px] cursor-pointer transition-all ${formData.studentId === s.studentID ? "border-ui-accent bg-ui-accent/20" : "border-ui-neutral/10 bg-ui-accent/5 hover:border-ui-accent/40"}`}
                                         >
-                                            <div className="text-white font-bold">
+                                            <div className="text-content-primary font-bold">
                                                 {s.name}
                                             </div>
-                                            <div className="text-ui-highlight">
+                                            <div className="text-ui-accent font-mono">
                                                 {s.studentID}
                                             </div>
                                         </div>
@@ -348,7 +351,7 @@ const StudentEnrolled = () => {
                                     02. Academic Term
                                 </label>
                                 <select
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-xs text-white"
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-lg p-2 text-xs text-content-primary outline-none focus:border-ui-accent"
                                     value={formData.sem_id}
                                     onChange={(e) =>
                                         setFormData((prev) => ({
@@ -357,17 +360,14 @@ const StudentEnrolled = () => {
                                         }))
                                     }
                                 >
-                                    <option
-                                        value=""
-                                        className="bg-ui-background"
-                                    >
+                                    <option value="" className="bg-ui-surface">
                                         Select Semester...
                                     </option>
                                     {semesters.map((sem) => (
                                         <option
                                             key={sem.id}
                                             value={sem.id}
-                                            className="bg-ui-background"
+                                            className="bg-ui-surface"
                                         >
                                             {sem.session} - Sem {sem.semesterNo}
                                         </option>
@@ -387,12 +387,12 @@ const StudentEnrolled = () => {
                                             onClick={() =>
                                                 handleToggleCourse(c.courseCode)
                                             }
-                                            className={`p-2 rounded border text-[10px] cursor-pointer transition ${formData.courseCodes.includes(c.courseCode) ? "border-ui-accent bg-ui-accent/20" : "border-white/5 bg-white/5"}`}
+                                            className={`p-2 rounded border text-[10px] cursor-pointer transition-all ${formData.courseCodes.includes(c.courseCode) ? "border-ui-accent bg-ui-accent/20" : "border-ui-neutral/10 bg-ui-accent/5 hover:border-ui-accent/30"}`}
                                         >
-                                            <div className="text-white font-mono">
+                                            <div className="text-content-primary font-mono font-bold">
                                                 {c.courseCode}
                                             </div>
-                                            <div className="text-gray-500 truncate">
+                                            <div className="text-content-muted truncate">
                                                 {c.courseName}
                                             </div>
                                         </div>
@@ -401,16 +401,16 @@ const StudentEnrolled = () => {
                             </div>
                         </div>
 
-                        <div className="p-6 border-t border-white/5 bg-white/5 flex justify-end gap-4">
+                        <div className="p-6 border-t border-ui-neutral bg-ui-accent/5 flex justify-end gap-4">
                             <button
                                 onClick={closeModal}
-                                className="text-[10px] font-bold text-gray-400 hover:text-white uppercase"
+                                className="text-[10px] font-bold text-content-muted hover:text-content-primary uppercase tracking-widest transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="bg-ui-secondary text-white px-8 py-2 rounded-lg text-[10px] font-bold hover:brightness-110"
+                                className="bg-ui-accent text-white px-8 py-2 rounded-lg text-[10px] font-bold hover:brightness-110 shadow-lg shadow-ui-accent/10 transition-all uppercase tracking-widest"
                             >
                                 CONFIRM_SUBMISSION
                             </button>
@@ -423,3 +423,4 @@ const StudentEnrolled = () => {
 };
 
 export default StudentEnrolled;
+

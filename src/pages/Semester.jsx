@@ -146,9 +146,7 @@ const Semester = () => {
 
             <div className="flex justify-between items-center mb-4">
                 <div className="space-y-1">
-                    {/* <h2 className="text-sm font-mono text-ui-highlight tracking-widest uppercase">
-                        Academic_Cycles
-                    </h2> */}
+                    {/* Optional Header can go here */}
                 </div>
                 {isAdmin && (
                     <button
@@ -161,33 +159,36 @@ const Semester = () => {
                             });
                             setIsModalOpen(true);
                         }}
-                        className="bg-ui-accent/10 border border-ui-accent/50 text-ui-accent px-4 py-2 rounded-xl text-[10px] font-bold hover:bg-ui-accent hover:text-white transition-all"
+                        className="bg-ui-accent text-ui-background px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition-colors"
                     >
-                        + ADD
+                        + ADD_CYCLE
                     </button>
                 )}
             </div>
 
             {loading ? (
-                <div className="flex items-center gap-3 text-ui-accent font-mono animate-pulse">
+                <div className="flex items-center gap-3 text-ui-highlight font-mono py-10 justify-center">
                     <Loading />
+                    <span className="text-[10px] uppercase tracking-[0.3em]">
+                        Syncing_Data...
+                    </span>
                 </div>
             ) : (
-                <div className="overflow-x-auto rounded-2xl border border-white/5 bg-ui-surface/10 backdrop-blur-sm">
+                <div className="overflow-x-auto rounded-2xl border border-ui-neutral bg-ui-surface">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="border-b border-white/5 bg-white/5">
-                                <th className="p-4 text-[10px] font-mono text-content-secondary uppercase">
+                            <tr className="border-b border-ui-neutral bg-ui-background">
+                                <th className="p-5 text-[10px] font-mono text-ui-secondary uppercase tracking-widest">
                                     No.
                                 </th>
-                                <th className="p-4 text-[10px] font-mono text-content-secondary uppercase">
+                                <th className="p-5 text-[10px] font-mono text-ui-secondary uppercase tracking-widest">
                                     Batch
                                 </th>
-                                <th className="p-4 text-[10px] font-mono text-content-secondary uppercase">
+                                <th className="p-5 text-[10px] font-mono text-ui-secondary uppercase tracking-widest">
                                     Session
                                 </th>
                                 {isAdmin && (
-                                    <th className="p-4 text-[10px] font-mono text-content-secondary uppercase text-right">
+                                    <th className="p-5 text-[10px] font-mono text-ui-secondary uppercase tracking-widest text-right">
                                         Actions
                                     </th>
                                 )}
@@ -197,38 +198,40 @@ const Semester = () => {
                             {sortedSemesters.map((s) => (
                                 <tr
                                     key={s.id}
-                                    className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                                    className="border-b border-ui-neutral last:border-0 hover:bg-ui-background transition-colors group"
                                 >
-                                    <td className="p-4 font-bold text-white">
+                                    <td className="p-5 font-bold text-content-primary">
                                         Semester {s.semesterNo}
                                     </td>
-                                    <td className="p-4 text-content-primary">
+                                    <td className="p-5 text-content-primary">
                                         {s.batch}
                                     </td>
-                                    <td className="p-4 text-content-secondary">
+                                    <td className="p-5 text-content-secondary font-mono">
                                         {s.session}
                                     </td>
                                     {isAdmin && (
-                                        <td className="p-4 text-right space-x-3">
-                                            <button
-                                                onClick={() => {
-                                                    setIsEditing(true);
-                                                    setCurrentId(s.id);
-                                                    setFormData(s);
-                                                    setIsModalOpen(true);
-                                                }}
-                                                className="text-ui-highlight text-[10px] font-mono"
-                                            >
-                                                EDIT
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleDelete(s.id)
-                                                }
-                                                className="text-red-400/60 text-[10px] font-mono"
-                                            >
-                                                DEL
-                                            </button>
+                                        <td className="p-5 text-right">
+                                            <div className="flex justify-end gap-5">
+                                                <button
+                                                    onClick={() => {
+                                                        setIsEditing(true);
+                                                        setCurrentId(s.id);
+                                                        setFormData(s);
+                                                        setIsModalOpen(true);
+                                                    }}
+                                                    className="text-ui-highlight text-[10px] font-black uppercase tracking-tighter hover:underline underline-offset-4"
+                                                >
+                                                    EDIT
+                                                </button>
+                                                <button
+                                                    onClick={() =>
+                                                        handleDelete(s.id)
+                                                    }
+                                                    className="text-ui-secondary text-[10px] font-black uppercase tracking-tighter hover:text-red-500"
+                                                >
+                                                    DEL
+                                                </button>
+                                            </div>
                                         </td>
                                     )}
                                 </tr>
@@ -238,68 +241,86 @@ const Semester = () => {
                 </div>
             )}
 
-            {/* Modal Logic remains the same, wrapped in isAdmin for safety */}
+            {/* Modal Logic */}
             {isModalOpen && isAdmin && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <div className="bg-ui-surface border border-white/10 p-8 rounded-3xl w-full max-w-md">
-                        <h3 className="text-xl font-bold text-white mb-6 font-mono">
-                            {isEditing ? "UPDATE_SEMESTER" : "CREATE_SEMESTER"}
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90">
+                    <div className="bg-ui-surface border border-ui-neutral p-8 rounded-[2rem] w-full max-w-md shadow-2xl">
+                        <h3 className="text-lg font-black text-content-primary mb-8 font-mono uppercase tracking-tighter">
+                            {isEditing ? "Update_Semester" : "Create_Semester"}
                         </h3>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <input
-                                name="semesterNo"
-                                type="number"
-                                value={formData.semesterNo}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        semesterNo: e.target.value,
-                                    })
-                                }
-                                className="w-full bg-ui-background border border-white/10 rounded-xl px-4 py-3 text-white"
-                                placeholder="Semester No"
-                                required
-                            />
-                            <input
-                                name="batch"
-                                type="number"
-                                value={formData.batch}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        batch: e.target.value,
-                                    })
-                                }
-                                className="w-full bg-ui-background border border-white/10 rounded-xl px-4 py-3 text-white"
-                                placeholder="Batch"
-                                required
-                            />
-                            <input
-                                name="session"
-                                value={formData.session}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        session: e.target.value,
-                                    })
-                                }
-                                className="w-full bg-ui-background border border-white/10 rounded-xl px-4 py-3 text-white"
-                                placeholder="Session (e.g. 2023-24)"
-                                required
-                            />
-                            <div className="flex gap-4 pt-4">
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div className="space-y-1">
+                                <label className="text-[9px] font-mono text-ui-highlight uppercase ml-1">
+                                    Semester_No
+                                </label>
+                                <input
+                                    name="semesterNo"
+                                    type="number"
+                                    value={formData.semesterNo}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            semesterNo: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-content-primary focus:border-ui-accent outline-none transition-colors"
+                                    placeholder="e.g. 1"
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-[9px] font-mono text-ui-highlight uppercase ml-1">
+                                    Batch_Identifier
+                                </label>
+                                <input
+                                    name="batch"
+                                    type="number"
+                                    value={formData.batch}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            batch: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-content-primary focus:border-ui-accent outline-none transition-colors"
+                                    placeholder="e.g. 58"
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-[9px] font-mono text-ui-highlight uppercase ml-1">
+                                    Academic_Session
+                                </label>
+                                <input
+                                    name="session"
+                                    value={formData.session}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            session: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-content-primary focus:border-ui-accent outline-none transition-colors"
+                                    placeholder="e.g. 2023-24"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex gap-4 pt-6">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-white text-[10px] font-bold"
+                                    className="flex-1 px-4 py-3 rounded-xl border border-ui-neutral text-content-secondary text-[10px] font-black uppercase hover:bg-ui-background transition-colors"
                                 >
                                     CANCEL
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 px-4 py-3 rounded-xl bg-ui-accent text-white text-[10px] font-bold"
+                                    className="flex-1 px-4 py-3 rounded-xl bg-ui-accent text-ui-background text-[10px] font-black uppercase hover:brightness-110 transition-all shadow-lg shadow-ui-accent/10"
                                 >
-                                    SAVE
+                                    SAVE_DATA
                                 </button>
                             </div>
                         </form>
@@ -311,3 +332,4 @@ const Semester = () => {
 };
 
 export default Semester;
+

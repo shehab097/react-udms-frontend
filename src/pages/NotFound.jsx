@@ -53,13 +53,13 @@ const NotFound = () => {
                 <div className="mt-12 flex flex-col sm:flex-row gap-4 w-full max-w-md">
                     <button
                         onClick={() => navigate("/")}
-                        className="flex-1 bg-ui-accent text-white py-4 rounded-2xl font-bold font-rounded hover:brightness-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
+                        className="flex-1 bg-ui-accent text-content-primary py-4 rounded-2xl font-bold font-rounded hover:brightness-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
                     >
                         Back to Dashboard
                     </button>
                     <button
                         onClick={() => navigate(-1)}
-                        className="flex-1 bg-ui-surface border border-white/10 text-content-secondary py-4 rounded-2xl font-bold font-rounded hover:bg-white/5 transition-all"
+                        className="flex-1 bg-ui-surface border border-ui-neutral/20 text-content-secondary py-4 rounded-2xl font-bold font-rounded hover:bg-ui-accent/10 transition-all"
                     >
                         Previous Page
                     </button>
@@ -73,3 +73,4 @@ const NotFound = () => {
 };
 
 export default NotFound;
+

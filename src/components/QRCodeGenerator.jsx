@@ -60,7 +60,7 @@ const QRCodeGenerator = ({ courseId, semesterId }) => {
 
     if (!courseId || !semesterId) {
         return (
-            <div className="flex items-center justify-center h-full text-gray-400 font-medium">
+            <div className="flex items-center justify-center h-full text-content-muted font-medium">
                 Please select a course to generate QR.
             </div>
         );
@@ -71,20 +71,20 @@ const QRCodeGenerator = ({ courseId, semesterId }) => {
         : `data:image/png;base64,${qrImageBase64}`;
 
     return (
-        <div className="flex flex-col items-center justify-between h-full w-full p-4 bg-white">
+        <div className="flex flex-col items-center justify-between h-full w-full p-4 bg-ui-surface">
             {/* Minimal Top Info */}
             <div className="text-center pt-2">
-                <h2 className="text-lg font-black text-gray-800 uppercase tracking-tighter">
+                <h2 className="text-lg font-black text-content-primary uppercase tracking-tighter">
                     Live Attendance QR
                 </h2>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                <p className="text-[10px] text-content-muted font-bold uppercase tracking-widest">
                     Scan now to check-in
                 </p>
             </div>
 
             {/* Main QR Container - Takes maximum available space */}
             <div className="flex-1 flex items-center justify-center w-full max-h-[70vh]">
-                <div className="relative group aspect-square h-full max-w-full p-4 bg-white border-[12px] border-gray-50 rounded-[2rem] shadow-sm">
+                <div className="relative group aspect-square h-full max-w-full p-4 bg-ui-surface border-[12px] border-ui-surface/50 rounded-[2rem] shadow-sm">
                     {qrImageBase64 ? (
                         <img
                             src={imgSrc}
@@ -92,9 +92,9 @@ const QRCodeGenerator = ({ courseId, semesterId }) => {
                             className="w-full h-full object-contain transition-transform duration-500"
                         />
                     ) : (
-                        <div className="aspect-square w-full flex flex-col items-center justify-center bg-gray-50 rounded-2xl animate-pulse">
-                            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                            <span className="text-gray-400 text-xs font-bold uppercase">
+                        <div className="aspect-square w-full flex flex-col items-center justify-center bg-ui-surface/20 rounded-2xl animate-pulse">
+                            <div className="w-10 h-10 border-4 border-ui-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+                            <span className="text-content-muted text-xs font-bold uppercase">
                                 Syncing QR...
                             </span>
                         </div>
@@ -105,22 +105,22 @@ const QRCodeGenerator = ({ courseId, semesterId }) => {
             {/* Bottom Progress Bar - Fixed at bottom */}
             <div className="w-full max-w-md pb-6 px-4">
                 <div className="flex justify-between items-end mb-2">
-                    <span className="text-xl font-black text-gray-400 uppercase tracking-widest">
+                    <span className="text-xl font-black text-content-muted uppercase tracking-widest">
                         Security Refresh
                     </span>
-                    <span className="text-xl font-mono font-black text-blue-600">
+                    <span className="text-xl font-mono font-black text-ui-accent">
                         {timeLeft}s
                     </span>
                 </div>
-                <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden shadow-inner">
+                <div className="w-full bg-ui-neutral/20 h-2 rounded-full overflow-hidden shadow-inner">
                     <div
-                        className="bg-blue-600 h-full transition-all duration-1000 ease-linear shadow-[0_0_10px_rgba(37,99,235,0.3)]"
+                        className="bg-ui-accent h-full transition-all duration-1000 ease-linear shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                         style={{
                             width: `${(timeLeft / TIME_COUNT_DOWN) * 100}%`,
                         }}
                     ></div>
                 </div>
-                <p className="text-[9px] text-gray-400 text-center mt-3 font-medium uppercase tracking-tighter italic">
+                <p className="text-[9px] text-content-muted text-center mt-3 font-medium uppercase tracking-tighter italic">
                     QR rotates automatically for secure validation
                 </p>
             </div>

@@ -25,26 +25,26 @@ const Toast = ({ message, type = "error", onClose }) => {
 
     const config = {
         error: {
-            border: "border-red-500/50",
-            bg: "bg-red-500/10",
-            text: "text-red-200",
-            bar: "bg-red-500",
+            border: "border-ui-secondary/50",
+            bg: "bg-ui-secondary/10",
+            text: "text-ui-secondary",
+            bar: "bg-ui-secondary",
             icon: "×",
             label: "SYSTEM_ALARM",
         },
         success: {
-            border: "border-emerald-500/50",
-            bg: "bg-emerald-500/10",
-            text: "text-emerald-200",
-            bar: "bg-emerald-500",
+            border: "border-ui-highlight/50",
+            bg: "bg-ui-highlight/10",
+            text: "text-ui-highlight",
+            bar: "bg-ui-highlight",
             icon: "✓",
             label: "EXECUTION_SUCCESS",
         },
         warn: {
-            border: "border-amber-500/50",
-            bg: "bg-amber-500/10",
-            text: "text-amber-200",
-            bar: "bg-amber-500",
+            border: "border-ui-accent/50",
+            bg: "bg-ui-accent/10",
+            text: "text-ui-accent",
+            bar: "bg-ui-accent",
             icon: "!",
             label: "KERNEL_WARNING",
         },
@@ -70,14 +70,14 @@ const Toast = ({ message, type = "error", onClose }) => {
                     >
                         {style.label}
                     </div>
-                    <p className="text-[11px] font-medium text-white leading-relaxed break-words font-sans">
+                    <p className="text-[11px] font-medium text-content-primary leading-relaxed break-words font-sans">
                         {message}
                     </p>
                 </div>
 
                 <button
                     onClick={onClose}
-                    className="shrink-0 text-white/30 hover:text-white transition-colors p-1"
+                    className="shrink-0 text-content-primary/30 hover:text-content-primary transition-colors p-1"
                 >
                     <svg
                         className="w-3 h-3"
@@ -95,7 +95,7 @@ const Toast = ({ message, type = "error", onClose }) => {
                 </button>
             </div>
 
-            <div className="h-[2px] w-full bg-white/5">
+            <div className="h-[2px] w-full bg-ui-neutral/10">
                 <div
                     className={`h-full transition-all linear ${style.bar}`}
                     style={{ width: `${progress}%` }}
@@ -107,3 +107,4 @@ const Toast = ({ message, type = "error", onClose }) => {
 };
 
 export default Toast;
+

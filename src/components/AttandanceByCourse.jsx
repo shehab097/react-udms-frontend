@@ -122,7 +122,7 @@ const CourseAttendance = () => {
     };
 
     return (
-        <div className="w-full space-y-6 animate-in text-white">
+        <div className="w-full space-y-6 animate-in text-content-primary">
             {toast.show && (
                 <Toast
                     message={toast.message}
@@ -132,14 +132,14 @@ const CourseAttendance = () => {
             )}
 
             {/* Header: Filters Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end bg-[#1a1a2e]/80 p-6 rounded-2xl border border-white/5 backdrop-blur-md shadow-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end bg-ui-background p-6 rounded-2xl border border-ui-neutral backdrop-blur-md ">
                 {/* Course Selector */}
                 <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-mono text-[#a288e3] uppercase tracking-wider">
+                    <label className="text-[10px] font-mono text-ui-accent uppercase tracking-wider">
                         Course
                     </label>
                     <select
-                        className="w-full bg-[#11111e] border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-[#a288e3] focus:ring-1 focus:ring-[#a288e3] outline-none appearance-none cursor-pointer transition-all"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary focus:border-ui-accent focus:ring-1 focus:ring-ui-accent outline-none appearance-none cursor-pointer transition-all"
                         value={selectedCourseId}
                         onChange={(e) => setSelectedCourseId(e.target.value)}
                     >
@@ -157,11 +157,11 @@ const CourseAttendance = () => {
 
                 {/* Semester Filter (Populated from Students) */}
                 <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-mono text-[#a288e3] uppercase tracking-wider">
+                    <label className="text-[10px] font-mono text-ui-accent uppercase tracking-wider">
                         Filter by Semester
                     </label>
                     <select
-                        className="w-full bg-[#11111e] border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-[#a288e3] focus:ring-1 focus:ring-[#a288e3] outline-none appearance-none cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary focus:border-ui-accent focus:ring-1 focus:ring-ui-accent outline-none appearance-none cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         value={selectedSemester}
                         onChange={(e) => setSelectedSemester(e.target.value)}
                         disabled={students.length === 0}
@@ -177,11 +177,11 @@ const CourseAttendance = () => {
 
                 {/* Search Filter */}
                 <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-mono text-[#a288e3] uppercase tracking-wider">
+                    <label className="text-[10px] font-mono text-ui-accent uppercase tracking-wider">
                         Search Registry
                     </label>
                     <input
-                        className="w-full bg-[#11111e] border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-[#a288e3] focus:ring-1 focus:ring-[#a288e3] outline-none transition-all placeholder:text-white/20"
+                        className="w-full bg-ui-background border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary focus:border-ui-accent focus:ring-1 focus:ring-ui-accent outline-none transition-all placeholder:text-content-muted"
                         placeholder="Student Name or ID..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -192,17 +192,17 @@ const CourseAttendance = () => {
 
             {/* Attendance Table Section */}
             {loading ? (
-                <div className="flex flex-col items-center justify-center gap-4 text-[#a288e3] font-mono animate-pulse p-20 bg-[#1a1a2e]/50 rounded-2xl border border-white/5">
+                <div className="flex flex-col items-center justify-center gap-4 text-ui-accent font-mono animate-pulse p-20 bg-ui-background/50 rounded-2xl border border-ui-neutral">
                     <Loading />
                     <span className="text-xs tracking-widest">
                         FETCHING_RECORDS...
                     </span>
                 </div>
             ) : (
-                <div className="bg-[#1a1a2e]/80 border border-white/5 rounded-2xl overflow-hidden backdrop-blur-md shadow-xl">
+                <div className="bg-ui-background border border-ui-neutral rounded-2xl overflow-hidden backdrop-blur-md ">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse min-w-[600px]">
-                            <thead className="bg-black/20 text-[10px] text-[#a288e3] uppercase tracking-widest font-bold">
+                            <thead className="bg-ui-accent/10 text-[10px] text-ui-accent uppercase tracking-widest font-bold">
                                 <tr>
                                     <th className="p-5 font-mono">
                                         Student Details
@@ -218,7 +218,7 @@ const CourseAttendance = () => {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5 text-sm">
+                            <tbody className="divide-y divide-ui-neutral/20 text-sm">
                                 {filteredStudents.map((student) => {
                                     const percent = calculatePercentage(
                                         student.attendance,
@@ -231,18 +231,18 @@ const CourseAttendance = () => {
                                     return (
                                         <tr
                                             key={student.UserId}
-                                            className="hover:bg-white/[0.02] transition-colors group"
+                                            className="hover:bg-ui-accent/[0.05] transition-colors group"
                                         >
                                             <td className="p-5">
-                                                <div className="font-bold text-white group-hover:text-[#a288e3] transition-colors">
+                                                <div className="font-bold text-content-primary group-hover:text-ui-accent transition-colors">
                                                     {student.name}
                                                 </div>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-[10px] font-mono text-white/50">
+                                                    <span className="text-[10px] font-mono text-content-muted">
                                                         {student.UserId}
                                                     </span>
                                                     {semInfo && (
-                                                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-white/40 font-mono">
+                                                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-ui-accent/10 text-ui-accent/70 font-mono">
                                                             Sem{" "}
                                                             {semInfo.semesterNo}{" "}
                                                             • B{semInfo.batch}
@@ -259,8 +259,8 @@ const CourseAttendance = () => {
                                                                 className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold font-mono border transition-all ${
                                                                     record.status ===
                                                                     "P"
-                                                                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
-                                                                        : "bg-rose-500/10 border-rose-500/20 text-rose-400"
+                                                                        ? "bg-ui-highlight/10 border-ui-highlight/20 text-ui-highlight"
+                                                                        : "bg-ui-secondary/10 border-ui-secondary/20 text-ui-secondary"
                                                                 }`}
                                                             >
                                                                 {record.status}
@@ -270,7 +270,7 @@ const CourseAttendance = () => {
                                                 </div>
                                             </td>
                                             <td className="p-5 text-center font-mono text-xs">
-                                                <span className="text-emerald-400">
+                                                <span className="text-ui-highlight">
                                                     {
                                                         student.attendance.filter(
                                                             (a) =>
@@ -279,17 +279,17 @@ const CourseAttendance = () => {
                                                         ).length
                                                     }
                                                 </span>
-                                                <span className="mx-1 text-white/20">
+                                                <span className="mx-1 text-content-muted">
                                                     /
                                                 </span>
-                                                <span className="text-white/60">
+                                                <span className="text-content-secondary">
                                                     {student.totalClass}
                                                 </span>
                                             </td>
                                             <td className="p-5 text-right">
-                                                <div className="inline-block px-3 py-1.5 rounded-xl bg-black/20 border border-white/5">
+                                                <div className="inline-block px-3 py-1.5 rounded-xl bg-ui-accent/10 border border-ui-neutral">
                                                     <span
-                                                        className={`text-sm font-bold font-mono ${parseFloat(percent) < 75 ? "text-rose-400" : "text-[#a288e3]"}`}
+                                                        className={`text-sm font-bold font-mono ${parseFloat(percent) < 75 ? "text-ui-secondary" : "text-ui-highlight"}`}
                                                     >
                                                         {percent}%
                                                     </span>
@@ -303,7 +303,7 @@ const CourseAttendance = () => {
                     </div>
 
                     {(!selectedCourseId || filteredStudents.length === 0) && (
-                        <div className="p-20 text-center text-white/40 font-mono text-xs uppercase tracking-widest flex flex-col items-center gap-2">
+                        <div className="p-20 text-center text-content-primary/40 font-mono text-xs uppercase tracking-widest flex flex-col items-center gap-2">
                             <span className="text-2xl opacity-50">📂</span>
                             {!selectedCourseId
                                 ? "Select a Course to View Records"

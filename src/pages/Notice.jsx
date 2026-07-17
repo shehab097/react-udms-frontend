@@ -199,7 +199,8 @@ const Notice = () => {
                     <input
                         type="text"
                         placeholder="Filter by title..."
-                        className="w-full bg-ui-background/50 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-content-primary outline-none focus:border-ui-accent/50 transition-all"
+                        // bg-ui-surface for light theme input
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-xl px-4 py-2.5 text-sm text-content-primary outline-none focus:border-ui-accent transition-all placeholder:text-content-muted"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -209,7 +210,7 @@ const Notice = () => {
                         Dept
                     </label>
                     <select
-                        className="w-full bg-ui-background/50 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-content-primary outline-none cursor-pointer"
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-xl px-3 py-2.5 text-sm text-content-primary outline-none cursor-pointer focus:border-ui-accent"
                         value={deptFilter}
                         onChange={(e) => setDeptFilter(e.target.value)}
                     >
@@ -226,7 +227,7 @@ const Notice = () => {
                         Sem
                     </label>
                     <select
-                        className="w-full bg-ui-background/50 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-content-primary outline-none cursor-pointer"
+                        className="w-full bg-ui-surface border border-ui-neutral rounded-xl px-3 py-2.5 text-sm text-content-primary outline-none cursor-pointer focus:border-ui-accent"
                         value={semFilter}
                         onChange={(e) => setSemFilter(e.target.value)}
                     >
@@ -241,7 +242,8 @@ const Notice = () => {
                 {!isStudent && (
                     <button
                         onClick={() => openModal()}
-                        className="w-full bg-ui-accent hover:bg-ui-accent/80 text-white text-[12px] font-black h-[42px] rounded-xl transition-all shadow-lg shadow-ui-accent/10 mt-2 lg:mt-0"
+                        // text-white for vibrant accent button text
+                        className="w-full bg-ui-accent hover:brightness-110 text-white text-[12px] font-black h-[42px] rounded-xl transition-all shadow-md shadow-ui-accent/10 mt-2 lg:mt-0"
                     >
                         + POST_NOTICE
                     </button>
@@ -253,19 +255,20 @@ const Notice = () => {
                 {filteredNotices.map((n) => (
                     <div
                         key={n.id}
-                        className="bg-ui-surface/20 border border-white/5 rounded-2xl p-4 flex flex-col space-y-3"
+                        className="bg-ui-surface border border-ui-neutral rounded-2xl p-4 flex flex-col space-y-3 shadow-sm"
                     >
                         <div className="flex justify-between items-start">
-                            <div className="text-[10px] font-mono text-ui-accent">
+                            <div className="text-[10px] font-mono text-ui-secondary">
                                 {new Date(n.date).toLocaleDateString()}
                             </div>
                             <div className="flex gap-2">
                                 <span
-                                    className={`text-[9px] font-black px-2 py-0.5 rounded border ${n.department ? "bg-ui-accent/10 border-ui-accent/30 text-ui-accent" : "bg-white/5 border-white/20 text-content-secondary"}`}
+                                    // Indigo for Dept, Blue for Semester, similar to table badges
+                                    className={`text-[9px] font-black px-2 py-0.5 rounded border uppercase ${n.department ? "bg-ui-secondary/10 border-ui-secondary/20 text-ui-secondary" : "bg-ui-neutral/50 border-ui-neutral text-content-secondary"}`}
                                 >
                                     {n.department || "GLOBAL"}
                                 </span>
-                                <span className="text-[9px] font-black px-2 py-0.5 rounded border bg-white/5 border-white/20 text-content-secondary">
+                                <span className="text-[9px] font-black px-2 py-0.5 rounded border bg-ui-accent/10 border-ui-accent/20 text-ui-accent">
                                     {n.noticeForSem
                                         ? `SEM_${n.noticeForSem}`
                                         : "ALL"}
@@ -279,7 +282,7 @@ const Notice = () => {
                                 setExpandedId(expandedId === n.id ? null : n.id)
                             }
                         >
-                            <div className="font-bold text-white text-sm mb-1 group-hover:text-ui-accent transition-colors">
+                            <div className="font-bold text-content-primary text-sm mb-1 group-hover:text-ui-accent transition-colors">
                                 {n.title}
                             </div>
                             <div
@@ -290,16 +293,18 @@ const Notice = () => {
                         </div>
 
                         {!isStudent && (
-                            <div className="flex justify-end gap-4 pt-3 border-t border-white/5 mt-2">
+                            <div className="flex justify-end gap-4 pt-3 border-t border-ui-neutral mt-2">
                                 <button
                                     onClick={() => openModal(n)}
-                                    className="text-ui-highlight text-[10px] font-bold uppercase tracking-widest"
+                                    // Vibrant Highlight Green
+                                    className="text-ui-highlight text-[10px] font-bold uppercase tracking-widest hover:brightness-110"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => handleDelete(n.id)}
-                                    className="text-red-400/80 text-[10px] font-bold uppercase tracking-widest"
+                                    // secondary Red/Orange
+                                    className="text-ui-secondary hover:brightness-110 text-[10px] font-bold uppercase tracking-widest"
                                 >
                                     Delete
                                 </button>
@@ -310,10 +315,11 @@ const Notice = () => {
             </div>
 
             {/* DESKTOP VIEW: Table (Hidden on small screens) */}
-            <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/5 bg-ui-surface/20 backdrop-blur-md custom-scrollbar">
+            <div className="hidden md:block overflow-x-auto rounded-2xl border border-ui-neutral bg-ui-surface shadow-sm custom-scrollbar">
                 <table className="w-full text-left border-collapse min-w-[800px]">
                     <thead>
-                        <tr className="border-b border-white/5 bg-white/5 text-[12px] text-ui-highlight font-bold uppercase tracking-[0.2em]">
+                        {/* Gray-100 header background, Gray-600 secondary text */}
+                        <tr className="border-b border-ui-neutral bg-ui-background text-[12px] text-content-secondary font-bold uppercase tracking-[0.2em]">
                             <th className="p-5 w-40">Date</th>
                             <th className="p-5">Content</th>
                             <th className="p-5 w-36 text-center">Audience</th>
@@ -324,17 +330,19 @@ const Notice = () => {
                             )}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-[13px]">
+                    <tbody className="divide-y divide-ui-neutral text-[13px]">
                         {filteredNotices.map((n) => (
                             <tr
                                 key={n.id}
-                                className="hover:bg-white/[0.02] transition-colors align-top"
+                                // Very subtle vibrant blue background on hover
+                                className="hover:bg-ui-accent/[0.03] transition-colors align-top"
                             >
                                 <td className="p-5 font-mono">
+                                    {/* Blue Accent for Date */}
                                     <div className="text-ui-accent font-bold">
                                         {new Date(n.date).toLocaleDateString()}
                                     </div>
-                                    <div className="text-content-secondary text-[11px] opacity-50 mt-1 tracking-tighter">
+                                    <div className="text-content-muted text-[11px] mt-1 tracking-tighter">
                                         Post: {n.postBy || "UNKNOWN"}
                                     </div>
                                 </td>
@@ -346,9 +354,11 @@ const Notice = () => {
                                         )
                                     }
                                 >
-                                    <div className="font-bold text-white text-base mb-1.5 group-hover:text-ui-accent transition-colors">
+                                    {/* Slate-900 for Primary Text */}
+                                    <div className="font-bold text-content-primary text-base mb-1.5 group-hover:text-ui-accent transition-colors">
                                         {n.title}
                                     </div>
+                                    {/* Gray-600 for Descriptive Content */}
                                     <div
                                         className={`text-content-secondary leading-relaxed ${expandedId === n.id ? "" : "line-clamp-1"}`}
                                     >
@@ -357,11 +367,13 @@ const Notice = () => {
                                 </td>
                                 <td className="p-5 text-center">
                                     <div
-                                        className={`text-[10px] font-black px-3 py-1 rounded-full border inline-block mb-1.5 ${n.department ? "bg-ui-accent/10 border-ui-accent/30 text-ui-accent" : "bg-white/5 border-white/20 text-content-secondary"}`}
+                                        // Indigo Badge for Dept
+                                        className={`text-[10px] font-black px-3 py-1 rounded-full border inline-block mb-1.5 ${n.department ? "bg-ui-secondary/10 border-ui-secondary/20 text-ui-secondary" : "bg-ui-neutral/50 border-ui-neutral text-content-secondary"}`}
                                     >
                                         {n.department || "To all"}
                                     </div>
-                                    <div className="text-[10px] text-content-secondary font-mono uppercase tracking-widest block">
+                                    {/* Muted Text */}
+                                    <div className="text-[10px] text-content-muted font-mono uppercase tracking-widest block">
                                         {n.noticeForSem
                                             ? `SEM ${n.noticeForSem}`
                                             : ""}
@@ -375,7 +387,8 @@ const Notice = () => {
                                                     e.stopPropagation();
                                                     openModal(n);
                                                 }}
-                                                className="text-ui-highlight hover:text-white text-[11px] font-bold underline decoration-ui-highlight/30 underline-offset-4"
+                                                // Vibrant Highlight Green, with underlined style from previous management tables
+                                                className="text-ui-highlight hover:brightness-110 text-[11px] font-bold underline decoration-ui-highlight/30 underline-offset-4"
                                             >
                                                 EDIT
                                             </button>
@@ -384,7 +397,8 @@ const Notice = () => {
                                                     e.stopPropagation();
                                                     handleDelete(n.id);
                                                 }}
-                                                className="text-ui-secondary/70 hover:text-white text-[11px] font-bold"
+                                                // secondary red/orange
+                                                className="text-ui-secondary hover:brightness-110 text-[11px] font-bold"
                                             >
                                                 DELETE
                                             </button>
@@ -399,9 +413,11 @@ const Notice = () => {
 
             {/* Modal - Adjusted padding for mobile */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4">
-                    <div className="bg-ui-background border border-white/10 p-5 sm:p-8 rounded-2xl sm:rounded-3xl w-full max-w-lg shadow-2xl animate-in zoom-in-95 duration-200">
-                        <h2 className="text-xs sm:text-sm font-black text-white mb-6 sm:mb-8 uppercase tracking-[0.3em] border-b border-white/5 pb-4">
+                // Neutral gray overlay
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-3 sm:p-4">
+                    {/* White surface, Neutral gray borders */}
+                    <div className="bg-ui-surface border border-ui-neutral p-5 sm:p-8 rounded-2xl sm:rounded-3xl w-full max-w-lg shadow-2xl">
+                        <h2 className="text-xs sm:text-sm font-black text-content-primary mb-6 sm:mb-8 uppercase tracking-[0.3em] border-b border-ui-neutral pb-4">
                             {editingNotice
                                 ? "EDIT_NOTICE_ENTRY"
                                 : "CREATE_NEW_BULLETIN"}
@@ -411,13 +427,15 @@ const Notice = () => {
                             className="space-y-4 sm:space-y-5"
                         >
                             <div>
+                                {/* Highlight green form labels */}
                                 <label className="text-[10px] font-mono text-ui-highlight uppercase mb-1.5 sm:mb-2 block">
                                     Title_Field
                                 </label>
                                 <input
                                     placeholder="Enter notice headline..."
                                     required
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white outline-none focus:border-ui-accent"
+                                    // background input
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-xl p-3 text-sm text-content-primary outline-none focus:border-ui-accent transition-colors placeholder:text-content-muted"
                                     value={formData.title}
                                     onChange={(e) =>
                                         setFormData({
@@ -435,7 +453,7 @@ const Notice = () => {
                                     placeholder="Type notice details..."
                                     required
                                     rows="4"
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white resize-none outline-none focus:border-ui-accent"
+                                    className="w-full bg-ui-background border border-ui-neutral rounded-xl p-3 text-sm text-content-primary resize-none outline-none focus:border-ui-accent transition-colors placeholder:text-content-muted"
                                     value={formData.content}
                                     onChange={(e) =>
                                         setFormData({
@@ -451,7 +469,7 @@ const Notice = () => {
                                         Target_Dept
                                     </label>
                                     <select
-                                        className="w-full bg-ui-surface border border-white/10 rounded-xl p-3 text-sm text-white outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded-xl p-3 text-sm text-content-primary outline-none focus:border-ui-accent cursor-pointer"
                                         value={formData.department}
                                         onChange={(e) =>
                                             setFormData({
@@ -473,7 +491,7 @@ const Notice = () => {
                                         Target_Sem
                                     </label>
                                     <select
-                                        className="w-full bg-ui-surface border border-white/10 rounded-xl p-3 text-sm text-white outline-none"
+                                        className="w-full bg-ui-background border border-ui-neutral rounded-xl p-3 text-sm text-content-primary outline-none focus:border-ui-accent cursor-pointer"
                                         value={formData.noticeForSem}
                                         onChange={(e) =>
                                             setFormData({
@@ -495,13 +513,15 @@ const Notice = () => {
                                 <button
                                     type="button"
                                     onClick={closeModal}
-                                    className="flex-1 text-[10px] sm:text-[11px] font-black text-content-secondary hover:text-white transition-colors tracking-widest"
+                                    // descriptive secondary text color
+                                    className="flex-1 text-[10px] sm:text-[11px] font-black text-content-secondary hover:text-content-primary transition-colors tracking-widest"
                                 >
                                     ABORT
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 bg-ui-accent py-3 rounded-xl text-[10px] sm:text-[11px] font-black text-ui-background shadow-lg shadow-ui-accent/20 tracking-widest"
+                                    // text-white for vibrant accent button text
+                                    className="flex-1 bg-ui-accent hover:brightness-110 py-3 rounded-xl text-[10px] sm:text-[11px] font-black text-white shadow-lg shadow-ui-accent/20 tracking-widest transition-all"
                                 >
                                     {editingNotice ? "UPDATE" : "PUBLISH"}
                                 </button>
@@ -515,3 +535,4 @@ const Notice = () => {
 };
 
 export default Notice;
+

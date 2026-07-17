@@ -73,7 +73,7 @@ const LoginForm = () => {
                     <button
                         type="submit"
                         /* 4. Swapped to Accent color for a professional "Action" button */
-                        className="w-full bg-ui-accent text-white py-4 rounded-2xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-md"
+                        className="w-full bg-ui-accent text-content-primary py-4 rounded-2xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-md"
                     >
                         Continue
                     </button>
@@ -88,3 +88,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+

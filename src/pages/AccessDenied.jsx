@@ -34,7 +34,7 @@ const AccessDenied = () => {
                     </div>
 
                     <div className="space-y-3">
-                        <h1 className="text-3xl font-rounded font-bold text-white">
+                        <h1 className="text-3xl font-rounded font-bold text-content-primary">
                             Access Restricted
                         </h1>
                         <p className="text-content-secondary leading-relaxed">
@@ -53,7 +53,7 @@ const AccessDenied = () => {
                         </button>
                         <button
                             onClick={() => navigate(-1)}
-                            className="w-full bg-ui-surface border border-white/5 py-3 rounded-xl font-bold font-rounded hover:bg-white/5 transition-all"
+                            className="w-full bg-ui-surface border border-ui-neutral/20 py-3 rounded-xl font-bold font-rounded hover:bg-ui-accent/10 transition-all"
                         >
                             Go Back
                         </button>

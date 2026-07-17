@@ -119,8 +119,8 @@ const TeacherProfile = ({ username: propUsername }) => {
         );
 
     return (
-        <div className="max-w-4xl mx-auto  ">
-            {/* 5. Render Toast Component */}
+        <div className="max-w-4xl mx-auto">
+            {/* Render Toast Component */}
             {toast.show && (
                 <Toast
                     message={toast.message}
@@ -130,23 +130,12 @@ const TeacherProfile = ({ username: propUsername }) => {
             )}
 
             {/* Header Section */}
-            <div className="mb-10 border-b border-white/5 pb-6 flex items-center justify-between">
+            <div className="mb-10 border-b border-ui-neutral/10 pb-6 flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">
+                    <h1 className="text-2xl font-bold text-content-primary tracking-tight">
                         {formData.name || "FACULTY_MEMBER"}
                     </h1>
-                    {/* <p className="text-[10px] font-mono text-ui-secondary uppercase mt-1 tracking-widest opacity-70">
-                        Faculty ID // {username}
-                    </p> */}
                 </div>
-                {/* <div className="bg-ui-secondary/10 border border-ui-secondary/20 px-4 py-2 rounded-lg">
-                    <div className="text-[9px] font-mono text-ui-secondary uppercase">
-                        Status
-                    </div>
-                    <div className="text-xs font-bold text-white">
-                        ACTIVE_FACULTY
-                    </div>
-                </div> */}
             </div>
 
             <form
@@ -160,46 +149,51 @@ const TeacherProfile = ({ username: propUsername }) => {
                     </h2>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Full Name
                         </label>
                         <input
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 transition-all"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-secondary transition-all"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Gender
                         </label>
-                        <select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 appearance-none cursor-pointer"
-                        >
-                            <option
-                                value="MALE"
-                                className="bg-ui-surface text-white"
+                        <div className="relative">
+                            <select
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleChange}
+                                className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-secondary appearance-none cursor-pointer transition-all"
                             >
-                                MALE
-                            </option>
-                            <option
-                                value="FEMALE"
-                                className="bg-ui-surface text-white"
-                            >
-                                FEMALE
-                            </option>
-                            <option
-                                value="OTHER"
-                                className="bg-ui-surface text-white"
-                            >
-                                OTHER
-                            </option>
-                        </select>
+                                <option
+                                    value="MALE"
+                                    className="bg-ui-surface text-content-primary"
+                                >
+                                    MALE
+                                </option>
+                                <option
+                                    value="FEMALE"
+                                    className="bg-ui-surface text-content-primary"
+                                >
+                                    FEMALE
+                                </option>
+                                <option
+                                    value="OTHER"
+                                    className="bg-ui-surface text-content-primary"
+                                >
+                                    OTHER
+                                </option>
+                            </select>
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ui-secondary opacity-50 text-[10px]">
+                                ▼
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -210,7 +204,7 @@ const TeacherProfile = ({ username: propUsername }) => {
                     </h2>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Email
                         </label>
                         <input
@@ -218,24 +212,24 @@ const TeacherProfile = ({ username: propUsername }) => {
                             type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-secondary"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Phone Number
                         </label>
                         <input
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-secondary"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-mono text-content-secondary uppercase">
+                        <label className="text-[10px] font-mono text-content-secondary uppercase ml-1">
                             Address
                         </label>
                         <textarea
@@ -243,16 +237,13 @@ const TeacherProfile = ({ username: propUsername }) => {
                             rows="2"
                             value={formData.address}
                             onChange={handleChange}
-                            className="w-full bg-ui-surface/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-ui-secondary/50 resize-none"
+                            className="w-full bg-ui-surface/5 border border-ui-neutral rounded-xl px-4 py-3 text-sm text-content-primary outline-none focus:border-ui-secondary resize-none"
                         />
                     </div>
                 </div>
 
                 {/* Action Bar */}
-                <div className="md:col-span-2 pt-6 border-t border-white/5 mt-4 flex justify-between items-center gap-6">
-                    {/* <span className="text-[9px] font-mono text-content-secondary/40 uppercase">
-                        Confidential Faculty Record
-                    </span> */}
+                <div className="md:col-span-2 pt-6 border-t border-ui-neutral/10 mt-4 flex justify-end items-center gap-6">
                     <button
                         type="submit"
                         disabled={isUpdating}

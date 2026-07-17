@@ -107,7 +107,7 @@ const QRScan = () => {
     }, [isScanning]);
 
     return (
-        <div className="min-h-screen bg-ui-background flex flex-col items-center justify-center p-4 text-white">
+        <div className="min-h-screen bg-ui-background flex flex-col items-center justify-center p-4 text-content-primary">
             <h1 className="text-3xl font-bold mb-6 text-ui-highlight font-rounded">
                 Student Scanner
             </h1>
@@ -132,14 +132,14 @@ const QRScan = () => {
                                 <div
                                     className={`w-20 h-20 mx-auto flex items-center justify-center rounded-full text-4xl shadow-lg ${
                                         scanResult?.success
-                                            ? "bg-green-500/20 text-green-500"
-                                            : "bg-red-500/20 text-red-500"
+                                            ? "bg-ui-highlight/20 text-ui-highlight"
+                                            : "bg-ui-secondary/20 text-ui-secondary"
                                     }`}
                                 >
                                     {scanResult?.success ? "✓" : "!"}
                                 </div>
 
-                                <div className="bg-ui-background/50 p-4 rounded-xl text-left border border-white/5">
+                                <div className="bg-ui-background/50 p-4 rounded-xl text-left border border-ui-neutral/20">
                                     <p className="text-[10px] text-content-secondary uppercase font-bold mb-1 tracking-widest">
                                         Raw QR Content
                                     </p>
@@ -165,7 +165,7 @@ const QRScan = () => {
                                         setRawQr(null);
                                         setIsScanning(true);
                                     }}
-                                    className="w-full py-4 bg-ui-accent hover:brightness-110 active:scale-[0.98] text-white rounded-2xl font-bold transition-all shadow-lg shadow-ui-accent/20"
+                                    className="w-full py-4 bg-ui-accent hover:brightness-110 active:scale-[0.98] text-content-primary rounded-2xl font-bold transition-all shadow-lg shadow-ui-accent/20"
                                 >
                                     Scan Again
                                 </button>
@@ -202,3 +202,4 @@ const QRScan = () => {
 };
 
 export default QRScan;
+
